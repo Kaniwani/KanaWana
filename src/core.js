@@ -6,19 +6,21 @@ import {
 } from './characterTables';
 
 import {
-  LOWERCASE_START,
-  LOWERCASE_END,
-  UPPERCASE_START,
-  UPPERCASE_END,
+  convertFullwidthCharsToASCII,
+  guard,
+  isCharConsonant,
+  isCharHiragana,
+  isCharInRange,
+  isCharKatakana,
+  isCharVowel,
+} from './utils';
+
+import {
   HIRAGANA_START,
-  HIRAGANA_END,
-  KATAKANA_START,
-  KATAKANA_END,
-  LOWERCASE_FULLWIDTH_START,
-  LOWERCASE_FULLWIDTH_END,
-  UPPERCASE_FULLWIDTH_START,
-  UPPERCASE_FULLWIDTH_END,
   KATAKANA_PROLONGED_SOUND_MARK,
+  KATAKANA_START,
+  UPPERCASE_END,
+  UPPERCASE_START,
 } from './constants';
 
 const defaultOptions = {
@@ -28,9 +30,6 @@ const defaultOptions = {
   IMEMode: false,
 };
 
-export function guard(value, transform) {
-  return (value != null) ? transform(value) : undefined;
-}
 
 export function onInput(event) {
   const input = event.target;
@@ -59,56 +58,6 @@ export function bind(input) {
 
 export function unbind(input) {
   input.removeEventListener('input', onInput);
-}
-
-/**
- * Takes a character and a unicode range. Returns true if the char is in the range.
-*/
-export function isCharInRange(char, start, end) {
-  const code = char.charCodeAt(0);
-  return start <= code && code <= end;
-}
-
-export function isCharVowel(char, includeY = true) {
-  const regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
-  return char.toLowerCase().charAt(0).search(regexp) !== -1;
-}
-
-export function isCharConsonant(char, includeY = true) {
-  const regexp = includeY ? /[bcdfghjklmnpqrstvwxyz]/ : /[bcdfghjklmnpqrstvwxz]/;
-  return char.toLowerCase().charAt(0).search(regexp) !== -1;
-}
-
-export function isCharKatakana(char) {
-  return isCharInRange(char, KATAKANA_START, KATAKANA_END);
-}
-
-export function isCharHiragana(char) {
-  return isCharInRange(char, HIRAGANA_START, HIRAGANA_END);
-}
-
-export function isCharKana(char) {
-  return isCharHiragana(char) || isCharKatakana(char);
-}
-
-export function isCharNotKana(char) {
-  return !isCharHiragana(char) && !isCharKatakana(char);
-}
-
-export function convertFullwidthCharsToASCII(string) {
-  const chars = string.split('');
-  for (let i = 0; i < chars.length; i+=1) {
-    const char = chars[i];
-    const code = char.charCodeAt(0);
-    if (isCharInRange(char, LOWERCASE_FULLWIDTH_START, LOWERCASE_FULLWIDTH_END)) {
-      chars[i] = String.fromCharCode((code - LOWERCASE_FULLWIDTH_START) + LOWERCASE_START);
-    }
-    if (isCharInRange(char, UPPERCASE_FULLWIDTH_START, UPPERCASE_FULLWIDTH_END)) {
-      chars[i](String.fromCharCode((code - UPPERCASE_FULLWIDTH_START) + UPPERCASE_START));
-    }
-  }
-
-  return chars.join('');
 }
 
 export function katakanaToHiragana(kata) {

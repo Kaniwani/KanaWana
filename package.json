@@ -12,7 +12,7 @@
     "bail": false,
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/core.js",
+      "src/*.js",
       "!**/node_modules/**"
     ],
     "testRegex": "(\\.(test|spec))\\.jsx?$"

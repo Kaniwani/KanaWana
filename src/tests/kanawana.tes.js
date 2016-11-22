@@ -4,7 +4,7 @@ import testTable from './transliteration-table';
 // Since { describe, it, test, expect } etc aren't explicitly imported from jest
 /* eslint-disable no-undef */
 
-describe('importing files', () => {
+describe('imports resolve', () => {
   it('kanawana.js should load.', () => expect(kanawana).toBeDefined());
   it('transliteration table should load.', () => expect(testTable).toBeDefined());
 });
