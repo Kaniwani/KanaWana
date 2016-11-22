@@ -1,63 +1,41 @@
-ワナカナ <-> WanaKana <-> わなかな
+ワナカナ <-> KanaWana <-> わなかな
 ===============================
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
-
-View [demo site](http://wanakana.com) to see WanaKana in action.
-
-## Build using Grunt
-
-- Clone repository.
-- Install all dependencies from `package.json` using `npm install`.
-- Run grunt.
-	- General development `grunt default` or just `grunt`
-	- Open test suite (Mac only) `grunt test`
-	- Deploy `grunt deploy`
-	- Demo `grunt demo` - runs a `deploy` then copies html and opens a browser window
-	- Full list of tasks `grunt --help`
 
 ## Usage
 
 ### HTML
 ```html
-<textarea id="ime"></textarea>
 ```
 
 ### Javascript
 ```javascript
-var input = document.getElementById('ime');
-wanakana.bind(input);
 ```
 
 ## Documentation
 
 ```javascript
-// Automatically bind IME functionality to a form textarea or input.
-wanakana.bind(element);
-
-// Unbind IME from element.
-wanakana.unbind(element);
-
 // Returns false if string contains mixed characters, otherwise true if Hiragana.
-wanakana.isHiragana(string);
+kanawana.isHiragana(string);
 
 // Returns false if string contains characters outside of the kana family, otherwise true if Hiragana and/or Katakana.
-wanakana.isKana(string);
+kanawana.isKana(string);
 
 // Returns false if string contains mixed characters, otherwise true if Katakana.
-wanakana.isKatakana(string);
+kanawana.isKatakana(string);
 
 // Convert Katakana or Romaji to Hiragana.
-wanakana.toHiragana(string [, options]);
+kanawana.toHiragana(string [, options]);
 
 // Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.
-wanakana.toKana(string [, options]);
+kanawana.toKana(string [, options]);
 
 // Convert Hiragana or Romaji to Katakana.
-wanakana.toKatakana(string [, options]);
+kanawana.toKatakana(string [, options]);
 
 // Convert Kana to Romaji.
-wanakana.toRomaji(string [, options]);
+kanawana.toRomaji(string [, options]);
 
 // Options:
 // Many functions take an optional `options` object.
@@ -70,15 +48,5 @@ wanakana.toRomaji(string [, options]);
 
 ## Credits
 
-Project sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) that was sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
-### Contributors
-
-- [Mims H. Wright](http://github.com/mimshwright)	Author
-- [James McNamee](http://github.com/dotfold)		Contributor
-
-## Ports
-
-The following are ports created by the community:
-
-- Java ([MasterKale/WanaKanaJava](https://github.com/MasterKale/WanaKanaJava))
