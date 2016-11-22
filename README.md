@@ -1,4 +1,4 @@
-ワナカナ <-> KanaWana <-> わなかな
+カナワナ <-> KanaWana <-> かなわな
 ===============================
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
@@ -41,8 +41,8 @@ kanawana.toRomaji(string [, options]);
 // Many functions take an optional `options` object.
 // Here is the default object used for options.
 {
-	useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
-  	IMEMode: false // Set to true to handle input from a text input as it is typed.
+  useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
+    IMEMode: false // Set to true to handle input from a text input as it is typed.
 }
 ```
 
