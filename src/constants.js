@@ -1,0 +1,13 @@
+export const LOWERCASE_START = 0x61;
+export const LOWERCASE_END = 0x7A;
+export const UPPERCASE_START = 0x41;
+export const UPPERCASE_END = 0x5A;
+export const HIRAGANA_START = 0x3041;
+export const HIRAGANA_END = 0x3096;
+export const KATAKANA_START = 0x30A1;
+export const KATAKANA_END = 0x30FC;
+export const LOWERCASE_FULLWIDTH_START = 0xFF41;
+export const LOWERCASE_FULLWIDTH_END = 0xFF5A;
+export const UPPERCASE_FULLWIDTH_START = 0xFF21;
+export const UPPERCASE_FULLWIDTH_END = 0xFF3A;
+export const KATAKANA_PROLONGED_SOUND_MARK = 0x30FC;
