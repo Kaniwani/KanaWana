@@ -3,7 +3,7 @@ import {
   HIRAGANA_START,
   KATAKANA_END,
   KATAKANA_START,
-  KATAKANA_PROLONGED_SOUND_MARK,
+  PROLONGED_SOUND_MARK,
   LOWERCASE_FULLWIDTH_END,
   LOWERCASE_FULLWIDTH_START,
   LOWERCASE_START,
@@ -72,10 +72,7 @@ export function isCharConsonant(char, includeY = true) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharKatakana(char, options) {
-  if (options.ignorePunctuation) {
-
-  }
+export function isCharKatakana(char, options = {}) {
   return isCharInRange(char, KATAKANA_START, KATAKANA_END);
 }
 
@@ -84,9 +81,9 @@ export function isCharKatakana(char, options) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharHiragana(char, options) {
-  if (options.ignorePunctuation) {
-
+export function isCharHiragana(char, options = {}) {
+  if (options.ignorePunctuation && char.charCodeAt(0) === PROLONGED_SOUND_MARK) {
+    return true;
   }
   return isCharInRange(char, HIRAGANA_START, HIRAGANA_END);
 }
@@ -96,11 +93,8 @@ export function isCharHiragana(char, options) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharKana(char, options) {
-  if (options.ignorePunctuation) {
-
-  }
-  return isCharHiragana(char) || isCharKatakana(char);
+export function isCharKana(char, options = {}) {
+  return isCharHiragana(char, options) || isCharKatakana(char, options);
 }
 
 /**
@@ -108,8 +102,8 @@ export function isCharKana(char, options) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharNotKana(char) {
-  return !isCharHiragana(char) && !isCharKatakana(char);
+export function isCharNotKana(char, options) {
+  return !isCharHiragana(char, options) && !isCharKatakana(char, options);
 }
 
 /**

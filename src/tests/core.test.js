@@ -53,7 +53,7 @@ describe('Character type detection', () => {
     it('あア is kana', () => expect(isKana('あア')).toBe(true));
     it('A is not kana', () => expect(isKana('A')).toBe(false));
     it('あAア is not kana', () => expect(isKana('あAア')).toBe(false));
-    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isKatakana('アーあ', options)).toBe(true));
+    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isKana('アーあ', options)).toBe(true));
   });
 
   describe('isRomaji()', () => {
@@ -64,13 +64,13 @@ describe('Character type detection', () => {
     it('ア is not romaji', () => expect(isRomaji('ア')).toBe(false));
     it('あア is not romaji', () => expect(isRomaji('あア')).toBe(false));
     it('Aア is not romaji', () => expect(isRomaji('Aア')).toBe(false));
-    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isRomaji('a*b&c-d', options)).toBe(true));
+    it('passes roman punctuation', () => expect(isRomaji('a*b&c-d')).toBe(true));
   });
 });
 
 
 describe('Character conversion', () => {
-  it('Quick Brown Fox - Romaji to Hiragana', () => {
+  describe('Quick Brown Fox - Romaji to Hiragana', () => {
     // thanks to Yuki http://www.yesjapan.com/YJ6/question/1099/is-there-a-group-of-sentences-that-uses-every-hiragana
     const options = { useObsoleteKana: true };
     expect(toHiragana('IROHANIHOHETO', options)).toBe('いろはにほへと'); // Even the colorful fragrant flowers'
@@ -124,19 +124,21 @@ describe('Character conversion', () => {
     it('Uppercase characters are transliterated to katakana.',
       () => expect(toKana('ONAJI')).toBe(toKatakana('onaji')),
     );
-    it('WaniKani -> ワにカに - Mixed case uses the first character for each sylable.',
+    it('WaniKani -> ワにカに - Mixed case uses the first character for each syllable.',
       () => expect(toKana('WaniKani')).toBe('ワにカに'),
     );
     it('Non-romaji will be passed through.',
-      () => expect(toKana('ワにカに AiUeO 鰐蟹 12345 !@#$%')).toBe('ワにカに アいウえオ 鰐蟹 12345 !@#$%'),
+      () => expect(toKana('ワにカに AiUeO 鰐蟹 12345 !@#$%?')).toBe('ワにカに アいウえオ 鰐蟹 12345 !@#$%?'),
     );
+    it('Will convert short to long dashes', () => expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
   });
 
   describe('Converting kana to kana', () => {
     it('katakana -> hiragana', () => expect(toHiragana('バケル')).toBe('ばける'));
     it('hiragana -> katakana', () => expect(toKatakana('ばける')).toBe('バケル'));
-    it('converts long dash correctly from katakana -> hiragana', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
-    it('converts long dash correctly from katakana -> hiragana', () => expect(toHiragana('ハツゴーリ')).toBe('はつごうり'));
+    it('Converts long dash correctly from k -> h', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
+    // it('Mixed kana converts every char k -> h', () => expect(toKatakana('アメリカじん')).toBe('アメリカジン'));
+    // it('Mixed kana converts every char h -> k', () => expect(toHiragana('アメリカじん')).toBe('あめりかじん'));
   });
 
   describe('Case sensitivity', () => {

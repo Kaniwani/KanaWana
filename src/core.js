@@ -11,6 +11,7 @@ import {
   convertFullwidthCharsToASCII,
   isCharConsonant,
   isCharHiragana,
+  isCharKana,
   isCharInRange,
   isCharKatakana,
   isCharVowel,
@@ -21,7 +22,7 @@ import {
 
 import {
   HIRAGANA_START,
-  KATAKANA_PROLONGED_SOUND_MARK,
+  PROLONGED_SOUND_MARK,
   KATAKANA_START,
   UPPERCASE_END,
   UPPERCASE_START,
@@ -72,7 +73,7 @@ export function katakanaToHiragana(kata) {
     const kataChar = iterable[index];
     if (isCharKatakana(kataChar)) {
       let code = kataChar.charCodeAt(0);
-      if (code === KATAKANA_PROLONGED_SOUND_MARK && index > 0) {
+      if (code === PROLONGED_SOUND_MARK && index > 0) {
         // transform previousKana to romaji
         let romaji = hiraganaToRomaji(previousKana);
         romaji = romaji.slice(-1);
@@ -98,10 +99,10 @@ export function katakanaToHiragana(kata) {
   return hira.join('');
 }
 
-export function hiraganaToKatakana(hira) {
+export function hiraganaToKatakana(hira, options) {
   const kata = [];
   hira.split('').forEach(hiraChar => {
-    if (isCharHiragana(hiraChar)) {
+    if (isCharHiragana(hiraChar, options)) {
       let code = hiraChar.charCodeAt(0);
       // Shift charcode.
       code += KATAKANA_START - HIRAGANA_START;
@@ -119,35 +120,31 @@ export function romajiToHiragana(roma, options) {
   return romajiToKana(roma, options, true);
 }
 
-export function convertPunctuation(input, options) {
+export function convertPunctuation(input) {
   if (input === '　') { return ' '; }
   if (input === '-') { return 'ー'; }
   return input;
 }
 
-/**
-* Returns true if input is entirely hiragana.
-*/
-export function isHiragana(input) {
+export function isHiragana(input, options) {
   const chars = input.split('');
-  return chars.every(isCharHiragana);
+  return chars.every(char => isCharHiragana(char, options));
 }
 
-export function isKatakana(input) {
+export function isKatakana(input, options) {
   const chars = input.split('');
-  return chars.every(isCharKatakana);
+  return chars.every(char => isCharKatakana(char, options));
 }
 
-export function isKana(input) {
+export function isKana(input, options) {
   const chars = input.split('');
-  return chars.every(char => (isHiragana(char)) || (isKatakana(char)));
+  return chars.every(char => isCharKana(char, options));
 }
 
 export function isRomaji(input) {
   const chars = input.split('');
   return chars.every(char => (!isHiragana(char)) && (!isKatakana(char)));
 }
-
 
 export function toHiragana(input, options) {
   if (isRomaji(input)) {
@@ -199,7 +196,7 @@ function hiraganaToRomaji(hira, opts = {}) {
     let convertThisChunkToUppercase = false;
     while (chunkSize > 0) {
       chunk = getChunk(hira, cursor, cursor + chunkSize);
-      if (isKatakana(chunk)) {
+      if (isKatakana(chunk, options)) {
         convertThisChunkToUppercase = options.convertKatakanaToUppercase;
         chunk = katakanaToHiragana(chunk);
       }
@@ -335,7 +332,7 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
       if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
         isCharVowel(roma.charAt(cursor + 2)) === false) ||
         cursor === (len - 1) ||
-        isKana(roma.charAt(cursor + 1))
+        isKana(roma.charAt(cursor + 1), options)
       ) {
         // Don't transliterate this yet.
         kanaChar = chunk.charAt(0);
