@@ -30,6 +30,7 @@ import {
 export const defaultOptions = {
   // Transliterates wi and we to ゐ and ゑ
   useObsoleteKana: false,
+  ignorePunctuation: true,
   // Special mode for handling input from a text input that is transliterated on the fly.
   IMEMode: false,
 };
