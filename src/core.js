@@ -177,7 +177,7 @@ export function toKana(input, options) {
 }
 
 export function toRomaji(input, options) {
-  return hiraganaToRomaji(input);
+  return hiraganaToRomaji(input, options);
 }
 
 function hiraganaToRomaji(hira, opts = {}) {
@@ -267,10 +267,16 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
         chunk = getChunk(roma, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
       } else {
+        // debugger;
         // Handle edge case of n followed by consonant
         if (chunkLC.charAt(0) === 'n') {
+          // Handle edge case of n followed by a space
+          if (chunkSize === 2 && chunkLC.charAt(1) === ' ') {
+            kanaChar = 'ん ';
+            break;
+          }
+          // Convert IME input of n' to "ん"
           if (options.IMEMode && chunkLC.charAt(1) === "'" && chunkSize === 2) {
-            // convert n' to "ん"
             kanaChar = 'ん';
             break;
           }
@@ -299,7 +305,9 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
 
       kanaChar = RtoJ[chunkLC];
       // console.log(`${cursor}x${chunkSize}:${chunk} => ${kanaChar}`); // DEBUG
-      if (kanaChar != null) break;
+      if (kanaChar != null) {
+        break;
+      }
       // Step down the chunk size.
       // If chunkSize was 4, step down twice.
       if (chunkSize === 4) {
@@ -347,11 +355,4 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
   return kana.join('');
 }
 
-const opts = { useObsoleteKana: true };
-
-toHiragana('IROHANIHOHETO', opts); // いろはにほへと
-toHiragana('TSUNENARAMU', opts);
-toHiragana('UWINOOKUYAMA', opts);
-toHiragana('KEFUKOETE', opts);
-toHiragana('ASAKIYUMEMISHI', opts);
-toHiragana('WEHIMOSESUN', opts);
+toRomaji('ワニカニ　が　すごい　だ', { convertKatakanaToUppercase: true });

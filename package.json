@@ -9,8 +9,8 @@
   },
   "jest": {
     "verbose": true,
-    "bail": false,
-    "collectCoverage": true,
+    "bail": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "src/*.js",
       "!**/node_modules/**"
