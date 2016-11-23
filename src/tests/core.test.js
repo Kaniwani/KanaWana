@@ -224,7 +224,7 @@ describe('Kana to Romaji', () => {
 });
 
 describe('Options', () => {
-  it.skip('useObsoleteKana', () => {
+  it('useObsoleteKana', () => {
     const options = { useObsoleteKana: true };
     it('wi = ゐ (when useObsoleteKana is true)', () => expect(toHiragana('wi', options)).toBe('ゐ'));
     it('we = ゑ', () => expect(toHiragana('we', options)).toBe('ゑ'));
@@ -237,29 +237,27 @@ describe('Options', () => {
   });
 
   describe('IMEMode', () => {
-    const options = { IMEMode: false };
-
     /** Simulate real typing by calling the funciton on every character in sequence */
     function testTyping(str, opts) {
       let pos = 1;
       let text = str;
       const len = str.length;
-      // console.log("--" + str + "--");
+      // console.log(`--${str}--`);
       while (pos <= len) {
-        let buffer = str.substr(0, pos);
-        const rest = str.substr(pos);
+        let buffer = str.slice(0, pos);
+        const rest = str.slice(pos);
         buffer = toKana(buffer, opts);
-        // console.log(pos + ":" + buffer + " <-" + rest);
+        // console.log(`${pos}:${buffer} <-${rest}`);
         text = buffer + rest;
         pos += 1;
       }
       return text;
     }
 
-    it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n', options)).toBe('ん'));
-    it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn', options)).toBe('ん'));
+    it("Without IME mode, solo n's are transliterated.", () => expect(toKana('n')).toBe('ん'));
+    it("Without IME mode, double n's are transliterated.", () => expect(toKana('nn')).toBe('ん'));
 
-    options.IMEMode = true;
+    const options = { IMEMode: true };
     it("With IME mode, solo n's are not transliterated.", () => expect(testTyping('n', options)).toBe('n'));
     it("With IME mode, double n's are transliterated.", () => expect(testTyping('nn', options)).toBe('ん'));
     it('With IME mode, n + space are transliterated.', () => expect(testTyping('n ', options)).toBe('ん'));

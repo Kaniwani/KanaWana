@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable no-debugger*/
 
 import {
   fourCharacterEdgeCases,
@@ -192,11 +191,11 @@ function hiraganaToRomaji(hira, opts = {}) {
   let chunkSize = 2;
   let chunk = '';
   let romaChar = '';
-  let convertThisChunkToUppercase = false;
-  let nextCharIsDoubleConsonant = false;
+  let nextCharIsDoubleConsonant;
 
   while (cursor < len) {
     chunkSize = getChunkSize(maxChunk, len - cursor);
+    let convertThisChunkToUppercase = false;
     while (chunkSize > 0) {
       chunk = getChunk(hira, cursor, cursor + chunkSize);
       if (isKatakana(chunk)) {
@@ -216,14 +215,14 @@ function hiraganaToRomaji(hira, opts = {}) {
         romaChar = romaChar.charAt(0).concat(romaChar);
         nextCharIsDoubleConsonant = false;
       }
-      // console.log(`${cursor}x${chunkSize}:${chunk} => ${romaChar}`); // DEBUG
+      // console.log(`${cursor}x${chunkSize}:${chunk} => ${romaChar}`);
       if (romaChar != null) {
         break;
       }
       chunkSize -= 1;
     }
     if (romaChar == null) {
-      // console.log(`Couldn't find ${chunk}. Passing through.`); // DEBUG
+      // console.log(`Couldn't find ${chunk}. Passing through.`);
       // Passthrough undefined values
       romaChar = chunk;
     }
@@ -267,18 +266,19 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
         chunk = getChunk(roma, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
       } else {
-        // debugger;
         // Handle edge case of n followed by consonant
         if (chunkLC.charAt(0) === 'n') {
-          // Handle edge case of n followed by a space
-          if (chunkSize === 2 && chunkLC.charAt(1) === ' ') {
-            kanaChar = 'ん ';
-            break;
-          }
-          // Convert IME input of n' to "ん"
-          if (options.IMEMode && chunkLC.charAt(1) === "'" && chunkSize === 2) {
-            kanaChar = 'ん';
-            break;
+          if (chunkSize === 2) {
+            // Handle edge case of n followed by a space (only if not in IME mode)
+            if (!options.IMEMode && chunkLC.charAt(1) === ' ') {
+              kanaChar = 'ん ';
+              break;
+            }
+            // Convert IME input of n' to "ん"
+            if (options.IMEMode && chunkLC === "n'") {
+              kanaChar = 'ん';
+              break;
+            }
           }
           // Handle edge case of n followed by n and vowel
           if (isCharConsonant(chunkLC.charAt(1), false) && isCharVowel(chunkLC.charAt(2))) {
@@ -330,7 +330,7 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
       if (chunkLC === 'we') kanaChar = 'ゑ';
     }
 
-    if (options.IMEMode && chunkLC.charAt(0) === 'n') {
+    if (!!options.IMEMode && chunkLC.charAt(0) === 'n') {
       if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
         isCharVowel(roma.charAt(cursor + 2)) === false) ||
         cursor === (len - 1) ||
@@ -354,5 +354,3 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
 
   return kana.join('');
 }
-
-toRomaji('ワニカニ　が　すごい　だ', { convertKatakanaToUppercase: true });
