@@ -519,6 +519,7 @@ export const JtoR = {
   'ゎ': 'wa',
   // Punctuation
   '　': ' ',
+  '-': 'ー',
   // Ambiguous consonant vowel pairs
   'んあ': 'n\'a',
   'んい': 'n\'i',

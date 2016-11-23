@@ -28,13 +28,14 @@ describe('imports resolve', () => {
 });
 
 describe('Character type detection', () => {
+  const options = { ignorePunctuation: true };
   describe('isHiragana()', () => {
     it('あ is hiragana', () => expect(isHiragana('あ')).toBe(true));
     it('ああ is hiragana', () => expect(isHiragana('ああ')).toBe(true));
     it('ア is not hiragana', () => expect(isHiragana('ア')).toBe(false));
     it('A is not hiragana', () => expect(isHiragana('A')).toBe(false));
     it('あア is not hiragana', () => expect(isHiragana('あア')).toBe(false));
-//    it('ignore non-letter characters', () => expect(isHiragana('あ$あ')).toBe(true));
+    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isHiragana('あーあ', options)).toBe(true));
   });
 
   describe('isKatakana()', () => {
@@ -43,7 +44,7 @@ describe('Character type detection', () => {
     it('あ is not katakana', () => expect(isKatakana('あ')).toBe(false));
     it('A is not katakana', () => expect(isKatakana('A')).toBe(false));
     it('あア is not katakana', () => expect(isKatakana('あア')).toBe(false));
-    // expect(isKatakana("ア%ア")).toBe("ignore non-letter characters");
+    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isKatakana('アーア', options)).toBe(true));
   });
 
   describe('isKana()', () => {
@@ -52,6 +53,7 @@ describe('Character type detection', () => {
     it('あア is kana', () => expect(isKana('あア')).toBe(true));
     it('A is not kana', () => expect(isKana('A')).toBe(false));
     it('あAア is not kana', () => expect(isKana('あAア')).toBe(false));
+    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isKatakana('アーあ', options)).toBe(true));
   });
 
   describe('isRomaji()', () => {
@@ -62,7 +64,7 @@ describe('Character type detection', () => {
     it('ア is not romaji', () => expect(isRomaji('ア')).toBe(false));
     it('あア is not romaji', () => expect(isRomaji('あア')).toBe(false));
     it('Aア is not romaji', () => expect(isRomaji('Aア')).toBe(false));
-    // expect(  isRomaji("a*b&c")).toBe("ignore non-letter characters");
+    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isRomaji('a*b&c-d', options)).toBe(true));
   });
 });
 
@@ -132,8 +134,9 @@ describe('Character conversion', () => {
 
   describe('Converting kana to kana', () => {
     it('katakana -> hiragana', () => expect(toHiragana('バケル')).toBe('ばける'));
-    it('katakana -> hiragana', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
     it('hiragana -> katakana', () => expect(toKatakana('ばける')).toBe('バケル'));
+    it('converts long dash correctly from katakana -> hiragana', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
+    it('converts long dash correctly from katakana -> hiragana', () => expect(toHiragana('ハツゴーリ')).toBe('はつごうり'));
   });
 
   describe('Case sensitivity', () => {
