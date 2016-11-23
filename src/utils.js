@@ -8,6 +8,7 @@ import {
   LOWERCASE_START,
   UPPERCASE_FULLWIDTH_END,
   UPPERCASE_FULLWIDTH_START,
+  UPPERCASE_END,
   UPPERCASE_START,
 } from './constants';
 
@@ -20,6 +21,16 @@ import {
 export function guard(value, cb) {
   return (value != null) ? cb(value) : undefined;
 }
+
+// Returns a substring based on start/end values
+export const getChunk = (str, start, end) => str.slice(start, end);
+
+// Don't pick a chunk that is bigger than the remaining characters.
+export const getChunkSize = (max, remaining) => Math.min(max, remaining);
+
+// Checks if char is in English unicode uppercase range
+export const isCharUpperCase = (char) => isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
+
 
 /**
  * Takes a character and a unicode range. Returns true if the char is in the range.

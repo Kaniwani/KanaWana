@@ -187,7 +187,7 @@ wanakana._hiraganaToKatakana = function(hira) {
 };
 
 wanakana._hiraganaToRomaji = function(hira, options) {
-  var chunk, chunkSize, convertThisChunkToUppercase, cursor, getChunk, len, maxChunk, nextCharIsDoubleConsonant, resetChunkSize, roma, romaChar;
+  var chunk, chunkSize, convertThisChunkToUppercase, cursor, getChunk, len, maxChunk, nextCharIsDoubleConsonant, regetChunkSize, roma, romaChar;
   options = wanakana._extend(options, wanakana.defaultOptions);
   len = hira.length;
   roma = [];
@@ -197,12 +197,12 @@ wanakana._hiraganaToRomaji = function(hira, options) {
   getChunk = function() {
     return hira.substr(cursor, chunkSize);
   };
-  resetChunkSize = function() {
+  regetChunkSize = function() {
     return chunkSize = Math.min(maxChunk, len - cursor);
   };
   while (cursor < len) {
     convertThisChunkToUppercase = false;
-    resetChunkSize();
+    regetChunkSize();
     while (chunkSize > 0) {
       chunk = getChunk();
       if (wanakana.isKatakana(chunk)) {

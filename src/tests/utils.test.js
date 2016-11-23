@@ -5,6 +5,8 @@ import {
 
 import {
   guard,
+  getChunk,
+  getChunkSize,
   isCharInRange,
   isCharVowel,
   isCharConsonant,
@@ -12,11 +14,12 @@ import {
   isCharHiragana,
   isCharKana,
   isCharNotKana,
-  // convertFullwidthCharsToASCII,
+  isCharUpperCase,
+  convertFullwidthCharsToASCII,
 } from '../utils';
 
-// Since { describe, it, test, expect } etc aren't explicitly imported from jest
 /* eslint-disable no-undef */
+/* since { describe, it, test, expect } etc aren't explicitly imported from jest */
 
 const identity = (x) => x;
 
@@ -28,6 +31,24 @@ describe('guard', () => {
     expect(guard(2, identity)).toEqual(2);
     expect(guard({ derp: 'alerp' }, identity)).toEqual({ derp: 'alerp' });
     expect(guard('', identity)).toEqual('');
+  });
+});
+
+describe('getChunk', () => {
+  it('passes parameter tests', () => {
+    expect(getChunk('derpalerp', 3, 6)).toBe('pal');
+    expect(getChunk('de', 0, 1)).toBe('d');
+    expect(getChunk('', 1, 2)).toBe('');
+  });
+});
+
+describe('getChunkSize', () => {
+  it('passes parameter tests', () => {
+    expect(getChunkSize(4, 2)).toBe(2);
+    expect(getChunkSize(2, 2)).toBe(2);
+    expect(getChunkSize(2, 4)).toBe(2);
+    expect(getChunkSize(0, 0)).toBe(0);
+    expect(getChunkSize(3, -1)).toBe(-1);
   });
 });
 
@@ -98,8 +119,18 @@ describe('isCharNotKana', () => {
   });
 });
 
-// describe('convertFullwidthCharsToASCII', () => {
-//   it('passes parameter tests', () => {
-//     expect(convertFullwidthCharsToASCII()).toBe();
-//   });
-// });
+describe('isCharUpperCase', () => {
+  it('passes parameter tests', () => {
+    expect(isCharUpperCase('A')).toBe(true);
+    expect(isCharUpperCase('D')).toBe(true);
+    expect(isCharUpperCase('')).toBe(false);
+    expect(isCharUpperCase('a')).toBe(false);
+    expect(isCharUpperCase('d')).toBe(false);
+  });
+});
+
+describe('convertFullwidthCharsToASCII', () => {
+  it('passes parameter tests', () => {
+    expect(convertFullwidthCharsToASCII('ＡＢＣＤＥＦＧａｂｃｄｅｆｇ')).toBe('ABCDEFGabcdefg');
+  });
+});

@@ -9,11 +9,11 @@ wanakana._hiraganaToRomaji = (hira, options) ->
 
   getChunk = () -> hira.substr(cursor, chunkSize)
   # Don't pick a chunk that is bigger than the remaining characters.
-  resetChunkSize = () -> chunkSize = Math.min(maxChunk, len-cursor)
+  regetChunkSize = () -> chunkSize = Math.min(maxChunk, len-cursor)
 
   while cursor < len
     convertThisChunkToUppercase = no
-    resetChunkSize()
+    regetChunkSize()
     while chunkSize > 0
       chunk = getChunk()
       if wanakana.isKatakana(chunk)

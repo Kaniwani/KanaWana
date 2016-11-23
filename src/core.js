@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-debugger*/
+
 import {
   fourCharacterEdgeCases,
   longVowels,
@@ -7,12 +10,14 @@ import {
 
 import {
   convertFullwidthCharsToASCII,
-  guard,
   isCharConsonant,
   isCharHiragana,
   isCharInRange,
   isCharKatakana,
   isCharVowel,
+  getChunk,
+  getChunkSize,
+  isCharUpperCase,
 } from './utils';
 
 import {
@@ -23,13 +28,12 @@ import {
   UPPERCASE_START,
 } from './constants';
 
-const defaultOptions = {
+export const defaultOptions = {
   // Transliterates wi and we to ゐ and ゑ
   useObsoleteKana: false,
   // Special mode for handling input from a text input that is transliterated on the fly.
   IMEMode: false,
 };
-
 
 export function onInput(event) {
   const input = event.target;
@@ -176,100 +180,94 @@ export function toRomaji(input, options) {
   return hiraganaToRomaji(input);
 }
 
-export function hiraganaToRomaji(hira, opts = {}) {
+function hiraganaToRomaji(hira, opts = {}) {
   // merge options with default options
-  const options = Object.assign(opts, defaultOptions);
+  const options = Object.assign({}, defaultOptions, opts);
   const len = hira.length;
+  // Final output array
   const roma = [];
+  // Position in the string that is being evaluated
   let cursor = 0;
-  let chunkSize = 0;
   const maxChunk = 2;
-  const getChunk = () => hira.substr(cursor, chunkSize);
-  // Don't pick a chunk that is bigger than the remaining characters.
-  function resetChunkSize() {
-    chunkSize = Math.min(maxChunk, len-cursor);
-  }
+  let chunkSize = 2;
+  let chunk = '';
+  let romaChar = '';
+  let convertThisChunkToUppercase = false;
+  let nextCharIsDoubleConsonant = false;
 
   while (cursor < len) {
-    resetChunkSize();
+    chunkSize = getChunkSize(maxChunk, len - cursor);
     while (chunkSize > 0) {
-      var chunk = getChunk();
+      chunk = getChunk(hira, cursor, cursor + chunkSize);
       if (isKatakana(chunk)) {
+        convertThisChunkToUppercase = options.convertKatakanaToUppercase;
         chunk = katakanaToHiragana(chunk);
       }
-
-
       // special case for small tsus
-      if (chunk.charAt(0) === 'っ' && chunkSize === 1 && cursor < (len-1)) {
-        var nextCharIsDoubleConsonant = true;
-        var romaChar = '';
+      if (chunk.charAt(0) === 'っ' && chunkSize === 1 && cursor < (len - 1)) {
+        nextCharIsDoubleConsonant = true;
+        romaChar = '';
         break;
       }
 
-      var romaChar = JtoR[chunk];
+      romaChar = JtoR[chunk];
 
       if ((romaChar != null) && nextCharIsDoubleConsonant) {
         romaChar = romaChar.charAt(0).concat(romaChar);
-        var nextCharIsDoubleConsonant = false;
+        nextCharIsDoubleConsonant = false;
       }
-
-      // DEBUG
-      // console.log (cursor + "x" + chunkSize + ":" + chunk + " => " + romaChar )
-      if (romaChar != null) { break; }
-      chunkSize--;
+      // console.log(`${cursor}x${chunkSize}:${chunk} => ${romaChar}`); // DEBUG
+      if (romaChar != null) {
+        break;
+      }
+      chunkSize -= 1;
     }
-
     if (romaChar == null) {
-      // console.log("Couldn't find " + chunk + ". Passing through.")
+      // console.log(`Couldn't find ${chunk}. Passing through.`); // DEBUG
       // Passthrough undefined values
-      var romaChar = chunk;
+      romaChar = chunk;
     }
 
-    // Handle special cases.
+    if (convertThisChunkToUppercase) {
+      romaChar = romaChar.toUpperCase();
+    }
     roma.push(romaChar);
     cursor += chunkSize || 1;
   }
+
   return roma.join('');
 }
 
-
 export function romajiToKana(roma, opts = {}, ignoreCase = false) {
   // merge options with default options
-  const options = Object.assign(opts, defaultOptions);
-  const len = roma.length;
+  const options = Object.assign({}, defaultOptions, opts);
   // Final output array
   const kana = [];
   // Position in the string that is being evaluated
   let cursor = 0;
-  let chunkSize = 0;
-  // Maximum size of the chunk of characters to evaluate at one time
+  const len = roma.length;
   const maxChunk = 3;
+  let chunkSize = 3;
+  let chunk = '';
+  let chunkLC = '';
 
-  // Pulls a chunk of characters based on the cursor position and chunkSize
-  const getChunk = () => roma.substr(cursor, chunkSize);
-
-  // Checks if the character is uppercase
-  const isCharUpperCase = char => isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
-
-  let chunk = getChunk();
-  let chunkLC = chunk.toLowerCase();
   // Steps through the string pulling out chunks of characters. Each chunk will be evaluated
   // against the romaji to kana table. If there is no match, the last character in the chunk
   // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
-  // to be invalid or puncuation or other and gets passed through.
+  // to be invalid or punctuation or other and gets passed through.
   while (cursor < len) {
-    // Don't pick a chunk that is bigger than the remaining characters.
-    chunkSize = Math.min(maxChunk, len-cursor);
+    let kanaChar = null;
+    chunkSize = getChunkSize(maxChunk, len - cursor);
     while (chunkSize > 0) {
-      let kanaChar;
+      chunk = getChunk(roma, cursor, cursor + chunkSize);
+      chunkLC = chunk.toLowerCase();
       // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
       if (fourCharacterEdgeCases.includes(chunkLC) && (len-cursor) >= 4) {
         chunkSize += 1;
-        chunk = getChunk();
+        chunk = getChunk(roma, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
       } else {
         // Handle edge case of n followed by consonant
-
         if (chunkLC.charAt(0) === 'n') {
           if (options.IMEMode && chunkLC.charAt(1) === "'" && chunkSize === 2) {
             // convert n' to "ん"
@@ -279,15 +277,16 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
           // Handle edge case of n followed by n and vowel
           if (isCharConsonant(chunkLC.charAt(1), false) && isCharVowel(chunkLC.charAt(2))) {
             chunkSize = 1;
-            chunk = getChunk();
+            chunk = getChunk(roma, cursor, cursor + chunkSize);
             chunkLC = chunk.toLowerCase();
           }
         }
 
         // Handle case of double consonants
         if (chunkLC.charAt(0) !== 'n' &&
-        isCharConsonant(chunkLC.charAt(0)) &&
-        chunk.charAt(0) === chunk.charAt(1)) {
+          isCharConsonant(chunkLC.charAt(0)) &&
+          chunk.charAt(0) === chunk.charAt(1)
+        ) {
           chunkSize = 1;
           // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
           if (isCharInRange(chunk.charAt(0), UPPERCASE_START, UPPERCASE_END)) {
@@ -299,10 +298,8 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
       }
 
       kanaChar = RtoJ[chunkLC];
-      // DEBUG
-      console.log(`${cursor}x${chunkSize}:${chunk} => ${kanaChar}`);
-      if (kanaChar != null) { break; }
-
+      // console.log(`${cursor}x${chunkSize}:${chunk} => ${kanaChar}`); // DEBUG
+      if (kanaChar != null) break;
       // Step down the chunk size.
       // If chunkSize was 4, step down twice.
       if (chunkSize === 4) {
@@ -314,31 +311,32 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
 
     if (kanaChar == null) {
       chunk = convertPunctuation(chunk);
-      // console.log("Couldn't find " + chunk + ". Passing through.")
+      // console.log(`Couldn't find ${chunk}. Passing through.`); // DEBUG
       // Passthrough undefined values
       kanaChar = chunk;
     }
 
     // Handle special cases.
-    if (guard(options, x => x.useObsoleteKana)) {
+    if (options.useObsoleteKana) {
       if (chunkLC === 'wi') kanaChar = 'ゐ';
       if (chunkLC === 'we') kanaChar = 'ゑ';
     }
 
     if (options.IMEMode && chunkLC.charAt(0) === 'n') {
       if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
-      isCharVowel(roma.charAt(cursor + 2)) === false) ||
-      cursor === (len - 1) ||
-      isKana(roma.charAt(cursor + 1))) {
+        isCharVowel(roma.charAt(cursor + 2)) === false) ||
+        cursor === (len - 1) ||
+        isKana(roma.charAt(cursor + 1))
+      ) {
         // Don't transliterate this yet.
-        var kanaChar = chunk.charAt(0);
+        kanaChar = chunk.charAt(0);
       }
     }
 
     // Use katakana if first letter in chunk is uppercase
     if (!ignoreCase) {
       if (isCharUpperCase(chunk.charAt(0))) {
-        var kanaChar = hiraganaToKatakana(kanaChar);
+        kanaChar = hiraganaToKatakana(kanaChar);
       }
     }
 
@@ -348,3 +346,12 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
 
   return kana.join('');
 }
+
+const opts = { useObsoleteKana: true };
+
+toHiragana('IROHANIHOHETO', opts); // いろはにほへと
+toHiragana('TSUNENARAMU', opts);
+toHiragana('UWINOOKUYAMA', opts);
+toHiragana('KEFUKOETE', opts);
+toHiragana('ASAKIYUMEMISHI', opts);
+toHiragana('WEHIMOSESUN', opts);
