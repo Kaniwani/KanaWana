@@ -9,15 +9,16 @@ import {
 
 import {
   convertFullwidthCharsToASCII,
+  convertPunctuation,
   isCharConsonant,
   isCharHiragana,
   isCharKana,
   isCharInRange,
   isCharKatakana,
   isCharVowel,
+  isCharUpperCase,
   getChunk,
   getChunkSize,
-  isCharUpperCase,
 } from './utils';
 
 import {
@@ -118,12 +119,6 @@ export function hiraganaToKatakana(hira, options) {
 
 export function romajiToHiragana(roma, options) {
   return romajiToKana(roma, options, true);
-}
-
-export function convertPunctuation(input) {
-  if (input === '　') { return ' '; }
-  if (input === '-') { return 'ー'; }
-  return input;
 }
 
 export function isHiragana(input, options) {

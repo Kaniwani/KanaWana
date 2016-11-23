@@ -28,14 +28,16 @@ describe('imports resolve', () => {
 });
 
 describe('Character type detection', () => {
-  const options = { ignorePunctuation: true };
   describe('isHiragana()', () => {
     it('あ is hiragana', () => expect(isHiragana('あ')).toBe(true));
     it('ああ is hiragana', () => expect(isHiragana('ああ')).toBe(true));
     it('ア is not hiragana', () => expect(isHiragana('ア')).toBe(false));
     it('A is not hiragana', () => expect(isHiragana('A')).toBe(false));
     it('あア is not hiragana', () => expect(isHiragana('あア')).toBe(false));
-    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isHiragana('あーあ', options)).toBe(true));
+    it('ignores punctuation with option passed',
+      () => expect(isHiragana('あーあ.。〜!?', { ignorePunctuation: true })).toBe(true));
+    it('does not ignore punctuation with option passed',
+      () => expect(isHiragana('あーあ.。〜!?', { ignorePunctuation: false })).toBe(false));
   });
 
   describe('isKatakana()', () => {
@@ -44,7 +46,10 @@ describe('Character type detection', () => {
     it('あ is not katakana', () => expect(isKatakana('あ')).toBe(false));
     it('A is not katakana', () => expect(isKatakana('A')).toBe(false));
     it('あア is not katakana', () => expect(isKatakana('あア')).toBe(false));
-    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isKatakana('アーア', options)).toBe(true));
+    it('ignores punctuation with option passed',
+      () => expect(isKatakana('アーア.。〜!?', { ignorePunctuation: true })).toBe(true));
+    it('does not ignore punctuation with option passed',
+      () => expect(isKatakana('アーア.。〜!?', { ignorePunctuation: false })).toBe(false));
   });
 
   describe('isKana()', () => {
@@ -53,7 +58,10 @@ describe('Character type detection', () => {
     it('あア is kana', () => expect(isKana('あア')).toBe(true));
     it('A is not kana', () => expect(isKana('A')).toBe(false));
     it('あAア is not kana', () => expect(isKana('あAア')).toBe(false));
-    it('ignores non-letter characters with option {ignorePunctuation: true}', () => expect(isKana('アーあ', options)).toBe(true));
+    it('ignores punctuation with option passed',
+      () => expect(isKana('アーあ.。〜!?', { ignorePunctuation: true })).toBe(true));
+    it('does not ignore punctuation with option passed',
+      () => expect(isKana('アーあ.。〜!?', { ignorePunctuation: false })).toBe(true));
   });
 
   describe('isRomaji()', () => {

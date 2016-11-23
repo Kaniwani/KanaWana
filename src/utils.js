@@ -23,6 +23,13 @@ export function guard(value, cb) {
   return (value != null) ? cb(value) : undefined;
 }
 
+//
+export function convertPunctuation(input) {
+  if (input === '　') return ' ';
+  if (input === '-') return 'ー';
+  return input;
+}
+
 // Returns a substring based on start/end values
 export const getChunk = (str, start, end) => str.slice(start, end);
 
@@ -107,8 +114,8 @@ export function isCharNotKana(char, options) {
 }
 
 /**
- * Converts all characters in string to proper ASCII
- * @param  {string} str Full Width characters
+ * Converts all fullwidth roman letters in string to proper ASCII
+ * @param  {string} str Full Width roman letters
  * @return {string} ASCII
  */
 export function convertFullwidthCharsToASCII(str) {
