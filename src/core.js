@@ -24,7 +24,6 @@ import {
 
 import {
   HIRAGANA_START,
-  PROLONGED_SOUND_MARK,
   KATAKANA_START,
   UPPERCASE_END,
   UPPERCASE_START,
@@ -133,6 +132,7 @@ export function isRomaji(input) {
   return input.split('').every(char => !isHiragana(char) && !isKatakana(char));
 }
 
+// Returns true if input is a mix of romaji and kana
 export function isMixed(input) {
   const chars = input.split('');
   return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji);
@@ -342,6 +342,3 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
 
   return kana.join('');
 }
-
-toHiragana('座禅[zazen]スタイル');
-toKatakana('座禅[zazen]すたいる');

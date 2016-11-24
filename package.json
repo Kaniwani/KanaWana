@@ -15,12 +15,13 @@
       "src/*.js",
       "!**/node_modules/**"
     ],
-    "testEnvironment" : "node",
+    "testEnvironment": "node",
     "testRegex": "(\\.(test|spec))\\.jsx?$"
   },
   "dependencies": {
-    "jest": "^17.0.3",
     "babel-jest": "^17.0.2",
-    "babel-polyfill": "^6.16.0"
+    "babel-polyfill": "^6.16.0",
+    "jest": "^17.0.3",
+    "microtime": "^2.1.2"
   }
 }

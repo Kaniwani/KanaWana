@@ -1,3 +1,4 @@
+import microtime from 'microtime';
 import testTable from './transliteration-table';
 import {
   defaultOptions,
@@ -5,6 +6,7 @@ import {
   isKatakana,
   isHiragana,
   isRomaji,
+  isMixed,
   toKana,
   toKatakana,
   toHiragana,
@@ -64,6 +66,15 @@ describe('Character type detection', () => {
     it('あア is not romaji', () => expect(isRomaji('あア')).toBe(false));
     it('Aア is not romaji', () => expect(isRomaji('Aア')).toBe(false));
     it('passes roman punctuation', () => expect(isRomaji('a*b&c-d')).toBe(true));
+  });
+
+  describe('isMixed()', () => {
+    it('Aア is mixed', () => expect(isMixed('Aア')).toBe(true));
+    it('Aあ is mixed', () => expect(isMixed('Aあ')).toBe(true));
+    it('あア is not mixed', () => expect(isMixed('あア')).toBe(false));
+    it('A is not mixed', () => expect(isMixed('A')).toBe(false));
+    it('あ is not mixed', () => expect(isMixed('あ')).toBe(false));
+    it('ア is not mixed', () => expect(isMixed('ア')).toBe(false));
   });
 });
 
@@ -324,11 +335,38 @@ describe('Options', () => {
 });
 
 describe('Performance', () => {
-  describe('Speed', () => {
-    const startTime = new Date().getTime();
+  /* eslint-disable no-console */
+
+  describe('romaji toHiragana Speed', () => {
+    const startTime = microtime.now();
     toKana('aiueosashisusesonaninunenokakikukeko');
-    const endTime = new Date().getTime();
-    const elapsedTime = endTime - startTime;
-    expect(elapsedTime).toBeLessThan(10);
+    const endTime = microtime.now();
+    const elapsedMilliSeconds = (endTime - startTime) / 1000;
+    console.log(`20 syllables toKana speed: ${elapsedMilliSeconds}ms`);
+    expect(elapsedMilliSeconds).toBeLessThan(1);
+  });
+  describe('romaji toKatakana Speed', () => {
+    const startTime = microtime.now();
+    toKana('AIUEOSASHISUSESONANINUNENOKAKIKUKEKO');
+    const endTime = microtime.now();
+    const elapsedMilliSeconds = (endTime - startTime) / 1000;
+    console.log(`20 syllables toKana speed: ${elapsedMilliSeconds}ms`);
+    expect(elapsedMilliSeconds).toBeLessThan(1);
+  });
+  describe('hiragana ToRomaji Speed', () => {
+    const startTime = microtime.now();
+    toRomaji('あいうえおさしすせそなにぬねのかきくけこ');
+    const endTime = microtime.now();
+    const elapsedMilliSeconds = (endTime - startTime) / 1000;
+    console.log(`20chars toRomaji speed: ${elapsedMilliSeconds}ms`);
+    expect(elapsedMilliSeconds).toBeLessThan(1);
+  });
+  describe('katakana ToRomaji Speed', () => {
+    const startTime = microtime.now();
+    toRomaji('アイウエオサシスセソナニヌネノカキクケコ');
+    const endTime = microtime.now();
+    const elapsedMilliSeconds = (endTime - startTime) / 1000;
+    console.log(`20chars toRomaji speed: ${elapsedMilliSeconds}ms`);
+    expect(elapsedMilliSeconds).toBeLessThan(1);
   });
 });

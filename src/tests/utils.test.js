@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* since { describe, it, test, expect } etc aren't explicitly imported from jest */
+
 import {
   HIRAGANA_END,
   HIRAGANA_START,
@@ -19,9 +22,6 @@ import {
   convertPunctuation,
   convertFullwidthCharsToASCII,
 } from '../utils';
-
-/* eslint-disable no-undef */
-/* since { describe, it, test, expect } etc aren't explicitly imported from jest */
 
 const identity = (x) => x;
 
