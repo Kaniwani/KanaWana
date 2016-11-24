@@ -25,13 +25,20 @@ kanawana.isKana(string);
 // Returns false if string contains mixed characters, otherwise true if Katakana.
 kanawana.isKatakana(string);
 
-// Convert Katakana or Romaji to Hiragana.
-kanawana.toHiragana(string [, options]);
-
 // Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.
+// Non romaji is passed through as-is 12345 !@#$%?, except for -[](){} which become ー「 」（ ）｛ ｝
 kanawana.toKana(string [, options]);
 
+// Convert Katakana or Romaji to Hiragana.
+// However if there are mixed syllabaries it will ignore the romaji
+// IE "zazen"ハザゼン -> "zazen"はざぜん
+// TODO: mixed syllabaries as an option rather than default
+kanawana.toHiragana(string [, options]);
+
 // Convert Hiragana or Romaji to Katakana.
+// However if there are mixed syllabaries it will ignore the romaji
+// IE "zazen"はざぜん -> "zazen"ハザゼン  
+// TODO: mixed syllabaries as an option rather than default
 kanawana.toKatakana(string [, options]);
 
 // Convert Kana to Romaji.
@@ -42,11 +49,10 @@ kanawana.toRomaji(string [, options]);
 // Here is the default object used for options.
 {
   useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
-    IMEMode: false // Set to true to handle input from a text input as it is typed.
+  IMEMode: false // Set to true to handle input from a text input as it is typed.
 }
 ```
 
 ## Credits
 
 Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) that was sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
-
