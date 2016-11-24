@@ -4,6 +4,7 @@
   "repository": "https://github.com/DJTB/KanaWana/",
   "version": "0.0.1",
   "scripts": {
+    "build": "webpack",
     "test": "jest",
     "test:watch": "jest --watch"
   },

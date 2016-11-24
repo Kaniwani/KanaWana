@@ -165,6 +165,8 @@ export function toKana(input, options) {
 }
 
 export function toRomaji(input, options) {
+  // TODO: currently converts ー to ゜ (probably from the charcode shifting)
+  // TODO: doesn't convert 「」｛｝（）to roman punctuation [] {} ()
   return hiraganaToRomaji(input, options);
 }
 

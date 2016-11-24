@@ -9,9 +9,9 @@ import {
   toKatakana,
   toKana,
   toRomaji,
-} from './src/core';
+} from './core';
 
-export default {
+const kanawana = {
   bind,
   unbind,
   isHiragana,
@@ -23,3 +23,7 @@ export default {
   toKana,
   toRomaji,
 };
+
+window.kanawana = kanawana;
+
+export default kanawana;

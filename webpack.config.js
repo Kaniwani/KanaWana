@@ -1,6 +1,8 @@
+const path = require('path');
+
 module.exports = {
   entry: [
-    './src/index.js',
+    path.join(__dirname, 'src'),
   ],
   output: {
     path: __dirname,
@@ -16,4 +18,5 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
   },
+  target: 'web',
 };
