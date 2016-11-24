@@ -31,9 +31,11 @@ import {
 } from './constants';
 
 export const defaultOptions = {
-  // Transliterates wi and we to ゐ and ゑ
+  // Set to true to use obsolete characters, such as ゐ and ゑ.
   useObsoleteKana: false,
-  // Special mode for handling input from a text input that is transliterated on the fly.
+  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(), such as "romaji is not かな"
+  passRomaji: false,
+  // Set to true to handle input from a text input as it is typed.
   IMEMode: false,
 };
 
@@ -70,23 +72,19 @@ export function katakanaToHiragana(kata) {
   const hira = [];
   let previousKana = '';
   const iterable = kata.split('');
-  for (let index = 0; index < iterable.length; index+=1) {
+  for (let index = 0; index < iterable.length; index += 1) {
     const kataChar = iterable[index];
-    if (isCharKatakana(kataChar)) {
-      let code = kataChar.charCodeAt(0);
-      if (code === PROLONGED_SOUND_MARK && index > 0) {
-        // transform previousKana back to romaji
-        let romaji = hiraganaToRomaji(previousKana);
-        romaji = romaji.slice(-1);
-
-        hira.push(longVowels[romaji]);
-      } else {
+    // Transform long vowels: 'オー' to 'おう'
+    if (isCharLongDash(kataChar) && index > 0) {
+      // transform previousKana back to romaji
+      const romaji = hiraganaToRomaji(previousKana).slice(-1);
+      hira.push(longVowels[romaji]);
+    } else if (isCharKatakana(kataChar)) {
         // Shift charcode.
-        code += HIRAGANA_START - KATAKANA_START;
-        const hiraChar = String.fromCharCode(code);
-        hira.push(hiraChar);
-        previousKana = hiraChar;
-      }
+      const code = kataChar.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
+      const hiraChar = String.fromCharCode(code);
+      hira.push(hiraChar);
+      previousKana = hiraChar;
     } else {
       // pass non katakana chars through
       hira.push(kataChar);
@@ -96,16 +94,15 @@ export function katakanaToHiragana(kata) {
   return hira.join('');
 }
 
-export function hiraganaToKatakana(hira, options) {
+export function hiraganaToKatakana(hira) {
   const kata = [];
   hira.split('').forEach(hiraChar => {
-    // short circuit to avoid incorrect codeshift below for 'ー'
+    // short circuit to avoid incorrect codeshift for 'ー'
     if (isCharLongDash(hiraChar)) {
       kata.push(hiraChar);
     } else if (isCharHiragana(hiraChar)) {
-      let code = hiraChar.charCodeAt(0);
       // Shift charcode.
-      code += KATAKANA_START - HIRAGANA_START;
+      const code = hiraChar.charCodeAt(0) + (KATAKANA_START - HIRAGANA_START);
       const kataChar = String.fromCharCode(code);
       kata.push(kataChar);
     } else {
@@ -121,38 +118,45 @@ export function romajiToHiragana(roma, options) {
 }
 
 export function isHiragana(input) {
-  const chars = input.split('');
-  return chars.every(char => isCharHiragana(char));
+  return input.split('').every(isCharHiragana);
 }
 
 export function isKatakana(input) {
-  const chars = input.split('');
-  return chars.every(char => isCharKatakana(char));
+  return input.split('').every(isCharKatakana);
 }
 
 export function isKana(input) {
-  const chars = input.split('');
-  return chars.every(char => isCharKana(char));
+  return input.split('').every(isCharKana);
 }
 
 export function isRomaji(input) {
+  return input.split('').every(char => !isHiragana(char) && !isKatakana(char));
+}
+
+export function isMixed(input) {
   const chars = input.split('');
-  return chars.every(char => (!isHiragana(char)) && (!isKatakana(char)));
+  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji);
 }
 
-export function toHiragana(input, options) {
-  if (isRomaji(input)) {
-    return romajiToHiragana(input, options);
+export function toHiragana(input, opts = {}) {
+  const options = Object.assign({}, defaultOptions, opts);
+  if (options.passRomaji) return katakanaToHiragana(input);
+  if (isRomaji(input)) return romajiToHiragana(input, options);
+  if (isMixed(input)) {
+    const romaji = katakanaToHiragana(input);
+    return romajiToHiragana(romaji, options);
   }
-  return katakanaToHiragana(input, options);
+  return katakanaToHiragana(input);
 }
 
-export function toKatakana(input, options) {
-  if (isRomaji(input)) {
+export function toKatakana(input, opts = {}) {
+  const options = Object.assign({}, defaultOptions, opts);
+  if (options.passRomaji) return hiraganaToKatakana(input);
+  if (isRomaji(input) || isMixed(input)) {
     const romaji = romajiToHiragana(input, options);
-    return hiraganaToKatakana(romaji, options);
+    return hiraganaToKatakana(romaji);
   }
-  return hiraganaToKatakana(input, options);
+  return hiraganaToKatakana(input);
 }
 
 export function toKana(input, options) {
@@ -338,3 +342,6 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
 
   return kana.join('');
 }
+
+toHiragana('座禅[zazen]スタイル');
+toKatakana('座禅[zazen]すたいる');

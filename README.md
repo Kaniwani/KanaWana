@@ -30,16 +30,20 @@ kanawana.isKatakana(string);
 kanawana.toKana(string [, options]);
 
 // Convert Katakana or Romaji to Hiragana.
-// However if there are mixed syllabaries it will ignore the romaji
-// IE "zazen"ハザゼン -> "zazen"はざぜん
-// TODO: mixed syllabaries as an option rather than default
+// Use {passRomaji: true} if you want to convert Katakana while keeping any romaji intact  
 kanawana.toHiragana(string [, options]);
 
 // Convert Hiragana or Romaji to Katakana.
-// However if there are mixed syllabaries it will ignore the romaji
-// IE "zazen"はざぜん -> "zazen"ハザゼン  
-// TODO: mixed syllabaries as an option rather than default
+// Use {passRomaji: true} if you want to convert Hiragana while keeping any romaji intact  
 kanawana.toKatakana(string [, options]);
+
+// Explicitly convert Hiragana to Katakana - always ignores romaji passed in
+// IE "zazen"はざぜん -> "zazen"ハザゼン
+kanawana.hiraganaToKatakana(string);
+
+// Explicitly convert Katakana to Hiragana - always ignores romaji passed in
+// IE "zazen"ハザゼン -> "zazen"はざぜん
+kanawana.katakanaToHiragana(string);
 
 // Convert Kana to Romaji.
 kanawana.toRomaji(string [, options]);
@@ -48,9 +52,13 @@ kanawana.toRomaji(string [, options]);
 // Many functions take an optional `options` object.
 // Here is the default object used for options.
 {
-  useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
-  IMEMode: false // Set to true to handle input from a text input as it is typed.
-}
+  // Set to true to use obsolete characters, such as ゐ and ゑ.
+  useObsoleteKana: false,
+  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(), such as "romaji is not かな"
+  passRomaji: false, 
+  // Set to true to handle input from a text input as it is typed.
+  IMEMode: false,
+;
 ```
 
 ## Credits

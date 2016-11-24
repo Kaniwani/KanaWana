@@ -145,14 +145,28 @@ describe('Character conversion', () => {
   describe('Converting kana to kana', () => {
     it('k -> h', () => expect(toHiragana('バケル')).toBe('ばける'));
     it('h -> k', () => expect(toKatakana('ばける')).toBe('バケル'));
-    it('It passes non katakana through k -> h', () => expect(toHiragana('zazenスタイル')).toBe('zazenすたいる'));
-    it('It passes non hiragana through h -> k', () => expect(toKatakana('座禅[zazen]すたいる')).toBe('座禅[zazen]スタイル'));
+
+
     it('It survives only katakana toKatakana', () => expect(toKatakana('スタイル')).toBe('スタイル'));
     it('It survives only hiragana toHiragana', () => expect(toHiragana('すたいる')).toBe('すたいる'));
     it('Mixed kana converts every char k -> h', () => expect(toKatakana('アメリカじん')).toBe('アメリカジン'));
     it('Mixed kana converts every char h -> k', () => expect(toHiragana('アメリカじん')).toBe('あめりかじん'));
     it('Converts long vowels correctly from k -> h', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
     it('Preserves long dash from h -> k', () => expect(toKatakana('ばつゲーム')).toBe('バツゲーム'));
+
+    describe('Mixed syllabaries', () => {
+      it('It passes non-katakana through when passRomaji is true k -> h',
+      () => expect(toHiragana('座禅[zazen]スタイル', { passRomaji: true })).toBe('座禅[zazen]すたいる'));
+
+      it('It passes non-hiragana through when passRomaji is true h -> k',
+      () => expect(toKatakana('座禅[zazen]すたいる', { passRomaji: true })).toBe('座禅[zazen]スタイル'));
+
+      it('It converts non-katakana when passRomaji is false k -> h',
+      () => expect(toHiragana('座禅[zazen]スタイル')).toBe('座禅「ざぜん」すたいる'));
+
+      it('It converts non-hiragana when passRomaji is false h -> k',
+      () => expect(toKatakana('座禅[zazen]すたいる')).toBe('座禅「ザゼン」スタイル'));
+    });
   });
 
   describe('Case sensitivity', () => {
@@ -160,7 +174,6 @@ describe('Character conversion', () => {
     it("cAse DoEsn'T MatTER for toKatakana()", () => expect(toKatakana('aiueo')).toBe(toKatakana('AIUEO')));
     it('Case DOES matter for toKana()', () => expect(toKana('aiueo')).not.toBe(toKana('AIUEO')));
   });
-
 
   describe('N edge cases', () => {
     it('Solo N', () => expect(toKana('n')).toBe('ん'));
