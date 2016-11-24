@@ -12,6 +12,17 @@ export const fourCharacterEdgeCases = [
   'shy',
 ];
 
+export const punctuation = {
+  '　': ' ',
+  '-': 'ー',
+  '[': '「',
+  ']': '」',
+  '(': '（',
+  ')': '）',
+  '{': '｛',
+  '}': '｝',
+};
+
 export const RtoJ = {
   'a': 'あ',
   'i': 'い',
@@ -520,6 +531,7 @@ export const JtoR = {
   // Punctuation
   '　': ' ',
   '-': 'ー',
+  'ー': 'ー',
   // Ambiguous consonant vowel pairs
   'んあ': 'n\'a',
   'んい': 'n\'i',

@@ -13,6 +13,8 @@ import {
   UPPERCASE_START,
 } from './constants';
 
+import { punctuation } from './characterTables';
+
 /**
  * Only invokes function cb() with value if value is not null or undefined
  * @param  {any} value - parameter to test if it exists
@@ -23,11 +25,10 @@ export function guard(value, cb) {
   return (value != null) ? cb(value) : undefined;
 }
 
-//
+// Converts fullwidth space and short dash to normal space and long dash
 export function convertPunctuation(input) {
-  if (input === '　') return ' ';
-  if (input === '-') return 'ー';
-  return input;
+  const convertedMark = punctuation[input];
+  return convertedMark != null ? convertedMark : input;
 }
 
 // Returns a substring based on start/end values
@@ -38,7 +39,6 @@ export const getChunkSize = (max, remaining) => Math.min(max, remaining);
 
 // Checks if char is in English unicode uppercase range
 export const isCharUpperCase = (char) => isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
-
 
 /**
  * Takes a character and a unicode range. Returns true if the char is in the range.
@@ -74,12 +74,18 @@ export function isCharConsonant(char, includeY = true) {
   return char.toLowerCase().charAt(0).search(regexp) !== -1;
 }
 
+// Returns true if char is 'ー'
+export function isCharLongDash(char) {
+  return char.charCodeAt(0) === PROLONGED_SOUND_MARK;
+}
+
 /**
  * Tests a character. Returns true if the character is katakana.
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharKatakana(char, options = {}) {
+export function isCharKatakana(char) {
+  if (isCharLongDash(char)) return true;
   return isCharInRange(char, KATAKANA_START, KATAKANA_END);
 }
 
@@ -88,10 +94,8 @@ export function isCharKatakana(char, options = {}) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharHiragana(char, options = {}) {
-  if (options.ignorePunctuation && char.charCodeAt(0) === PROLONGED_SOUND_MARK) {
-    return true;
-  }
+export function isCharHiragana(char) {
+  if (isCharLongDash(char)) return true;
   return isCharInRange(char, HIRAGANA_START, HIRAGANA_END);
 }
 
@@ -100,8 +104,8 @@ export function isCharHiragana(char, options = {}) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharKana(char, options = {}) {
-  return isCharHiragana(char, options) || isCharKatakana(char, options);
+export function isCharKana(char) {
+  return isCharHiragana(char) || isCharKatakana(char);
 }
 
 /**
@@ -109,8 +113,8 @@ export function isCharKana(char, options = {}) {
  * @param  {string} char character string to test
  * @return {Boolean}
  */
-export function isCharNotKana(char, options) {
-  return !isCharHiragana(char, options) && !isCharKatakana(char, options);
+export function isCharNotKana(char) {
+  return !isCharHiragana(char) && !isCharKatakana(char);
 }
 
 /**

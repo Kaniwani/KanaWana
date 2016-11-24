@@ -10,6 +10,7 @@ import {
 import {
   convertFullwidthCharsToASCII,
   convertPunctuation,
+  isCharLongDash,
   isCharConsonant,
   isCharHiragana,
   isCharKana,
@@ -32,39 +33,38 @@ import {
 export const defaultOptions = {
   // Transliterates wi and we to ゐ and ゑ
   useObsoleteKana: false,
-  ignorePunctuation: true,
   // Special mode for handling input from a text input that is transliterated on the fly.
   IMEMode: false,
 };
 
-export function onInput(event) {
-  const input = event.target;
-  // const startingCursor = input.selectionStart;
-  // const startingLength = input.value.length;
-  const normalizedInputString = convertFullwidthCharsToASCII((input.value));
-  const newText = (toKana(normalizedInputString, { IMEMode: true }));
-  if (normalizedInputString !== newText) {
-    input.value = newText;
-    if (typeof input.selectionStart === 'number') {
-      input.selectionStart = input.selectionEnd = input.value.length;
-      return;
-    }
-    if (typeof input.createTextRange !== 'undefined') {
-      input.focus();
-      const range = input.createTextRange();
-      range.collapse(false);
-      range.select();
-    }
-  }
-}
-
-export function bind(input) {
-  input.addEventListener('input', onInput);
-}
-
-export function unbind(input) {
-  input.removeEventListener('input', onInput);
-}
+// export function onInput(event) {
+//   const input = event.target;
+//   // const startingCursor = input.selectionStart;
+//   // const startingLength = input.value.length;
+//   const normalizedInputString = convertFullwidthCharsToASCII((input.value));
+//   const newText = (toKana(normalizedInputString, { IMEMode: true }));
+//   if (normalizedInputString !== newText) {
+//     input.value = newText;
+//     if (typeof input.selectionStart === 'number') {
+//       input.selectionStart = input.selectionEnd = input.value.length;
+//       return;
+//     }
+//     if (typeof input.createTextRange !== 'undefined') {
+//       input.focus();
+//       const range = input.createTextRange();
+//       range.collapse(false);
+//       range.select();
+//     }
+//   }
+// }
+//
+// export function bind(input) {
+//   input.addEventListener('input', onInput);
+// }
+//
+// export function unbind(input) {
+//   input.removeEventListener('input', onInput);
+// }
 
 export function katakanaToHiragana(kata) {
   const hira = [];
@@ -75,15 +75,11 @@ export function katakanaToHiragana(kata) {
     if (isCharKatakana(kataChar)) {
       let code = kataChar.charCodeAt(0);
       if (code === PROLONGED_SOUND_MARK && index > 0) {
-        // transform previousKana to romaji
+        // transform previousKana back to romaji
         let romaji = hiraganaToRomaji(previousKana);
         romaji = romaji.slice(-1);
 
-        if (longVowels != null) {
-          hira.push(longVowels[romaji]);
-        } else {
-          hira.push(kataChar);
-        }
+        hira.push(longVowels[romaji]);
       } else {
         // Shift charcode.
         code += HIRAGANA_START - KATAKANA_START;
@@ -103,7 +99,10 @@ export function katakanaToHiragana(kata) {
 export function hiraganaToKatakana(hira, options) {
   const kata = [];
   hira.split('').forEach(hiraChar => {
-    if (isCharHiragana(hiraChar, options)) {
+    // short circuit to avoid incorrect codeshift below for 'ー'
+    if (isCharLongDash(hiraChar)) {
+      kata.push(hiraChar);
+    } else if (isCharHiragana(hiraChar)) {
       let code = hiraChar.charCodeAt(0);
       // Shift charcode.
       code += KATAKANA_START - HIRAGANA_START;
@@ -121,19 +120,19 @@ export function romajiToHiragana(roma, options) {
   return romajiToKana(roma, options, true);
 }
 
-export function isHiragana(input, options) {
+export function isHiragana(input) {
   const chars = input.split('');
-  return chars.every(char => isCharHiragana(char, options));
+  return chars.every(char => isCharHiragana(char));
 }
 
-export function isKatakana(input, options) {
+export function isKatakana(input) {
   const chars = input.split('');
-  return chars.every(char => isCharKatakana(char, options));
+  return chars.every(char => isCharKatakana(char));
 }
 
-export function isKana(input, options) {
+export function isKana(input) {
   const chars = input.split('');
-  return chars.every(char => isCharKana(char, options));
+  return chars.every(char => isCharKana(char));
 }
 
 export function isRomaji(input) {
@@ -145,23 +144,15 @@ export function toHiragana(input, options) {
   if (isRomaji(input)) {
     return romajiToHiragana(input, options);
   }
-  if (isKatakana(input)) {
-    return katakanaToHiragana(input, options);
-  }
-  // otherwise
-  return input;
+  return katakanaToHiragana(input, options);
 }
 
 export function toKatakana(input, options) {
-  if (isHiragana(input)) {
-    return hiraganaToKatakana(input, options);
-  }
   if (isRomaji(input)) {
     const romaji = romajiToHiragana(input, options);
     return hiraganaToKatakana(romaji, options);
   }
-  // otherwise
-  return input;
+  return hiraganaToKatakana(input, options);
 }
 
 export function toKana(input, options) {
@@ -191,7 +182,7 @@ function hiraganaToRomaji(hira, opts = {}) {
     let convertThisChunkToUppercase = false;
     while (chunkSize > 0) {
       chunk = getChunk(hira, cursor, cursor + chunkSize);
-      if (isKatakana(chunk, options)) {
+      if (isKatakana(chunk)) {
         convertThisChunkToUppercase = options.convertKatakanaToUppercase;
         chunk = katakanaToHiragana(chunk);
       }
@@ -327,7 +318,7 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
       if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
         isCharVowel(roma.charAt(cursor + 2)) === false) ||
         cursor === (len - 1) ||
-        isKana(roma.charAt(cursor + 1), options)
+        isKana(roma.charAt(cursor + 1))
       ) {
         // Don't transliterate this yet.
         kanaChar = chunk.charAt(0);
