@@ -1,4 +1,6 @@
 import {
+  bind,
+  unbind,
   isHiragana,
   isKatakana,
   isKana,
@@ -10,6 +12,8 @@ import {
 } from './src/core';
 
 export default {
+  bind,
+  unbind,
   isHiragana,
   isKatakana,
   isKana,
