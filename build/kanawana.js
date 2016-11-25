@@ -156,9 +156,12 @@
 	  var iterable = kata.split('');
 	  for (var index = 0; index < iterable.length; index += 1) {
 	    var kataChar = iterable[index];
-	    // Transform long vowels: 'オー' to 'おう'
-	    if ((0, _utils.isCharLongDash)(kataChar) && index > 0) {
-	      // transform previousKana back to romaji
+	    // Short circuit to avoid incorrect codeshift for '・'
+	    if ((0, _utils.isCharSlashDot)(kataChar)) {
+	      hira.push(kataChar);
+	      // Transform long vowels: 'オー' to 'おう'
+	    } else if ((0, _utils.isCharLongDash)(kataChar) && index > 0) {
+	      // Transform previousKana back to romaji
 	      var romaji = hiraganaToRomaji(previousKana).slice(-1);
 	      hira.push(_characterTables.longVowels[romaji]);
 	    } else if ((0, _utils.isCharKatakana)(kataChar)) {
@@ -168,7 +171,7 @@
 	      hira.push(hiraChar);
 	      previousKana = hiraChar;
 	    } else {
-	      // pass non katakana chars through
+	      // Pass non katakana chars through
 	      hira.push(kataChar);
 	      previousKana = '';
 	    }
@@ -179,8 +182,8 @@
 	function hiraganaToKatakana(hira) {
 	  var kata = [];
 	  hira.split('').forEach(function (hiraChar) {
-	    // short circuit to avoid incorrect codeshift for 'ー'
-	    if ((0, _utils.isCharLongDash)(hiraChar)) {
+	    // sSort circuit to avoid incorrect codeshift for 'ー' and '・'
+	    if ((0, _utils.isCharLongDash)(hiraChar) || (0, _utils.isCharSlashDot)(hiraChar)) {
 	      kata.push(hiraChar);
 	    } else if ((0, _utils.isCharHiragana)(hiraChar)) {
 	      // Shift charcode.
@@ -188,7 +191,7 @@
 	      var kataChar = String.fromCharCode(code);
 	      kata.push(kataChar);
 	    } else {
-	      // pass non hiragana chars through
+	      // Pass non hiragana chars through
 	      kata.push(hiraChar);
 	    }
 	  });
@@ -253,8 +256,6 @@
 	}
 
 	function toRomaji(input, options) {
-	  // TODO: currently converts ー to ゜ (probably from the charcode shifting)
-	  // TODO: doesn't convert 「」｛｝（）to roman punctuation [] {} ()
 	  return hiraganaToRomaji(input, options);
 	}
 
@@ -303,7 +304,6 @@
 	      chunkSize -= 1;
 	    }
 	    if (romaChar == null) {
-	      // console.log(`Couldn't find ${chunk}. Passing through.`);
 	      // Passthrough undefined values
 	      romaChar = chunk;
 	    }
@@ -398,10 +398,8 @@
 	      }
 	    }
 
+	    // Passthrough undefined values
 	    if (kanaChar == null) {
-	      chunk = (0, _utils.convertPunctuation)(chunk);
-	      // console.log(`Couldn't find ${chunk}. Passing through.`); // DEBUG
-	      // Passthrough undefined values
 	      kanaChar = chunk;
 	    }
 
@@ -451,18 +449,20 @@
 
 	var fourCharacterEdgeCases = exports.fourCharacterEdgeCases = ['lts', 'chy', 'shy'];
 
-	var punctuation = exports.punctuation = {
-	  '　': ' ',
+	var RtoJ = exports.RtoJ = {
+	  '.': '。',
+	  ',': '、',
+	  '/': '・',
+	  '!': '！',
+	  '?': '？',
 	  '-': 'ー',
 	  '[': '「',
 	  ']': '」',
 	  '(': '（',
 	  ')': '）',
 	  '{': '｛',
-	  '}': '｝'
-	};
+	  '}': '｝',
 
-	var RtoJ = exports.RtoJ = {
 	  'a': 'あ',
 	  'i': 'い',
 	  'u': 'う',
@@ -569,10 +569,10 @@
 	  'shu': 'しゅ',
 	  'she': 'しぇ',
 	  'sho': 'しょ',
-	  'shya': 'しゃ', // note 4 character code
-	  'shyu': 'しゅ', // note 4 character code
-	  'shye': 'しぇ', // note 4 character code
-	  'shyo': 'しょ', // note 4 character code
+	  'shya': 'しゃ', // 4 character code
+	  'shyu': 'しゅ', // 4 character code
+	  'shye': 'しぇ', // 4 character code
+	  'shyo': 'しょ', // 4 character code
 	  'swa': 'すぁ',
 	  'swi': 'すぃ',
 	  'swu': 'すぅ',
@@ -615,10 +615,10 @@
 	  'cyu': 'ちゅ',
 	  'cye': 'ちぇ',
 	  'cyo': 'ちょ',
-	  'chya': 'ちゃ', // note 4 character code
-	  'chyu': 'ちゅ', // note 4 character code
-	  'chye': 'ちぇ', // note 4 character code
-	  'chyo': 'ちょ', // note 4 character code
+	  'chya': 'ちゃ', // 4 character code
+	  'chyu': 'ちゅ', // 4 character code
+	  'chye': 'ちぇ', // 4 character code
+	  'chyo': 'ちょ', // 4 character code
 	  'tsa': 'つぁ',
 	  'tsi': 'つぃ',
 	  'tse': 'つぇ',
@@ -755,6 +755,21 @@
 	  'ltsu': 'っ' };
 
 	var JtoR = exports.JtoR = {
+	  '　': ' ',
+	  '！': '!',
+	  '？': '?',
+	  '。': '.',
+	  '・': '/',
+	  '、': ',',
+	  '-': 'ー',
+	  'ー': 'ー',
+	  '「': '[',
+	  '」': ']',
+	  '（': '(',
+	  '）': ')',
+	  '｛': '{',
+	  '｝': '}',
+
 	  'あ': 'a',
 	  'い': 'i',
 	  'う': 'u',
@@ -870,9 +885,11 @@
 	  'わ': 'wa',
 	  'を': 'wo',
 	  'ん': 'n',
+
 	  // Archaic characters
 	  'ゐ': 'wi',
 	  'ゑ': 'we',
+
 	  // Uncommon character combos
 	  'きぇ': 'kye',
 	  'きょ': 'kyo',
@@ -953,6 +970,7 @@
 	  'ふゃ': 'fya',
 	  'ふゅ': 'fyu',
 	  'ふょ': 'fyo',
+
 	  //  Small Characters (normally not transliterated alone)
 	  'ぁ': 'a',
 	  'ぃ': 'i',
@@ -966,10 +984,7 @@
 	  'ゕ': 'ka',
 	  'ゖ': 'ka',
 	  'ゎ': 'wa',
-	  // Punctuation
-	  '　': ' ',
-	  '-': 'ー',
-	  'ー': 'ー',
+
 	  // Ambiguous consonant vowel pairs
 	  'んあ': 'n\'a',
 	  'んい': 'n\'i',
@@ -992,11 +1007,11 @@
 	});
 	exports.isCharUpperCase = exports.getChunkSize = exports.getChunk = undefined;
 	exports.guard = guard;
-	exports.convertPunctuation = convertPunctuation;
 	exports.isCharInRange = isCharInRange;
 	exports.isCharVowel = isCharVowel;
 	exports.isCharConsonant = isCharConsonant;
 	exports.isCharLongDash = isCharLongDash;
+	exports.isCharSlashDot = isCharSlashDot;
 	exports.isCharKatakana = isCharKatakana;
 	exports.isCharHiragana = isCharHiragana;
 	exports.isCharKana = isCharKana;
@@ -1004,8 +1019,6 @@
 	exports.convertFullwidthCharsToASCII = convertFullwidthCharsToASCII;
 
 	var _constants = __webpack_require__(5);
-
-	var _characterTables = __webpack_require__(3);
 
 	/**
 	 * Only invokes function cb() with value if value is not null or undefined
@@ -1015,12 +1028,6 @@
 	 */
 	function guard(value, cb) {
 	  return value != null ? cb(value) : undefined;
-	}
-
-	// Converts fullwidth space and short dash to normal space and long dash
-	function convertPunctuation(input) {
-	  var convertedMark = _characterTables.punctuation[input];
-	  return convertedMark != null ? convertedMark : input;
 	}
 
 	// Returns a substring based on start/end values
@@ -1081,13 +1088,17 @@
 	  return char.charCodeAt(0) === _constants.PROLONGED_SOUND_MARK;
 	}
 
+	// Returns true if char is '・'
+	function isCharSlashDot(char) {
+	  return char.charCodeAt(0) === _constants.KANA_SLASH_DOT;
+	}
+
 	/**
 	 * Tests a character. Returns true if the character is katakana.
 	 * @param  {string} char character string to test
 	 * @return {Boolean}
 	 */
 	function isCharKatakana(char) {
-	  if (isCharLongDash(char)) return true;
 	  return isCharInRange(char, _constants.KATAKANA_START, _constants.KATAKANA_END);
 	}
 
@@ -1166,6 +1177,7 @@
 	var UPPERCASE_FULLWIDTH_START = exports.UPPERCASE_FULLWIDTH_START = 0xFF21;
 	var UPPERCASE_FULLWIDTH_END = exports.UPPERCASE_FULLWIDTH_END = 0xFF3A;
 	var PROLONGED_SOUND_MARK = exports.PROLONGED_SOUND_MARK = 0x30FC;
+	var KANA_SLASH_DOT = exports.KANA_SLASH_DOT = 0x30FB;
 
 /***/ }
 /******/ ]);
