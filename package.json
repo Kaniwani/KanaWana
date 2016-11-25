@@ -12,7 +12,7 @@
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "lint": "npm run lint:eslint -- './src/*.js'",
     "lint:eslint": "eslint --ignore-path ./.gitignore --ignore-pattern 'build' --color",
-    "lint-staged": "lint-staged",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*.js": "lint"
