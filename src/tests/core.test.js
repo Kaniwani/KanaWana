@@ -144,13 +144,16 @@ describe('Character conversion', () => {
       () => expect(toKana('WaniKani')).toBe('ワにカに'));
 
     it('Non-romaji will be passed through.',
-      () => expect(toKana('ワにカに AiUeO 鰐蟹 12345 !@#$%?')).toBe('ワにカに アいウえオ 鰐蟹 12345 !@#$%?'));
+      () => expect(toKana('ワにカに AiUeO 鰐蟹 12345 @#$%')).toBe('ワにカに アいウえオ 鰐蟹 12345 @#$%'));
 
     it('It handles mixed syllabaries',
       () => expect(toKana('座禅[zazen]スタイル')).toBe('座禅「ざぜん」スタイル'));
 
     it('Will convert short to long dashes',
       () => expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
+
+    it('Will convert punctuation but pass through spaces',
+      () => expect(toKana(' .,[]{}()!?/')).toBe(' 。、「」｛｝（）！？・'));
   });
 
   describe('Converting kana to kana', () => {
@@ -218,6 +221,9 @@ describe('Kana to Romaji', () => {
 
     it('Convert mixed kana to romaji',
       () => expect(toRomaji('ワニカニ　が　すごい　だ')).toBe('wanikani ga sugoi da'));
+
+    it('Will convert punctuation and full-width spaces',
+      () => expect(toRomaji('　。、「」｛｝（）！？・')).toBe(' .,[]{}()!?/'));
 
     it('Use the convertKatakanaToUppercase flag to preserve casing. Works for katakana.',
       () => expect(toRomaji('ワニカニ', { convertKatakanaToUppercase: true })).toBe('WANIKANI'));

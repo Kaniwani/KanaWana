@@ -4,6 +4,7 @@ import {
   KATAKANA_END,
   KATAKANA_START,
   PROLONGED_SOUND_MARK,
+  KANA_SLASH_DOT,
   LOWERCASE_FULLWIDTH_END,
   LOWERCASE_FULLWIDTH_START,
   LOWERCASE_START,
@@ -13,8 +14,6 @@ import {
   UPPERCASE_START,
 } from './constants';
 
-import { punctuation } from './characterTables';
-
 /**
  * Only invokes function cb() with value if value is not null or undefined
  * @param  {any} value - parameter to test if it exists
@@ -23,12 +22,6 @@ import { punctuation } from './characterTables';
  */
 export function guard(value, cb) {
   return (value != null) ? cb(value) : undefined;
-}
-
-// Converts fullwidth space and short dash to normal space and long dash
-export function convertPunctuation(input) {
-  const convertedMark = punctuation[input];
-  return convertedMark != null ? convertedMark : input;
 }
 
 // Returns a substring based on start/end values
@@ -79,13 +72,17 @@ export function isCharLongDash(char) {
   return char.charCodeAt(0) === PROLONGED_SOUND_MARK;
 }
 
+// Returns true if char is '・'
+export function isCharSlashDot(char) {
+  return char.charCodeAt(0) === KANA_SLASH_DOT;
+}
+
 /**
  * Tests a character. Returns true if the character is katakana.
  * @param  {string} char character string to test
  * @return {Boolean}
  */
 export function isCharKatakana(char) {
-  if (isCharLongDash(char)) return true;
   return isCharInRange(char, KATAKANA_START, KATAKANA_END);
 }
 

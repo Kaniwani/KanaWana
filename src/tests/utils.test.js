@@ -19,7 +19,6 @@ import {
   isCharKana,
   isCharNotKana,
   isCharUpperCase,
-  convertPunctuation,
   convertFullwidthCharsToASCII,
 } from '../utils';
 
@@ -63,7 +62,7 @@ describe('isCharInRange', () => {
 
 describe('isCharVowel', () => {
   it('passes parameter tests', () => {
-    [...'aeiouy'].forEach(vowel => expect(isCharVowel(vowel)).toBe(true));
+    [...'aeiouy'].forEach((vowel) => expect(isCharVowel(vowel)).toBe(true));
     expect(isCharVowel('y', false /* excludes 'y' as a vowel */)).toBe(false);
     expect(isCharVowel('x')).toBe(false);
     expect(isCharVowel('!')).toBe(false);
@@ -73,7 +72,7 @@ describe('isCharVowel', () => {
 
 describe('isCharConsonant', () => {
   it('passes parameter tests', () => {
-    [...'bcdfghjklmnpqrstvwxyz'].forEach(consonant => expect(isCharConsonant(consonant)).toBe(true));
+    [...'bcdfghjklmnpqrstvwxyz'].forEach((consonant) => expect(isCharConsonant(consonant)).toBe(true));
     expect(isCharConsonant('y', false /* excludes 'y' as a consonant */)).toBe(false);
     expect(isCharConsonant('a')).toBe(false);
     expect(isCharConsonant('!')).toBe(false);
@@ -141,20 +140,6 @@ describe('isCharUpperCase', () => {
     expect(isCharUpperCase('ー')).toBe(false);
     expect(isCharUpperCase('a')).toBe(false);
     expect(isCharUpperCase('d')).toBe(false);
-  });
-});
-
-describe('convertPunctuation', () => {
-  it('passes paramater tests', () => {
-    expect(convertPunctuation('fhqwhgads')).toBe('fhqwhgads');
-    expect(convertPunctuation('-')).toBe('ー');
-    expect(convertPunctuation('　')).toBe(' ');
-    expect(convertPunctuation('[')).toBe('「');
-    expect(convertPunctuation(']')).toBe('」');
-    expect(convertPunctuation('(')).toBe('（');
-    expect(convertPunctuation(')')).toBe('）');
-    expect(convertPunctuation('{')).toBe('｛');
-    expect(convertPunctuation('}')).toBe('｝');
   });
 });
 

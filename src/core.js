@@ -9,8 +9,8 @@ import {
 
 import {
   convertFullwidthCharsToASCII,
-  convertPunctuation,
   isCharLongDash,
+  isCharSlashDot,
   isCharConsonant,
   isCharHiragana,
   isCharKana,
@@ -74,9 +74,12 @@ export function katakanaToHiragana(kata) {
   const iterable = kata.split('');
   for (let index = 0; index < iterable.length; index += 1) {
     const kataChar = iterable[index];
+    // Short circuit to avoid incorrect codeshift for '・'
+    if (isCharSlashDot(kataChar)) {
+      hira.push(kataChar);
     // Transform long vowels: 'オー' to 'おう'
-    if (isCharLongDash(kataChar) && index > 0) {
-      // transform previousKana back to romaji
+    } else if (isCharLongDash(kataChar) && index > 0) {
+      // Transform previousKana back to romaji
       const romaji = hiraganaToRomaji(previousKana).slice(-1);
       hira.push(longVowels[romaji]);
     } else if (isCharKatakana(kataChar)) {
@@ -86,7 +89,7 @@ export function katakanaToHiragana(kata) {
       hira.push(hiraChar);
       previousKana = hiraChar;
     } else {
-      // pass non katakana chars through
+      // Pass non katakana chars through
       hira.push(kataChar);
       previousKana = '';
     }
@@ -97,8 +100,8 @@ export function katakanaToHiragana(kata) {
 export function hiraganaToKatakana(hira) {
   const kata = [];
   hira.split('').forEach((hiraChar) => {
-    // short circuit to avoid incorrect codeshift for 'ー'
-    if (isCharLongDash(hiraChar)) {
+    // sSort circuit to avoid incorrect codeshift for 'ー' and '・'
+    if (isCharLongDash(hiraChar) || isCharSlashDot(hiraChar)) {
       kata.push(hiraChar);
     } else if (isCharHiragana(hiraChar)) {
       // Shift charcode.
@@ -106,7 +109,7 @@ export function hiraganaToKatakana(hira) {
       const kataChar = String.fromCharCode(code);
       kata.push(kataChar);
     } else {
-      // pass non hiragana chars through
+      // Pass non hiragana chars through
       kata.push(hiraChar);
     }
   });
@@ -165,8 +168,6 @@ export function toKana(input, options) {
 }
 
 export function toRomaji(input, options) {
-  // TODO: currently converts ー to ゜ (probably from the charcode shifting)
-  // TODO: doesn't convert 「」｛｝（）to roman punctuation [] {} ()
   return hiraganaToRomaji(input, options);
 }
 
@@ -213,7 +214,6 @@ function hiraganaToRomaji(hira, opts = {}) {
       chunkSize -= 1;
     }
     if (romaChar == null) {
-      // console.log(`Couldn't find ${chunk}. Passing through.`);
       // Passthrough undefined values
       romaChar = chunk;
     }
@@ -308,10 +308,8 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
       }
     }
 
+    // Passthrough undefined values
     if (kanaChar == null) {
-      chunk = convertPunctuation(chunk);
-      // console.log(`Couldn't find ${chunk}. Passing through.`); // DEBUG
-      // Passthrough undefined values
       kanaChar = chunk;
     }
 

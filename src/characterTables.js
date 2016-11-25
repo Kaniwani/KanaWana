@@ -12,8 +12,12 @@ export const fourCharacterEdgeCases = [
   'shy',
 ];
 
-export const punctuation = {
-  '　': ' ',
+export const RtoJ = {
+  '.': '。',
+  ',': '、',
+  '/': '・',
+  '!': '！',
+  '?': '？',
   '-': 'ー',
   '[': '「',
   ']': '」',
@@ -21,9 +25,7 @@ export const punctuation = {
   ')': '）',
   '{': '｛',
   '}': '｝',
-};
 
-export const RtoJ = {
   'a': 'あ',
   'i': 'い',
   'u': 'う',
@@ -130,10 +132,10 @@ export const RtoJ = {
   'shu': 'しゅ',
   'she': 'しぇ',
   'sho': 'しょ',
-  'shya': 'しゃ', // note 4 character code
-  'shyu': 'しゅ', // note 4 character code
-  'shye': 'しぇ', // note 4 character code
-  'shyo': 'しょ', // note 4 character code
+  'shya': 'しゃ', // 4 character code
+  'shyu': 'しゅ', // 4 character code
+  'shye': 'しぇ', // 4 character code
+  'shyo': 'しょ', // 4 character code
   'swa': 'すぁ',
   'swi': 'すぃ',
   'swu': 'すぅ',
@@ -176,10 +178,10 @@ export const RtoJ = {
   'cyu': 'ちゅ',
   'cye': 'ちぇ',
   'cyo': 'ちょ',
-  'chya': 'ちゃ', // note 4 character code
-  'chyu': 'ちゅ', // note 4 character code
-  'chye': 'ちぇ', // note 4 character code
-  'chyo': 'ちょ', // note 4 character code
+  'chya': 'ちゃ', // 4 character code
+  'chyu': 'ちゅ', // 4 character code
+  'chye': 'ちぇ', // 4 character code
+  'chyo': 'ちょ', // 4 character code
   'tsa': 'つぁ',
   'tsi': 'つぃ',
   'tse': 'つぇ',
@@ -313,10 +315,25 @@ export const RtoJ = {
   'nn': 'ん',
   'n ': 'ん', // n + space
   'xn': 'ん',
-  'ltsu': 'っ', // note 4 character code
+  'ltsu': 'っ',  // 4 character code
 };
 
 export const JtoR = {
+  '　': ' ',
+  '！': '!',
+  '？': '?',
+  '。': '.',
+  '・': '/',
+  '、': ',',
+  '-': 'ー',
+  'ー': 'ー',
+  '「': '[',
+  '」': ']',
+  '（': '(',
+  '）': ')',
+  '｛': '{',
+  '｝': '}',
+
   'あ': 'a',
   'い': 'i',
   'う': 'u',
@@ -432,9 +449,11 @@ export const JtoR = {
   'わ': 'wa',
   'を': 'wo',
   'ん': 'n',
+
   // Archaic characters
   'ゐ': 'wi',
   'ゑ': 'we',
+
   // Uncommon character combos
   'きぇ': 'kye',
   'きょ': 'kyo',
@@ -515,6 +534,7 @@ export const JtoR = {
   'ふゃ': 'fya',
   'ふゅ': 'fyu',
   'ふょ': 'fyo',
+
   //  Small Characters (normally not transliterated alone)
   'ぁ': 'a',
   'ぃ': 'i',
@@ -528,10 +548,7 @@ export const JtoR = {
   'ゕ': 'ka',
   'ゖ': 'ka',
   'ゎ': 'wa',
-  // Punctuation
-  '　': ' ',
-  '-': 'ー',
-  'ー': 'ー',
+
   // Ambiguous consonant vowel pairs
   'んあ': 'n\'a',
   'んい': 'n\'i',
