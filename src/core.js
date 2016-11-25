@@ -30,7 +30,8 @@ import {
 export const defaultOptions = {
   // Set to true to use obsolete characters, such as ゐ and ゑ.
   useObsoleteKana: false,
-  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(), such as "romaji is not かな"
+  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(),
+  // so: "romaji is not ヒラガナ" -> "romaji is not ひらがな"
   passRomaji: false,
   // Set to true to handle input from a text input as it is typed.
   IMEMode: false,
