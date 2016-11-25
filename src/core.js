@@ -74,16 +74,17 @@ export function katakanaToHiragana(kata) {
   const iterable = kata.split('');
   for (let index = 0; index < iterable.length; index += 1) {
     const kataChar = iterable[index];
-    // Short circuit to avoid incorrect codeshift for '・'
-    if (isCharSlashDot(kataChar)) {
+    const [slashDot, longDash] = [isCharSlashDot(kataChar), isCharLongDash(kataChar)];
+    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
+    if (slashDot || (longDash && index < 1)) {
       hira.push(kataChar);
     // Transform long vowels: 'オー' to 'おう'
-    } else if (isCharLongDash(kataChar) && index > 0) {
+    } else if (longDash && index > 0) {
       // Transform previousKana back to romaji
       const romaji = hiraganaToRomaji(previousKana).slice(-1);
       hira.push(longVowels[romaji]);
     } else if (isCharKatakana(kataChar)) {
-        // Shift charcode.
+      // Shift charcode.
       const code = kataChar.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
       const hiraChar = String.fromCharCode(code);
       hira.push(hiraChar);
@@ -100,7 +101,7 @@ export function katakanaToHiragana(kata) {
 export function hiraganaToKatakana(hira) {
   const kata = [];
   hira.split('').forEach((hiraChar) => {
-    // sSort circuit to avoid incorrect codeshift for 'ー' and '・'
+    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
     if (isCharLongDash(hiraChar) || isCharSlashDot(hiraChar)) {
       kata.push(hiraChar);
     } else if (isCharHiragana(hiraChar)) {

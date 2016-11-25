@@ -223,13 +223,16 @@ describe('Kana to Romaji', () => {
       () => expect(toRomaji('ワニカニ　が　すごい　だ')).toBe('wanikani ga sugoi da'));
 
     it('Will convert punctuation and full-width spaces',
-      () => expect(toRomaji('　。、「」｛｝（）！？・')).toBe(' .,[]{}()!?/'));
+      () => expect(toRomaji('　。、「」｛｝ー（）！？・')).toBe(' .,[]{}-()!?/'));
 
     it('Use the convertKatakanaToUppercase flag to preserve casing. Works for katakana.',
       () => expect(toRomaji('ワニカニ', { convertKatakanaToUppercase: true })).toBe('WANIKANI'));
 
     it('Use the convertKatakanaToUppercase flag to preserve casing. Works for mixed kana.',
       () => expect(toRomaji('ワニカニ　が　すごい　だ', { convertKatakanaToUppercase: true })).toBe('WANIKANI ga sugoi da'));
+
+    it("Doesn't mangle the long dash 'ー' or slashdot '・'",
+      () => expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰ge-mu/batsuge-mu'));
 
     it('Spaces must be manually entered',
       () => expect(toRomaji('わにかにがすごいだ')).not.toBe('wanikani ga sugoi da'));
