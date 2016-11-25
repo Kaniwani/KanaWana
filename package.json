@@ -4,11 +4,12 @@
   "repository": "https://github.com/DJTB/KanaWana/",
   "version": "0.0.1",
   "scripts": {
-    "build": "webpack --config webpack.base.js",
-    "build:prod": "webpack --config webpack.prod.js",
+    "build": "cross-env NODE_ENV=development webpack --config webpack.base.js --color --progress",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.prod.js --color -p --progress",
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "pre-commit": "test",
   "jest": {
     "verbose": true,
     "bail": false,
