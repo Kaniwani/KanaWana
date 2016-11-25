@@ -6,8 +6,8 @@ module.exports = {
     path.join(__dirname, 'src/index.js'),
   ],
   output: {
-    path: __dirname,
-    publicPath: '/',
+    path: path.join(__dirname, 'build'),
+    publicPath: '/build',
     filename: 'kanawana.min.js',
   },
   module: {

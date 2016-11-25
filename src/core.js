@@ -96,7 +96,7 @@ export function katakanaToHiragana(kata) {
 
 export function hiraganaToKatakana(hira) {
   const kata = [];
-  hira.split('').forEach(hiraChar => {
+  hira.split('').forEach((hiraChar) => {
     // short circuit to avoid incorrect codeshift for 'ー'
     if (isCharLongDash(hiraChar)) {
       kata.push(hiraChar);
@@ -130,7 +130,7 @@ export function isKana(input) {
 }
 
 export function isRomaji(input) {
-  return input.split('').every(char => !isHiragana(char) && !isKatakana(char));
+  return input.split('').every((char) => !isHiragana(char) && !isKatakana(char));
 }
 
 // Returns true if input is a mix of romaji and kana

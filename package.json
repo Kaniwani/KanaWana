@@ -4,31 +4,47 @@
   "repository": "https://github.com/DJTB/KanaWana/",
   "version": "0.0.1",
   "scripts": {
-    "build": "cross-env NODE_ENV=development webpack --config webpack.base.js --color --progress",
+    "build": "cross-env NODE_ENV=development webpack --config webpack.dev.js --color --progress",
     "build:prod": "cross-env NODE_ENV=production webpack --config webpack.prod.js --color -p --progress",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "pretest": "npm run test:clean && npm run lint",
+    "test:clean": "rimraf ./coverage",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
+    "lint": "eslint './src/*.js' --ignore-path ./.gitignore --color",
+    "lint-staged": "lint-staged"
   },
-  "pre-commit": "test",
+  "lint-staged": {
+    "*.js": "lint"
+  },
+  "pre-commit": "lint-staged",
   "jest": {
     "verbose": true,
     "bail": false,
     "collectCoverage": true,
+    "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/*.js",
       "!**/node_modules/**"
     ],
     "testEnvironment": "node",
-    "testRegex": "(\\.(test|spec))\\.jsx?$"
+    "testRegex": "(\\.(test|spec))\\.js$"
   },
   "dependencies": {
+    "babel-eslint": "^7.1.1",
     "babel-jest": "^17.0.2",
     "babel-loader": "^6.2.8",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-2": "^6.18.0",
+    "cross-env": "^3.1.3",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
     "jest": "^17.0.3",
     "microtime": "^2.1.2",
+    "pre-commit": "^1.1.3",
+    "rimraf": "^2.5.4",
     "webpack": "^1.13.3"
   }
 }
