@@ -14,15 +14,6 @@ import {
   UPPERCASE_START,
 } from './constants';
 
-/**
- * Only invokes function cb() with value if value is not null or undefined
- * @param  {any} value - parameter to test if it exists
- * @param  {Function} cb - callback function to call with value
- * @return {*} Return value from invoking callback with value, else undefined
- */
-export function guard(value, cb) {
-  return (value != null) ? cb(value) : undefined;
-}
 
 // Returns a substring based on start/end values
 export const getChunk = (str, start, end) => str.slice(start, end);

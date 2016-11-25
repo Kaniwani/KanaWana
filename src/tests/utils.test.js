@@ -1,19 +1,16 @@
-/* eslint-disable no-undef */
-/* since { describe, it, test, expect } etc aren't explicitly imported from jest */
-
 import {
   HIRAGANA_END,
   HIRAGANA_START,
 } from '../constants';
 
 import {
-  guard,
   getChunk,
   getChunkSize,
   isCharInRange,
   isCharVowel,
   isCharConsonant,
   isCharLongDash,
+  isCharSlashDot,
   isCharKatakana,
   isCharHiragana,
   isCharKana,
@@ -22,18 +19,8 @@ import {
   convertFullwidthCharsToASCII,
 } from '../utils';
 
-const identity = (x) => x;
-
-describe('guard', () => {
-  it('passes parameter tests', () => {
-    expect(guard(null, identity)).toBe(undefined);
-    expect(guard(undefined, identity)).toBe(undefined);
-    expect(guard('toasted cheese', identity)).toEqual('toasted cheese');
-    expect(guard(2, identity)).toEqual(2);
-    expect(guard({ derp: 'alerp' }, identity)).toEqual({ derp: 'alerp' });
-    expect(guard('', identity)).toEqual('');
-  });
-});
+/* eslint-disable no-undef */
+/* since { describe, it, test, expect } etc aren't explicitly imported from jest */
 
 describe('getChunk', () => {
   it('passes parameter tests', () => {
@@ -86,6 +73,15 @@ describe('isCharLongDash', () => {
     expect(isCharLongDash('-')).toBe(false);
     expect(isCharLongDash('f')).toBe(false);
     expect(isCharLongDash('ふ')).toBe(false);
+  });
+});
+
+describe('isCharSlashDot', () => {
+  it('passes parameter tests', () => {
+    expect(isCharSlashDot('・')).toBe(true);
+    expect(isCharSlashDot('/')).toBe(false);
+    expect(isCharSlashDot('f')).toBe(false);
+    expect(isCharSlashDot('ふ')).toBe(false);
   });
 });
 

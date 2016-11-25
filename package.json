@@ -19,16 +19,23 @@
   },
   "pre-commit": "lint-staged",
   "jest": {
-    "verbose": true,
+    "verbose": false,
     "bail": false,
+    "testRegex": "(\\.(test|spec))\\.js$",
     "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 90,
+        "lines": 40,
+        "statements": 25
+      }
+    },
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/*.js",
       "!**/node_modules/**"
-    ],
-    "testEnvironment": "node",
-    "testRegex": "(\\.(test|spec))\\.js$"
+    ]
   },
   "dependencies": {
     "babel-eslint": "^7.1.1",

@@ -1,4 +1,9 @@
-/* eslint-disable no-console */
+import {
+  HIRAGANA_START,
+  KATAKANA_START,
+  UPPERCASE_END,
+  UPPERCASE_START,
+} from './constants';
 
 import {
   fourCharacterEdgeCases,
@@ -8,7 +13,8 @@ import {
 } from './characterTables';
 
 import {
-  convertFullwidthCharsToASCII,
+  getChunk,
+  getChunkSize,
   isCharLongDash,
   isCharSlashDot,
   isCharConsonant,
@@ -18,16 +24,8 @@ import {
   isCharKatakana,
   isCharVowel,
   isCharUpperCase,
-  getChunk,
-  getChunkSize,
+  convertFullwidthCharsToASCII,
 } from './utils';
-
-import {
-  HIRAGANA_START,
-  KATAKANA_START,
-  UPPERCASE_END,
-  UPPERCASE_START,
-} from './constants';
 
 export const defaultOptions = {
   // Set to true to use obsolete characters, such as ゐ and ゑ.
@@ -37,6 +35,14 @@ export const defaultOptions = {
   // Set to true to handle input from a text input as it is typed.
   IMEMode: false,
 };
+
+export function bind(input, options) {
+  input.addEventListener('input', (event) => onInput(event, options));
+}
+
+export function unbind(input) {
+  input.removeEventListener('input', onInput);
+}
 
 export function onInput(event, opts) {
   const options = Object.assign({}, defaultOptions, opts, { IMEMode: true });
@@ -58,14 +64,6 @@ export function onInput(event, opts) {
       range.select();
     }
   }
-}
-
-export function bind(input, options) {
-  input.addEventListener('input', (event) => onInput(event, options));
-}
-
-export function unbind(input) {
-  input.removeEventListener('input', onInput);
 }
 
 export function katakanaToHiragana(kata) {
