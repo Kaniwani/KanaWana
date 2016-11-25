@@ -13,7 +13,6 @@
     "lint": "npm run lint:eslint -- './src/*.js'",
     "lint:eslint": "eslint --ignore-path ./.gitignore --ignore-pattern 'build' --color",
     "lint-staged": "lint-staged",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "lint-staged": {
     "*.js": "lint"
