@@ -3,6 +3,7 @@ import testTable from './transliteration-table';
 import {
   defaultOptions,
   isKana,
+  isKanjiKana,
   isKatakana,
   isHiragana,
   isRomaji,
@@ -42,6 +43,17 @@ describe('Character type detection', () => {
     it('A is not kana', () => expect(isKana('A')).toBe(false));
     it('あAア is not kana', () => expect(isKana('あAア')).toBe(false));
     it('ignores long dash in mixed kana', () => expect(isKana('アーあ')).toBe(true));
+  });
+
+  describe('isKanjiKana()', () => {
+    it('泣き虫 is kanji/kana', () => expect(isKanjiKana('泣き虫')).toBe(true));
+    it('あア is kanji/kana', () => expect(isKanjiKana('あア')).toBe(true));
+    it('泣き虫A is not kanji/kana', () => expect(isKanjiKana('泣き虫A')).toBe(false));
+    it('A is not kanji/kana', () => expect(isKanjiKana('A')).toBe(false));
+    it('泣き虫。！〜 (w. kana punctuation) is kanji/kana',
+      () => expect(isKanjiKana('泣き虫。！〜')).toBe(true));
+    it('泣き虫.!~ (w. romaji punctuation) is not kanji/kana',
+      () => expect(isKanjiKana('泣き虫.!~')).toBe(false));
   });
 
   describe('isRomaji()', () => {
