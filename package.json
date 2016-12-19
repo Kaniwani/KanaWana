@@ -1,8 +1,26 @@
 {
-  "name": "KanaWana",
+  "name": "kanawana",
   "description": "JS library that transliterates between japanese kana and roman letters.",
-  "repository": "https://github.com/DJTB/KanaWana/",
-  "version": "0.0.1",
+  "author": "Duncan Bay <duncan.bay@gmail.com> (https://github.com/DJTB)",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DJTB/KanaWana/"
+  },
+  "bugs": {
+    "url": "https://github.com/DJTB/KanaWana/issues"
+  },
+  "main": "build/kanawana.js",
+  "license": "MIT",
+  "keywords": [
+    "japanese",
+    "english",
+    "hiragana",
+    "katakana",
+    "romaji",
+    "conversion",
+    "transliteration"
+  ],
   "scripts": {
     "build": "cross-env NODE_ENV=development webpack --config webpack.dev.js --color --progress",
     "build:prod": "cross-env NODE_ENV=production webpack --config webpack.prod.js --color -p --progress",
@@ -34,26 +52,27 @@
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
       "src/*.js",
+      "!src/index.js",
       "!**/node_modules/**"
     ]
   },
   "dependencies": {
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^17.0.2",
-    "babel-loader": "^6.2.8",
-    "babel-polyfill": "^6.16.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-2": "^6.18.0",
-    "cross-env": "^3.1.3",
-    "eslint": "^3.10.2",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0",
-    "jest": "^17.0.3",
-    "lint-staged": "^3.2.1",
-    "microtime": "^2.1.2",
-    "pre-commit": "^1.1.3",
-    "rimraf": "^2.5.4",
-    "webpack": "^1.13.3"
+    "babel-eslint": "7.1.1",
+    "babel-jest": "17.0.2",
+    "babel-loader": "6.2.8",
+    "babel-polyfill": "6.16.0",
+    "babel-preset-es2015": "6.18.0",
+    "babel-preset-stage-2": "6.18.0",
+    "cross-env": "3.1.3",
+    "eslint": "3.10.2",
+    "eslint-config-airbnb": "13.0.0",
+    "eslint-config-airbnb-base": "10.0.1",
+    "eslint-plugin-import": "2.2.0",
+    "jest": "17.0.3",
+    "lint-staged": "3.2.1",
+    "microtime": "2.1.2",
+    "pre-commit": "1.1.3",
+    "rimraf": "2.5.4",
+    "webpack": "1.13.3"
   }
 }

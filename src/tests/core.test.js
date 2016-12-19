@@ -14,9 +14,6 @@ import {
   toRomaji,
 } from '../core';
 
-/* eslint-disable no-undef */
-// since { describe, it, test, expect } etc aren't explicitly imported from jest
-
 describe('Character type detection', () => {
   describe('isHiragana()', () => {
     it('あ is hiragana', () => expect(isHiragana('あ')).toBe(true));

@@ -25,7 +25,6 @@ import {
   isCharKatakana,
   isCharVowel,
   isCharUpperCase,
-  convertFullwidthCharsToASCII,
 } from './utils';
 
 export const defaultOptions = {
@@ -37,36 +36,6 @@ export const defaultOptions = {
   // Set to true to handle input from a text input as it is typed.
   IMEMode: false,
 };
-
-export function bind(input, options) {
-  input.addEventListener('input', (event) => onInput(event, options));
-}
-
-export function unbind(input) {
-  input.removeEventListener('input', onInput);
-}
-
-export function onInput(event, opts) {
-  const options = Object.assign({}, defaultOptions, opts, { IMEMode: true });
-  const input = event.target;
-  // const startingCursor = input.selectionStart;
-  // const startingLength = input.value.length;
-  const normalizedInputString = convertFullwidthCharsToASCII((input.value));
-  const newText = (toKana(normalizedInputString, options));
-  if (normalizedInputString !== newText) {
-    input.value = newText;
-    if (typeof input.selectionStart === 'number') {
-      input.selectionStart = input.selectionEnd = input.value.length;
-      return;
-    }
-    if (typeof input.createTextRange !== 'undefined') {
-      input.focus();
-      const range = input.createTextRange();
-      range.collapse(false);
-      range.select();
-    }
-  }
-}
 
 export function katakanaToHiragana(kata) {
   const hira = [];
