@@ -34,7 +34,7 @@ kanawana.isKana(string);
 kanawana.isKatakana(string);
 
 // Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.
-// Non romaji is passed through as-is 12345 !@#$%?, except for -[](){} which become ー「 」（ ）｛ ｝
+// Non romaji and some punctuation is passed through: 12345 @#$%, except for .,[]{}()!?/ which become 。、「」｛｝（）！？・
 kanawana.toKana(string [, options]);
 
 // Convert Katakana or Romaji to Hiragana.
