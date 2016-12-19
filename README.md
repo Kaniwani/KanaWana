@@ -1,13 +1,11 @@
 <div align="center">
 <!-- Dependency Status -->
-
-David:    https://img.shields.io/david/dev/strongloop/express.svg
   <a href="https://david-dm.org/DJTB/KanaWana">
     <img src="https://img.shields.io/david/DJTB/KanaWana.svg" alt="Dependency Status" />
   </a>
   <!-- devDependency Status -->
   <a href="https://david-dm.org/DJTB/KanaWana#info=devDependencies">
-    <img src="https://img.shields.io/david/DJTB/KanaWana/dev-status.svg" alt="devDependency Status" />
+    <img src="https://img.shields.io/david/dev/DJTB/KanaWana.svg" alt="devDependency Status" />
   </a>
  <!-- Build Status -->
   <a href="https://travis-ci.org/DJTB/KanaWana">
@@ -15,7 +13,7 @@ David:    https://img.shields.io/david/dev/strongloop/express.svg
   </a>
   <!-- Test Coverage -->
   <a href="https://coveralls.io/r/DJTB/KanaWana">
-    <img src="https://img.shields.io/coveralls/DJTB/KanaWana/badge.svg" alt="Test Coverage" />
+    <img src="https://img.shields.io/coveralls/DJTB/KanaWana.svg" alt="Test Coverage" />
   </a>
 </div>
 
