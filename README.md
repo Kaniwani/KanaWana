@@ -15,7 +15,7 @@ yarn add kanawana
 Include kanawana.min.js as a script and bind/unbind to any input fields.
 ```html
 <script src="build/kanawana.js"></script>
-<script> window.kanawana.bind(document.getElementById('myInput')</script>
+<script>(function(kw) { kw.bind(document.getElementById('myInput'); })(window.kanawana)</script>
 ```
 
 ## Documentation
