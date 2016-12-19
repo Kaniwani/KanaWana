@@ -8,7 +8,6 @@ Javascript library that provides utilities for detecting and transliterating Hir
 
 ## Install
 ```shell
-npm install kanawana
 yarn add kanawana
 ```
 
@@ -16,8 +15,8 @@ yarn add kanawana
 
 ```javascript
 
-import kanawana from 'kanawana'; // const kanawana = require('kanawana');
-// Or import { toKana } from 'kanawana';
+const kanawana = require('kanawana');
+// Or cherrypick in ES6 via import { toKana, isHiragana } from 'kanawana';
 
 // Adds event listener to an input field, defaulting to IME mode
 kanawana.bind(domElement [, options]);
