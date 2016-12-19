@@ -14,16 +14,17 @@ yarn add kanawana
 
 ## Usage
 
-### In Browser
-Include kanawana.min.js as a script and bind/unbind to any input fields.
-```html
-<script src="build/kanawana.js"></script>
-<script>(function(kw) { kw.bind(document.getElementById('myInput'); })(window.kanawana)</script>
-```
-
-## Documentation
-
 ```javascript
+
+import kanawana from 'kanawana'; // const kanawana = require('kanawana');
+// Or import { toKana } from 'kanawana';
+
+// Adds event listener to an input field, defaulting to IME mode
+kanawana.bind(domElement [, options]);
+
+// Removes event listener
+kanawana.unbind(domElement);
+
 // Returns false if string contains mixed characters, otherwise true if Hiragana.
 kanawana.isHiragana(string);
 

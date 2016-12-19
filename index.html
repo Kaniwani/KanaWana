@@ -150,29 +150,28 @@
 
 		</main>
 
-		<script type="text/javascript" src="build/kanawana.js"></script>
+		<script type="text/javascript" src="bundle/kanawana.min.js"></script>
 		<script type="text/javascript">
-		(function(kw) {
+
 			///// IME Mode
-			var inputIME = document.getElementById('input-IME');
-			kw.bind(inputIME);
+			const inputIME = document.getElementById('input-IME');
+			kanawana.bind(inputIME);
 			///// Non-IME mode
-			var inputTranslit = document.getElementById('input-translit');
-			var outputKana = document.getElementById('output-kana');
+			const inputTranslit = document.getElementById('input-translit');
+			const outputKana = document.getElementById('output-kana');
 
 			function inputChangedTranslit(e) {
-				outputKana.innerHTML = (kw.toKana(inputTranslit.value));
+				outputKana.innerHTML = (kanawana.toKana(inputTranslit.value));
 			}
 			inputTranslit.addEventListener('input', inputChangedTranslit);
 			///// to romaji
-			var inputKana = document.getElementById('input-kana');
-			var outputRomaji = document.getElementById('output-romaji');
+			const inputKana = document.getElementById('input-kana');
+			const outputRomaji = document.getElementById('output-romaji');
 
 			function inputChangedKana(e) {
-				outputRomaji.innerHTML = (kw.toRomaji(inputKana.value));
+				outputRomaji.innerHTML = (kanawana.toRomaji(inputKana.value));
 			}
 			inputKana.addEventListener('input', inputChangedKana);
-		})(window.kanawana);
 		</script>
 
 </body>

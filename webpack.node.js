@@ -2,12 +2,14 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src/core.js'),
   ],
   output: {
-    path: path.join(__dirname, 'build'),
-    publicPath: '/build',
-    filename: 'kanawana.js',
+    library: 'kanawana',
+    libraryTarget: 'commonjs2',
+    path: path.join(__dirname),
+    publicPath: '/',
+    filename: 'index.js',
   },
   module: {
     loaders: [{
@@ -15,5 +17,4 @@ module.exports = {
       loader: 'babel',
     }],
   },
-  target: 'web',
 };

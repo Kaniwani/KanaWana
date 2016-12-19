@@ -1,77 +1,115 @@
-/******/ (function (modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
-  /******/ 	const installedModules = {};
+/******/ 	var installedModules = {};
 
 /******/ 	// The require function
-  /******/ 	function __webpack_require__(moduleId) {
+/******/ 	function __webpack_require__(moduleId) {
+
 /******/ 		// Check if module is in cache
-    /******/ 		if (installedModules[moduleId])
-  /******/ 			{
-      return installedModules[moduleId].exports;
-    }
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
 
 /******/ 		// Create a new module (and put it into the cache)
-    /******/ 		const module = installedModules[moduleId] = {
-      /******/ 			exports: {},
-      /******/ 			id: moduleId,
-      /******/ 			loaded: false,
-    /******/ 		};
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
 
 /******/ 		// Execute the module function
-    /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
 /******/ 		// Flag the module as loaded
-    /******/ 		module.loaded = true;
+/******/ 		module.loaded = true;
 
 /******/ 		// Return the exports of the module
-    /******/ 		return module.exports;
-  /******/ 	}
+/******/ 		return module.exports;
+/******/ 	}
 
 
 /******/ 	// expose the modules object (__webpack_modules__)
-  /******/ 	__webpack_require__.m = modules;
+/******/ 	__webpack_require__.m = modules;
 
 /******/ 	// expose the module cache
-  /******/ 	__webpack_require__.c = installedModules;
+/******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-  /******/ 	__webpack_require__.p = '/build';
+/******/ 	__webpack_require__.p = "/";
 
 /******/ 	// Load entry module and return exports
-  /******/ 	return __webpack_require__(0);
-/******/ }([
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
 /* 0 */
-  /***/ function (module, exports, __webpack_require__) {
-    module.exports = __webpack_require__(1);
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(1);
 
 
-/***/
-  },
+/***/ },
 /* 1 */
-  /***/ function (module, exports, __webpack_require__) {
-    Object.defineProperty(exports, '__esModule', {
-	  value: true,
-    });
+/***/ function(module, exports, __webpack_require__) {
 
-    const _core = __webpack_require__(2);
+	'use strict';
 
-    const _utils = __webpack_require__(5);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.defaultOptions = undefined;
+	exports.bind = bind;
+	exports.unbind = unbind;
+	exports.katakanaToHiragana = katakanaToHiragana;
+	exports.hiraganaToKatakana = hiraganaToKatakana;
+	exports.romajiToHiragana = romajiToHiragana;
+	exports.isHiragana = isHiragana;
+	exports.isKatakana = isKatakana;
+	exports.isKana = isKana;
+	exports.isKanjiKana = isKanjiKana;
+	exports.isRomaji = isRomaji;
+	exports.isMixed = isMixed;
+	exports.toHiragana = toHiragana;
+	exports.toKatakana = toKatakana;
+	exports.toKana = toKana;
+	exports.toRomaji = toRomaji;
+	exports.romajiToKana = romajiToKana;
 
-    function bind(input, options) {
-	  input.addEventListener('input', (event) => onInput(event, options));
-    }
+	var _constants = __webpack_require__(2);
 
-    function unbind(input) {
+	var _characterTables = __webpack_require__(3);
+
+	var _utils = __webpack_require__(4);
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var defaultOptions = exports.defaultOptions = {
+	  // Set to true to use obsolete characters, such as ゐ and ゑ.
+	  useObsoleteKana: false,
+	  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(),
+	  // so: "romaji is not ヒラガナ" -> "romaji is not ひらがな"
+	  passRomaji: false,
+	  // Set to true to handle input from a text input as it is typed.
+	  IMEMode: false
+	};
+
+	function bind(input, options) {
+	  input.addEventListener('input', function (event) {
+	    return onInput(event, options);
+	  });
+	}
+
+	function unbind(input) {
 	  input.removeEventListener('input', onInput);
-    }
+	}
 
-    function onInput(event, opts) {
-	  const options = Object.assign({}, _core.defaultOptions, opts, { IMEMode: true });
-	  const input = event.target;
+	function onInput(event, opts) {
+	  var options = Object.assign({}, defaultOptions, opts, { IMEMode: true });
+	  var input = event.target;
 	  // const startingCursor = input.selectionStart;
 	  // const startingLength = input.value.length;
-	  const normalizedInputString = (0, _utils.convertFullwidthCharsToASCII)(input.value);
-	  const newText = (0, _core.toKana)(normalizedInputString, options);
+	  var normalizedInputString = (0, _utils.convertFullwidthCharsToASCII)(input.value);
+	  var newText = toKana(normalizedInputString, options);
 	  if (normalizedInputString !== newText) {
 	    input.value = newText;
 	    if (typeof input.selectionStart === 'number') {
@@ -80,80 +118,20 @@
 	    }
 	    if (typeof input.createTextRange !== 'undefined') {
 	      input.focus();
-	      const range = input.createTextRange();
+	      var range = input.createTextRange();
 	      range.collapse(false);
 	      range.select();
 	    }
 	  }
-    }
+	}
 
-    const kanawana = {
-	  bind,
-	  unbind,
-	  isHiragana: _core.isHiragana,
-	  isKatakana: _core.isKatakana,
-	  isKana: _core.isKana,
-	  isRomaji: _core.isRomaji,
-	  toHiragana: _core.toHiragana,
-	  toKatakana: _core.toKatakana,
-	  toKana: _core.toKana,
-	  toRomaji: _core.toRomaji,
-    };
-
-    if (window) {
-	  window.kanawana = kanawana;
-    }
-
-    exports.default = kanawana;
-
-/***/
-  },
-/* 2 */
-  /***/ function (module, exports, __webpack_require__) {
-    Object.defineProperty(exports, '__esModule', {
-	  value: true,
-    });
-    exports.defaultOptions = undefined;
-    exports.katakanaToHiragana = katakanaToHiragana;
-    exports.hiraganaToKatakana = hiraganaToKatakana;
-    exports.romajiToHiragana = romajiToHiragana;
-    exports.isHiragana = isHiragana;
-    exports.isKatakana = isKatakana;
-    exports.isKana = isKana;
-    exports.isKanjiKana = isKanjiKana;
-    exports.isRomaji = isRomaji;
-    exports.isMixed = isMixed;
-    exports.toHiragana = toHiragana;
-    exports.toKatakana = toKatakana;
-    exports.toKana = toKana;
-    exports.toRomaji = toRomaji;
-    exports.romajiToKana = romajiToKana;
-
-    const _constants = __webpack_require__(3);
-
-    const _characterTables = __webpack_require__(4);
-
-    const _utils = __webpack_require__(5);
-
-    function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-    const defaultOptions = exports.defaultOptions = {
-	  // Set to true to use obsolete characters, such as ゐ and ゑ.
-	  useObsoleteKana: false,
-	  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(),
-	  // so: "romaji is not ヒラガナ" -> "romaji is not ひらがな"
-	  passRomaji: false,
-	  // Set to true to handle input from a text input as it is typed.
-	  IMEMode: false,
-    };
-
-    function katakanaToHiragana(kata) {
-	  const hira = [];
-	  let previousKana = '';
-	  const iterable = kata.split('');
-	  for (let index = 0; index < iterable.length; index += 1) {
-	    const kataChar = iterable[index];
-	    let _ref = [(0, _utils.isCharSlashDot)(kataChar), (0, _utils.isCharLongDash)(kataChar)],
+	function katakanaToHiragana(kata) {
+	  var hira = [];
+	  var previousKana = '';
+	  var iterable = kata.split('');
+	  for (var index = 0; index < iterable.length; index += 1) {
+	    var kataChar = iterable[index];
+	    var _ref = [(0, _utils.isCharSlashDot)(kataChar), (0, _utils.isCharLongDash)(kataChar)],
 	        slashDot = _ref[0],
 	        longDash = _ref[1];
 	    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
@@ -163,12 +141,12 @@
 	      // Transform long vowels: 'オー' to 'おう'
 	    } else if (longDash && index > 0) {
 	      // Transform previousKana back to romaji
-	      const romaji = hiraganaToRomaji(previousKana).slice(-1);
+	      var romaji = hiraganaToRomaji(previousKana).slice(-1);
 	      hira.push(_characterTables.longVowels[romaji]);
 	    } else if ((0, _utils.isCharKatakana)(kataChar)) {
 	      // Shift charcode.
-	      const code = kataChar.charCodeAt(0) + (_constants.HIRAGANA_START - _constants.KATAKANA_START);
-	      const hiraChar = String.fromCharCode(code);
+	      var code = kataChar.charCodeAt(0) + (_constants.HIRAGANA_START - _constants.KATAKANA_START);
+	      var hiraChar = String.fromCharCode(code);
 	      hira.push(hiraChar);
 	      previousKana = hiraChar;
 	    } else {
@@ -178,18 +156,18 @@
 	    }
 	  }
 	  return hira.join('');
-    }
+	}
 
-    function hiraganaToKatakana(hira) {
-	  const kata = [];
-	  hira.split('').forEach((hiraChar) => {
+	function hiraganaToKatakana(hira) {
+	  var kata = [];
+	  hira.split('').forEach(function (hiraChar) {
 	    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
 	    if ((0, _utils.isCharLongDash)(hiraChar) || (0, _utils.isCharSlashDot)(hiraChar)) {
 	      kata.push(hiraChar);
 	    } else if ((0, _utils.isCharHiragana)(hiraChar)) {
 	      // Shift charcode.
-	      const code = hiraChar.charCodeAt(0) + (_constants.KATAKANA_START - _constants.HIRAGANA_START);
-	      const kataChar = String.fromCharCode(code);
+	      var code = hiraChar.charCodeAt(0) + (_constants.KATAKANA_START - _constants.HIRAGANA_START);
+	      var kataChar = String.fromCharCode(code);
 	      kata.push(kataChar);
 	    } else {
 	      // Pass non hiragana chars through
@@ -197,92 +175,96 @@
 	    }
 	  });
 	  return kata.join('');
-    }
+	}
 
-    function romajiToHiragana(roma, options) {
+	function romajiToHiragana(roma, options) {
 	  return romajiToKana(roma, options, true);
-    }
+	}
 
-    function isHiragana(input) {
+	function isHiragana(input) {
 	  return [].concat(_toConsumableArray(input)).every(_utils.isCharHiragana);
-    }
+	}
 
-    function isKatakana(input) {
+	function isKatakana(input) {
 	  return [].concat(_toConsumableArray(input)).every(_utils.isCharKatakana);
-    }
+	}
 
-    function isKana(input) {
+	function isKana(input) {
 	  return [].concat(_toConsumableArray(input)).every(_utils.isCharKana);
-    }
+	}
 
 	// Test if input is All Japanese, for mixes of kanji and kana like "泣き虫。"
 	// Includes Japanese full-width punctuation ranges
-    function isKanjiKana(input) {
-	  return [].concat(_toConsumableArray(input)).every((char) => _constants.KANJI_KANA_REGEX.test(char));
-    }
+	function isKanjiKana(input) {
+	  return [].concat(_toConsumableArray(input)).every(function (char) {
+	    return _constants.KANJI_KANA_REGEX.test(char);
+	  });
+	}
 
-    function isRomaji(input) {
-	  return [].concat(_toConsumableArray(input)).every((char) => !isHiragana(char) && !isKatakana(char));
-    }
+	function isRomaji(input) {
+	  return [].concat(_toConsumableArray(input)).every(function (char) {
+	    return !isHiragana(char) && !isKatakana(char);
+	  });
+	}
 
 	// Returns true if input is a mix of romaji and kana
-    function isMixed(input) {
-	  const chars = [].concat(_toConsumableArray(input));
+	function isMixed(input) {
+	  var chars = [].concat(_toConsumableArray(input));
 	  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji);
-    }
+	}
 
-    function toHiragana(input) {
-	  const opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	function toHiragana(input) {
+	  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	  const options = Object.assign({}, defaultOptions, opts);
+	  var options = Object.assign({}, defaultOptions, opts);
 	  if (options.passRomaji) return katakanaToHiragana(input);
 	  if (isRomaji(input)) return romajiToHiragana(input, options);
 	  if (isMixed(input)) {
-	    const romaji = katakanaToHiragana(input);
+	    var romaji = katakanaToHiragana(input);
 	    return romajiToHiragana(romaji, options);
 	  }
 	  return katakanaToHiragana(input);
-    }
+	}
 
-    function toKatakana(input) {
-	  const opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	function toKatakana(input) {
+	  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	  const options = Object.assign({}, defaultOptions, opts);
+	  var options = Object.assign({}, defaultOptions, opts);
 	  if (options.passRomaji) return hiraganaToKatakana(input);
 	  if (isRomaji(input) || isMixed(input)) {
-	    const romaji = romajiToHiragana(input, options);
+	    var romaji = romajiToHiragana(input, options);
 	    return hiraganaToKatakana(romaji);
 	  }
 	  return hiraganaToKatakana(input);
-    }
+	}
 
-    function toKana(input, options) {
+	function toKana(input, options) {
 	  return romajiToKana(input, options);
-    }
+	}
 
-    function toRomaji(input, options) {
+	function toRomaji(input, options) {
 	  return hiraganaToRomaji(input, options);
-    }
+	}
 
-    function hiraganaToRomaji(hira) {
-	  const opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	function hiraganaToRomaji(hira) {
+	  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	  // merge options with default options
-	  const options = Object.assign({}, defaultOptions, opts);
-	  const len = hira.length;
+	  var options = Object.assign({}, defaultOptions, opts);
+	  var len = hira.length;
 	  // Final output array
-	  const roma = [];
+	  var roma = [];
 	  // Position in the string that is being evaluated
-	  let cursor = 0;
-	  const maxChunk = 2;
-	  let chunkSize = 2;
-	  let chunk = '';
-	  let romaChar = '';
-	  let nextCharIsDoubleConsonant = void 0;
+	  var cursor = 0;
+	  var maxChunk = 2;
+	  var chunkSize = 2;
+	  var chunk = '';
+	  var romaChar = '';
+	  var nextCharIsDoubleConsonant = void 0;
 
 	  while (cursor < len) {
 	    chunkSize = (0, _utils.getChunkSize)(maxChunk, len - cursor);
-	    let convertThisChunkToUppercase = false;
+	    var convertThisChunkToUppercase = false;
 	    while (chunkSize > 0) {
 	      chunk = (0, _utils.getChunk)(hira, cursor, cursor + chunkSize);
 	      if (isKatakana(chunk)) {
@@ -321,30 +303,30 @@
 	  }
 
 	  return roma.join('');
-    }
+	}
 
-    function romajiToKana(roma) {
-	  const opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-	  const ignoreCase = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+	function romajiToKana(roma) {
+	  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var ignoreCase = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
 	  // merge options with default options
-	  const options = Object.assign({}, defaultOptions, opts);
+	  var options = Object.assign({}, defaultOptions, opts);
 	  // Final output array
-	  const kana = [];
+	  var kana = [];
 	  // Position in the string that is being evaluated
-	  let cursor = 0;
-	  const len = roma.length;
-	  const maxChunk = 3;
-	  let chunkSize = 3;
-	  let chunk = '';
-	  let chunkLC = '';
+	  var cursor = 0;
+	  var len = roma.length;
+	  var maxChunk = 3;
+	  var chunkSize = 3;
+	  var chunk = '';
+	  var chunkLC = '';
 
 	  // Steps through the string pulling out chunks of characters. Each chunk will be evaluated
 	  // against the romaji to kana table. If there is no match, the last character in the chunk
 	  // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
 	  // to be invalid or punctuation or other and gets passed through.
 	  while (cursor < len) {
-	    let kanaChar = null;
+	    var kanaChar = null;
 	    chunkSize = (0, _utils.getChunkSize)(maxChunk, len - cursor);
 	    while (chunkSize > 0) {
 	      chunk = (0, _utils.getChunk)(roma, cursor, cursor + chunkSize);
@@ -433,57 +415,61 @@
 	  }
 
 	  return kana.join('');
-    }
+	}
 
-/***/
-  },
-/* 3 */
-  /***/ function (module, exports) {
-    Object.defineProperty(exports, '__esModule', {
-	  value: true,
-    });
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	// http://unicode-table.com
 	// export const ENGLISH_PUNCTUATION_RANGES = [[0x21, 0x2F], [0x3A, 0x3F], [0x5B, 0x60], [0x7B, 0x7E]];
 	// http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
 	// export const JAPANESE_FULLWIDTH_PUNCTUATION_RANGES = [[0x3001, 0x303E], [0x30FB, 0x30FC], [0XFF01, 0XFF0F], [0xFF1A, 0xFF1F], [0xFF3B, 0xFF3F], [0xFF5B, 0xFF60]];
-    const LOWERCASE_START = exports.LOWERCASE_START = 0x61;
-    const LOWERCASE_END = exports.LOWERCASE_END = 0x7A;
-    const UPPERCASE_START = exports.UPPERCASE_START = 0x41;
-    const UPPERCASE_END = exports.UPPERCASE_END = 0x5A;
-    const HIRAGANA_START = exports.HIRAGANA_START = 0x3041;
-    const HIRAGANA_END = exports.HIRAGANA_END = 0x3096;
-    const KATAKANA_START = exports.KATAKANA_START = 0x30A1;
-    const KATAKANA_END = exports.KATAKANA_END = 0x30FC;
-    const LOWERCASE_FULLWIDTH_START = exports.LOWERCASE_FULLWIDTH_START = 0xFF41;
-    const LOWERCASE_FULLWIDTH_END = exports.LOWERCASE_FULLWIDTH_END = 0xFF5A;
-    const UPPERCASE_FULLWIDTH_START = exports.UPPERCASE_FULLWIDTH_START = 0xFF21;
-    const UPPERCASE_FULLWIDTH_END = exports.UPPERCASE_FULLWIDTH_END = 0xFF3A;
-    const PROLONGED_SOUND_MARK = exports.PROLONGED_SOUND_MARK = 0x30FC;
-    const KANA_SLASH_DOT = exports.KANA_SLASH_DOT = 0x30FB;
+	var LOWERCASE_START = exports.LOWERCASE_START = 0x61;
+	var LOWERCASE_END = exports.LOWERCASE_END = 0x7A;
+	var UPPERCASE_START = exports.UPPERCASE_START = 0x41;
+	var UPPERCASE_END = exports.UPPERCASE_END = 0x5A;
+	var HIRAGANA_START = exports.HIRAGANA_START = 0x3041;
+	var HIRAGANA_END = exports.HIRAGANA_END = 0x3096;
+	var KATAKANA_START = exports.KATAKANA_START = 0x30A1;
+	var KATAKANA_END = exports.KATAKANA_END = 0x30FC;
+	var LOWERCASE_FULLWIDTH_START = exports.LOWERCASE_FULLWIDTH_START = 0xFF41;
+	var LOWERCASE_FULLWIDTH_END = exports.LOWERCASE_FULLWIDTH_END = 0xFF5A;
+	var UPPERCASE_FULLWIDTH_START = exports.UPPERCASE_FULLWIDTH_START = 0xFF21;
+	var UPPERCASE_FULLWIDTH_END = exports.UPPERCASE_FULLWIDTH_END = 0xFF3A;
+	var PROLONGED_SOUND_MARK = exports.PROLONGED_SOUND_MARK = 0x30FC;
+	var KANA_SLASH_DOT = exports.KANA_SLASH_DOT = 0x30FB;
 
 	// All Japanese regex, for mixes of kanji and kana like "泣き虫"
 	// Includes Japanese full-width punctuation ranges
 	// doesn't including *half-width katakana / roman letters* since they should be considered typos
-    const KANJI_KANA_REGEX = exports.KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;
+	var KANJI_KANA_REGEX = exports.KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;
 
-/***/
-  },
-/* 4 */
-  /***/ function (module, exports) {
-    Object.defineProperty(exports, '__esModule', {
-	  value: true,
-    });
-    const longVowels = exports.longVowels = {
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var longVowels = exports.longVowels = {
 	  a: 'あ',
 	  i: 'い',
 	  u: 'う',
 	  e: 'え',
-	  o: 'う',
-    };
+	  o: 'う'
+	};
 
-    const fourCharacterEdgeCases = exports.fourCharacterEdgeCases = ['lts', 'chy', 'shy'];
+	var fourCharacterEdgeCases = exports.fourCharacterEdgeCases = ['lts', 'chy', 'shy'];
 
-    const RtoJ = exports.RtoJ = {
+	var RtoJ = exports.RtoJ = {
 	  '.': '。',
 	  ',': '、',
 	  '/': '・',
@@ -788,7 +774,7 @@
 	  'xn': 'ん',
 	  'ltsu': 'っ' };
 
-    const JtoR = exports.JtoR = {
+	var JtoR = exports.JtoR = {
 	  '　': ' ',
 	  '！': '!',
 	  '？': '?',
@@ -1026,44 +1012,46 @@
 	  'んお': 'n\'o',
 	  'んや': 'n\'ya',
 	  'んゆ': 'n\'yu',
-	  'んよ': 'n\'yo',
-    };
+	  'んよ': 'n\'yo'
+	};
 
-/***/
-  },
-/* 5 */
-  /***/ function (module, exports, __webpack_require__) {
-    Object.defineProperty(exports, '__esModule', {
-	  value: true,
-    });
-    exports.isCharUpperCase = exports.getChunkSize = exports.getChunk = undefined;
-    exports.isCharInRange = isCharInRange;
-    exports.isCharVowel = isCharVowel;
-    exports.isCharConsonant = isCharConsonant;
-    exports.isCharLongDash = isCharLongDash;
-    exports.isCharSlashDot = isCharSlashDot;
-    exports.isCharKatakana = isCharKatakana;
-    exports.isCharHiragana = isCharHiragana;
-    exports.isCharKana = isCharKana;
-    exports.isCharNotKana = isCharNotKana;
-    exports.convertFullwidthCharsToASCII = convertFullwidthCharsToASCII;
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
 
-    const _constants = __webpack_require__(3);
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.isCharUpperCase = exports.getChunkSize = exports.getChunk = undefined;
+	exports.isCharInRange = isCharInRange;
+	exports.isCharVowel = isCharVowel;
+	exports.isCharConsonant = isCharConsonant;
+	exports.isCharLongDash = isCharLongDash;
+	exports.isCharSlashDot = isCharSlashDot;
+	exports.isCharKatakana = isCharKatakana;
+	exports.isCharHiragana = isCharHiragana;
+	exports.isCharKana = isCharKana;
+	exports.isCharNotKana = isCharNotKana;
+	exports.convertFullwidthCharsToASCII = convertFullwidthCharsToASCII;
+
+	var _constants = __webpack_require__(2);
 
 	// Returns a substring based on start/end values
-    const getChunk = exports.getChunk = function getChunk(str, start, end) {
+	var getChunk = exports.getChunk = function getChunk(str, start, end) {
 	  return str.slice(start, end);
-    };
+	};
 
 	// Don't pick a chunk that is bigger than the remaining characters.
-    const getChunkSize = exports.getChunkSize = function getChunkSize(max, remaining) {
+	var getChunkSize = exports.getChunkSize = function getChunkSize(max, remaining) {
 	  return Math.min(max, remaining);
-    };
+	};
 
 	// Checks if char is in English unicode uppercase range
-    const isCharUpperCase = exports.isCharUpperCase = function isCharUpperCase(char) {
+	var isCharUpperCase = exports.isCharUpperCase = function isCharUpperCase(char) {
 	  return isCharInRange(char, _constants.UPPERCASE_START, _constants.UPPERCASE_END);
-    };
+	};
 
 	/**
 	 * Takes a character and a unicode range. Returns true if the char is in the range.
@@ -1072,10 +1060,10 @@
 	 * @param  {number}  end   unicode end range
 	 * @return {Boolean}
 	 */
-    function isCharInRange(char, start, end) {
-	  const code = char.charCodeAt(0);
+	function isCharInRange(char, start, end) {
+	  var code = char.charCodeAt(0);
 	  return start <= code && code <= end;
-    }
+	}
 
 	/**
 	 * Tests a character and an english vowel. Returns true if the char is a vowel.
@@ -1083,12 +1071,12 @@
 	 * @param  {Boolean} [includeY=true] Optional parameter to include y as a vowel in test
 	 * @return {Boolean}
 	 */
-    function isCharVowel(char) {
-	  const includeY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	function isCharVowel(char) {
+	  var includeY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-	  const regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
+	  var regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
 	  return char.toLowerCase().charAt(0).search(regexp) !== -1;
-    }
+	}
 
 	/**
 	 * Tests a character and an english consonant. Returns true if the char is a consonant.
@@ -1096,70 +1084,70 @@
 	 * @param  {Boolean} [includeY=true] Optional parameter to include y as a consonant in test
 	 * @return {Boolean}
 	 */
-    function isCharConsonant(char) {
-	  const includeY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	function isCharConsonant(char) {
+	  var includeY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-	  const regexp = includeY ? /[bcdfghjklmnpqrstvwxyz]/ : /[bcdfghjklmnpqrstvwxz]/;
+	  var regexp = includeY ? /[bcdfghjklmnpqrstvwxyz]/ : /[bcdfghjklmnpqrstvwxz]/;
 	  return char.toLowerCase().charAt(0).search(regexp) !== -1;
-    }
+	}
 
 	// Returns true if char is 'ー'
-    function isCharLongDash(char) {
+	function isCharLongDash(char) {
 	  return char.charCodeAt(0) === _constants.PROLONGED_SOUND_MARK;
-    }
+	}
 
 	// Returns true if char is '・'
-    function isCharSlashDot(char) {
+	function isCharSlashDot(char) {
 	  return char.charCodeAt(0) === _constants.KANA_SLASH_DOT;
-    }
+	}
 
 	/**
 	 * Tests a character. Returns true if the character is katakana.
 	 * @param  {string} char character string to test
 	 * @return {Boolean}
 	 */
-    function isCharKatakana(char) {
+	function isCharKatakana(char) {
 	  return isCharInRange(char, _constants.KATAKANA_START, _constants.KATAKANA_END);
-    }
+	}
 
 	/**
 	 * Tests a character. Returns true if the character is Hiragana.
 	 * @param  {string} char character string to test
 	 * @return {Boolean}
 	 */
-    function isCharHiragana(char) {
+	function isCharHiragana(char) {
 	  if (isCharLongDash(char)) return true;
 	  return isCharInRange(char, _constants.HIRAGANA_START, _constants.HIRAGANA_END);
-    }
+	}
 
 	/**
 	 * Tests a character. Returns true if the character is hiragana or katakana.
 	 * @param  {string} char character string to test
 	 * @return {Boolean}
 	 */
-    function isCharKana(char) {
+	function isCharKana(char) {
 	  return isCharHiragana(char) || isCharKatakana(char);
-    }
+	}
 
 	/**
 	 * Tests a character. Returns true if the character is not hiragana or katakana.
 	 * @param  {string} char character string to test
 	 * @return {Boolean}
 	 */
-    function isCharNotKana(char) {
+	function isCharNotKana(char) {
 	  return !isCharHiragana(char) && !isCharKatakana(char);
-    }
+	}
 
 	/**
 	 * Converts all fullwidth roman letters in string to proper ASCII
 	 * @param  {string} str Full Width roman letters
 	 * @return {string} ASCII
 	 */
-    function convertFullwidthCharsToASCII(str) {
-	  const asciiChars = str.split('').map((char) => {
-	    const code = char.charCodeAt(0);
-	    const lower = isCharInRange(char, _constants.LOWERCASE_FULLWIDTH_START, _constants.LOWERCASE_FULLWIDTH_END);
-	    const upper = isCharInRange(char, _constants.UPPERCASE_FULLWIDTH_START, _constants.UPPERCASE_FULLWIDTH_END);
+	function convertFullwidthCharsToASCII(str) {
+	  var asciiChars = str.split('').map(function (char) {
+	    var code = char.charCodeAt(0);
+	    var lower = isCharInRange(char, _constants.LOWERCASE_FULLWIDTH_START, _constants.LOWERCASE_FULLWIDTH_END);
+	    var upper = isCharInRange(char, _constants.UPPERCASE_FULLWIDTH_START, _constants.UPPERCASE_FULLWIDTH_END);
 	    if (lower) {
 	      return String.fromCharCode(code - _constants.LOWERCASE_FULLWIDTH_START + _constants.LOWERCASE_START);
 	    } else if (upper) {
@@ -1169,8 +1157,7 @@
 	  });
 
 	  return asciiChars.join('');
-    }
+	}
 
-/***/
-  },
-/******/ ]));
+/***/ }
+/******/ ]);

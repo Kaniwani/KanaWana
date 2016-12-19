@@ -3,10 +3,11 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src/browser.js'),
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    library: 'kanawana',
+    path: path.join(__dirname, 'bundle'),
     publicPath: '/build',
     filename: 'kanawana.min.js',
   },
@@ -18,7 +19,6 @@ module.exports = {
       loader: 'babel',
     }],
   },
-  target: 'web',
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),

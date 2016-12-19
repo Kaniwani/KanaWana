@@ -11,7 +11,9 @@
   "bugs": {
     "url": "https://github.com/DJTB/KanaWana/issues"
   },
-  "main": "build/kanawana.js",
+  "main": "index.js",
+  "jsnext:main": "src/core.js",
+  "browser": "build/kanawana.min.js",
   "license": "MIT",
   "keywords": [
     "japanese",
@@ -23,18 +25,19 @@
     "transliteration"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=development webpack --config webpack.dev.js --color --progress",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.prod.js --color -p --progress",
+    "build": "npm run build:browser && npm run build:node",
+    "build:node": "cross-env NODE_ENV=dev webpack --config webpack.node.js --color --progress",
+    "build:browser": "cross-env NODE_ENV=production webpack --config webpack.browser.js --color -p --progress",
     "pretest": "npm run test:clean",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "lint": "npm run lint:eslint -- './src/*.js'",
-    "lint:eslint": "eslint --ignore-path ./.gitignore --ignore-pattern 'build' --color",
+    "lint:eslint": "eslint --ignore-path ./.gitignore --ignore-pattern 'bundle' --color",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.js": "lint"
+    "src/*.js": "lint"
   },
   "pre-commit": "lint-staged",
   "jest": {
@@ -54,6 +57,7 @@
     "collectCoverageFrom": [
       "src/*.js",
       "!src/index.js",
+      "!src/browser.js",
       "!**/node_modules/**"
     ]
   },
