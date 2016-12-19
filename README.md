@@ -1,6 +1,17 @@
 カナワナ <-> KanaWana <-> かなわな
 ===============================
 
+<div align="center">
+ <!-- Build Status -->
+  <a href="https://travis-ci.org/DJTB/KanaWana">
+    <img src="https://travis-ci.org/DJTB/KanaWana.svg" alt="Build Status" />
+  </a>
+  <!-- Test Coverage -->
+  <a href="https://coveralls.io/r/DJTB/KanaWana">
+    <img src="https://coveralls.io/repos/github/DJTB/KanaWana/badge.svg" alt="Test Coverage" />
+  </a>
+</div>
+
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
 ## Demo
@@ -38,11 +49,11 @@ kanawana.isKatakana(string);
 kanawana.toKana(string [, options]);
 
 // Convert Katakana or Romaji to Hiragana.
-// Use {passRomaji: true} if you want to convert Katakana while keeping any romaji intact  
+// Use {passRomaji: true} if you want to convert Katakana while keeping any romaji intact
 kanawana.toHiragana(string [, options]);
 
 // Convert Hiragana or Romaji to Katakana.
-// Use {passRomaji: true} if you want to convert Hiragana while keeping any romaji intact  
+// Use {passRomaji: true} if you want to convert Hiragana while keeping any romaji intact
 kanawana.toKatakana(string [, options]);
 
 // Explicitly convert Hiragana to Katakana - always ignores romaji passed in
