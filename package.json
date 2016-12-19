@@ -29,6 +29,7 @@
     "build:node": "cross-env NODE_ENV=dev webpack --config webpack.node.js --color --progress",
     "build:browser": "cross-env NODE_ENV=production webpack --config webpack.browser.js --color -p --progress",
     "commit": "git-cz",
+    "precommit": "npm run lint",
     "pretest": "npm run test:clean",
     "prebuild": "npm run lint && npm run test",
     "test:clean": "rimraf ./coverage",
