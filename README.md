@@ -3,14 +3,19 @@
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
-## Usage
-
-### HTML
-```html
+## Install
+```shell
+npm install kanawana
+yarn add kanawana
 ```
 
-### Javascript
-```javascript
+## Usage
+
+### In Browser
+Include kanawana.min.js as a script and bind/unbind to any input fields.
+```html
+<script src="build/kanawana.js"></script>
+<script> window.kanawana.bind(document.getElementById('myInput')</script>
 ```
 
 ## Documentation
@@ -55,7 +60,7 @@ kanawana.toRomaji(string [, options]);
   // Set to true to use obsolete characters, such as ゐ and ゑ.
   useObsoleteKana: false,
   // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(), such as "romaji is not かな"
-  passRomaji: false, 
+  passRomaji: false,
   // Set to true to handle input from a text input as it is typed.
   IMEMode: false,
 ;
