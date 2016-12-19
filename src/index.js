@@ -57,6 +57,8 @@ const kanawana = {
   toRomaji,
 };
 
-window.kanawana = kanawana;
+if (window) {
+  window.kanawana = kanawana;
+}
 
 export default kanawana;
