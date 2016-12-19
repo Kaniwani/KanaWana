@@ -3,6 +3,9 @@
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
+## Demo
+[djtb.github.io/KanaWana/](https://djtb.github.io/KanaWana/)
+
 ## Install
 ```shell
 npm install kanawana
