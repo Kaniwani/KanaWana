@@ -11,8 +11,8 @@
   "bugs": {
     "url": "https://github.com/DJTB/KanaWana/issues"
   },
-  "main": "index.js",
   "jsnext:main": "src/core.js",
+  "main": "build/kanawana.js",
   "browser": "build/kanawana.min.js",
   "license": "MIT",
   "keywords": [
@@ -29,15 +29,16 @@
     "build:node": "cross-env NODE_ENV=dev webpack --config webpack.node.js --color --progress",
     "build:browser": "cross-env NODE_ENV=production webpack --config webpack.browser.js --color -p --progress",
     "pretest": "npm run test:clean",
+    "prebuild": "npm run lint && npm run test",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "cross-env NODE_ENV=test jest --watch",
     "lint": "npm run lint:eslint -- './src/*.js'",
-    "lint:eslint": "eslint --ignore-path ./.gitignore --ignore-pattern 'bundle' --color",
+    "lint:eslint": "eslint --ignore-path ./.gitignore --ignore-pattern 'build' --color",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "src/*.js": "lint"
+    "*.js": "lint"
   },
   "pre-commit": "lint-staged",
   "jest": {
@@ -47,8 +48,8 @@
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 100,
-        "functions": 90,
+        "branches": 95,
+        "functions": 85,
         "lines": 40,
         "statements": 25
       }

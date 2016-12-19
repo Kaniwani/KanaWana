@@ -7,7 +7,8 @@ module.exports = {
   ],
   output: {
     library: 'kanawana',
-    path: path.join(__dirname, 'bundle'),
+    libraryTarget: 'var',
+    path: path.join(__dirname, 'build'),
     publicPath: '/build',
     filename: 'kanawana.min.js',
   },

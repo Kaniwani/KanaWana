@@ -7,9 +7,9 @@ module.exports = {
   output: {
     library: 'kanawana',
     libraryTarget: 'commonjs2',
-    path: path.join(__dirname),
-    publicPath: '/',
-    filename: 'index.js',
+    path: path.join(__dirname, 'build'),
+    publicPath: '/build',
+    filename: 'kanawana.js',
   },
   module: {
     loaders: [{
