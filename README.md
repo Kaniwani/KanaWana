@@ -1,7 +1,12 @@
-カナワナ <-> KanaWana <-> かなわな
-===============================
-
 <div align="center">
+<!-- Dependency Status -->
+  <a href="https://david-dm.org/DJTB/KanaWana">
+    <img src="https://david-dm.org/DJTB/KanaWana.svg" alt="Dependency Status" />
+  </a>
+  <!-- devDependency Status -->
+  <a href="https://david-dm.org/DJTB/KanaWana#info=devDependencies">
+    <img src="https://david-dm.org/DJTB/KanaWana/dev-status.svg" alt="devDependency Status" />
+  </a>
  <!-- Build Status -->
   <a href="https://travis-ci.org/DJTB/KanaWana">
     <img src="https://travis-ci.org/DJTB/KanaWana.svg" alt="Build Status" />
@@ -11,6 +16,9 @@
     <img src="https://coveralls.io/repos/github/DJTB/KanaWana/badge.svg" alt="Test Coverage" />
   </a>
 </div>
+
+カナワナ <-> KanaWana <-> かなわな
+===============================
 
 Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
