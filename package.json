@@ -6,7 +6,7 @@
   "homepage": "https://djtb.github.io/KanaWana/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DJTB/KanaWana/"
+    "url": "git@github.com/DJTB/KanaWana/"
   },
   "bugs": {
     "url": "https://github.com/DJTB/KanaWana/issues"
