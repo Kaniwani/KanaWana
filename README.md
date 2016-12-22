@@ -17,10 +17,11 @@
   </a>
 </div>
 
-カナワナ <-> KanaWana <-> かなわな
-===============================
+<div align="center">
+<h1>カナワナ &lt;--&gt; KanaWana &lt;--&gt; かなわな</h1>
+<h3>Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&gt; Romaji &lt;--&gt; Katakana.</h3>
+</div>
 
-Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
 ## Demo
 [djtb.github.io/KanaWana/](https://djtb.github.io/KanaWana/)
