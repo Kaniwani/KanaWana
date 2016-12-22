@@ -89,5 +89,7 @@ kanawana.toRomaji(string [, options]);
 ```
 
 ## Credits
+Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
-Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) that was sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+## License
+This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see LICENSE.md.
