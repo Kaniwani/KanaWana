@@ -24,7 +24,7 @@
 
 
 ## Demo
-[djtb.github.io/KanaWana/](https://kaniwani.github.io/KanaWana/)
+[kaniwani.github.io/KanaWana/](https://kaniwani.github.io/KanaWana/)
 
 ## Install
 ```shell
