@@ -1,29 +1,30 @@
 <div align="center">
 <!-- Dependency Status -->
   <a href="https://david-dm.org/DJTB/KanaWana">
-    <img src="https://img.shields.io/david/DJTB/KanaWana.svg" alt="Dependency Status" />
+    <img src="https://img.shields.io/david/Kaniwani/KanaWana.svg" alt="Dependency Status" />
   </a>
   <!-- devDependency Status -->
   <a href="https://david-dm.org/DJTB/KanaWana#info=devDependencies">
-    <img src="https://img.shields.io/david/dev/DJTB/KanaWana.svg" alt="devDependency Status" />
+    <img src="https://img.shields.io/david/dev/Kaniwani/KanaWana.svg" alt="devDependency Status" />
   </a>
  <!-- Build Status -->
   <a href="https://travis-ci.org/DJTB/KanaWana">
-    <img src="https://img.shields.io/travis/DJTB/KanaWana.svg" alt="Build Status" />
+    <img src="https://img.shields.io/travis/Kaniwani/KanaWana.svg" alt="Build Status" />
   </a>
   <!-- Test Coverage -->
   <a href="https://coveralls.io/r/DJTB/KanaWana">
-    <img src="https://img.shields.io/coveralls/DJTB/KanaWana.svg" alt="Test Coverage" />
+    <img src="https://img.shields.io/coveralls/Kaniwani/KanaWana.svg" alt="Test Coverage" />
   </a>
 </div>
 
-カナワナ <-> KanaWana <-> かなわな
-===============================
+<div align="center">
+<h1>カナワナ &lt;--&gt; KanaWana &lt;--&gt; かなわな</h1>
+<h3>Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&gt; Romaji &lt;--&gt; Katakana.</h3>
+</div>
 
-Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--> Katakana &lt;--> Romaji.
 
 ## Demo
-[djtb.github.io/KanaWana/](https://djtb.github.io/KanaWana/)
+[kaniwani.github.io/KanaWana/](https://kaniwani.github.io/KanaWana/)
 
 ## Install
 ```shell
@@ -89,5 +90,7 @@ kanawana.toRomaji(string [, options]);
 ```
 
 ## Credits
+Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
-Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) that was sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+## License
+This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see LICENSE.md.
