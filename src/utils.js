@@ -125,3 +125,12 @@ export function convertFullwidthCharsToASCII(str) {
 
   return asciiChars.join('');
 }
+
+/**
+ * Strips kana and returns a new string
+ * @param  {String} str text to parse
+ * @return {String} string with kana removed
+ */
+export function stripKana(str) {
+  return [...str].filter((char) => isCharNotKana(char)).join('');
+}

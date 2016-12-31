@@ -17,6 +17,7 @@ import {
   isCharNotKana,
   isCharUpperCase,
   convertFullwidthCharsToASCII,
+  stripKana,
 } from '../utils';
 
 /* eslint-disable no-undef */
@@ -144,5 +145,16 @@ describe('convertFullwidthCharsToASCII', () => {
     expect(convertFullwidthCharsToASCII('come on ＦＨＱＷＨＧＡＤＳ')).toBe('come on FHQWHGADS');
     expect(convertFullwidthCharsToASCII('ＦＨＱＷＨＧＡＤＳ')).toBe('FHQWHGADS');
     expect(convertFullwidthCharsToASCII('ｆｈｑｗｈｇａｄｓ')).toBe('fhqwhgads');
+  });
+});
+
+describe('stripKana', () => {
+  it('passes parameter tests', () => {
+    expect(stripKana('ふふフフ')).toBe('');
+    expect(stripKana('ふaふbフcフ')).toBe('abc');
+    expect(stripKana('お腹')).toBe('腹');
+    expect(stripKana('お祝い')).toBe('祝');
+    expect(stripKana('粘り')).toBe('粘');
+    expect(stripKana('〜海軍い、。')).toBe('〜海軍、。');
   });
 });
