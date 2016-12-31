@@ -1035,8 +1035,11 @@ module.exports =
 	exports.isCharKana = isCharKana;
 	exports.isCharNotKana = isCharNotKana;
 	exports.convertFullwidthCharsToASCII = convertFullwidthCharsToASCII;
+	exports.stripKana = stripKana;
 
 	var _constants = __webpack_require__(2);
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 	// Returns a substring based on start/end values
 	var getChunk = exports.getChunk = function getChunk(str, start, end) {
@@ -1157,6 +1160,17 @@ module.exports =
 	  });
 
 	  return asciiChars.join('');
+	}
+
+	/**
+	 * Strips kana and returns a new string
+	 * @param  {String} str text to parse
+	 * @return {String} string with kana removed
+	 */
+	function stripKana(str) {
+	  return [].concat(_toConsumableArray(str)).filter(function (char) {
+	    return isCharNotKana(char);
+	  }).join('');
 	}
 
 /***/ }
