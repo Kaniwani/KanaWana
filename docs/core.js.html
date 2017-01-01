@@ -1,4 +1,43 @@
-import {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>core.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#defaultOptions">defaultOptions</a></li><li><a href="global.html#katakanaToHiragana">katakanaToHiragana</a></li><li><a href="global.html#hiraganaToKatakana">hiraganaToKatakana</a></li><li><a href="global.html#romajiToHiragana">romajiToHiragana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#bind">bind</a></li><li><a href="global.html#unbind">unbind</a></li><li><a href="global.html#onInput">onInput</a></li><li><a href="global.html#getChunk">getChunk</a></li><li><a href="global.html#getChunkSize">getChunkSize</a></li><li><a href="global.html#isCharUpperCase">isCharUpperCase</a></li><li><a href="global.html#isCharInRange">isCharInRange</a></li><li><a href="global.html#isCharVowel">isCharVowel</a></li><li><a href="global.html#isCharConsonant">isCharConsonant</a></li><li><a href="global.html#isCharLongDash">isCharLongDash</a></li><li><a href="global.html#isCharSlashDot">isCharSlashDot</a></li><li><a href="global.html#isCharKatakana">isCharKatakana</a></li><li><a href="global.html#isCharHiragana">isCharHiragana</a></li><li><a href="global.html#isCharKana">isCharKana</a></li><li><a href="global.html#isCharKanji">isCharKanji</a></li><li><a href="global.html#isCharJapanesePunctuation">isCharJapanesePunctuation</a></li><li><a href="global.html#isCharEnglishPunctuation">isCharEnglishPunctuation</a></li><li><a href="global.html#isCharPunctuation">isCharPunctuation</a></li><li><a href="global.html#convertFullwidthCharsToASCII">convertFullwidthCharsToASCII</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">core.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
   HIRAGANA_START,
   KATAKANA_START,
   UPPERCASE_END,
@@ -40,7 +79,7 @@ import {
 /**
  * Default config for KanaWana, user passed options will be merged with this
  * @type {DefaultOptions}
- * @example <caption>{ passRomaji: true }</caption>
+ * @example &lt;caption>{ passRomaji: true }&lt;/caption>
  * toHiragana('romaji is not ヒラガナ', {passRomaji: true})
  * // "romaji is not ひらがな"
  */
@@ -63,14 +102,14 @@ export function katakanaToHiragana(kata) {
   const hira = [];
   let previousKana = '';
   const iterable = kata.split('');
-  for (let index = 0; index < iterable.length; index += 1) {
+  for (let index = 0; index &lt; iterable.length; index += 1) {
     const kataChar = iterable[index];
     const [slashDot, longDash] = [isCharSlashDot(kataChar), isCharLongDash(kataChar)];
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-    if (slashDot || (longDash && index < 1)) {
+    if (slashDot || (longDash &amp;&amp; index &lt; 1)) {
       hira.push(kataChar);
     // Transform long vowels: 'オー' to 'おう'
-    } else if (longDash && index > 0) {
+    } else if (longDash &amp;&amp; index > 0) {
       // Transform previousKana back to romaji
       const romaji = hiraganaToRomaji(previousKana).slice(-1);
       hira.push(longVowels[romaji]);
@@ -137,7 +176,7 @@ export function isKana(input) {
 
 export function isRomaji(input) {
   return [...input].every((char) =>
-    !isHiragana(char) && !isKatakana(char) && !isKanji(char)
+    !isHiragana(char) &amp;&amp; !isKatakana(char) &amp;&amp; !isKanji(char)
   );
 }
 
@@ -163,7 +202,7 @@ export function isMixed(input, options = { passKanji: true }) {
   if (!options.passKanji) {
     hasKanji = chars.some(isKanji);
   }
-  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji) && !hasKanji;
+  return (chars.some(isHiragana) || chars.some(isKatakana)) &amp;&amp; chars.some(isRomaji) &amp;&amp; !hasKanji;
 }
 
 export function toHiragana(input, options = {}) {
@@ -209,7 +248,7 @@ function hiraganaToRomaji(hira, options = {}) {
   let romaChar = '';
   let nextCharIsDoubleConsonant;
 
-  while (cursor < len) {
+  while (cursor &lt; len) {
     chunkSize = getChunkSize(maxChunk, len - cursor);
     let convertThisChunkToUppercase = false;
     while (chunkSize > 0) {
@@ -219,7 +258,7 @@ function hiraganaToRomaji(hira, options = {}) {
         chunk = katakanaToHiragana(chunk);
       }
       // special case for small tsus
-      if (chunk.charAt(0) === 'っ' && chunkSize === 1 && cursor < (len - 1)) {
+      if (chunk.charAt(0) === 'っ' &amp;&amp; chunkSize === 1 &amp;&amp; cursor &lt; (len - 1)) {
         nextCharIsDoubleConsonant = true;
         romaChar = '';
         break;
@@ -227,7 +266,7 @@ function hiraganaToRomaji(hira, options = {}) {
 
       romaChar = JtoR[chunk];
 
-      if ((romaChar != null) && nextCharIsDoubleConsonant) {
+      if ((romaChar != null) &amp;&amp; nextCharIsDoubleConsonant) {
         romaChar = romaChar.charAt(0).concat(romaChar);
         nextCharIsDoubleConsonant = false;
       }
@@ -268,14 +307,14 @@ export function romajiToKana(roma, options = {}, ignoreCase = false) {
   // against the romaji to kana table. If there is no match, the last character in the chunk
   // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
   // to be invalid or punctuation or other and gets passed through.
-  while (cursor < len) {
+  while (cursor &lt; len) {
     let kanaChar = null;
     chunkSize = getChunkSize(maxChunk, len - cursor);
     while (chunkSize > 0) {
       chunk = getChunk(roma, cursor, cursor + chunkSize);
       chunkLC = chunk.toLowerCase();
       // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-      if (fourCharacterEdgeCases.includes(chunkLC) && (len - cursor) >= 4) {
+      if (fourCharacterEdgeCases.includes(chunkLC) &amp;&amp; (len - cursor) >= 4) {
         chunkSize += 1;
         chunk = getChunk(roma, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
@@ -284,18 +323,18 @@ export function romajiToKana(roma, options = {}, ignoreCase = false) {
         if (chunkLC.charAt(0) === 'n') {
           if (chunkSize === 2) {
             // Handle edge case of n followed by a space (only if not in IME mode)
-            if (!config.IMEMode && chunkLC.charAt(1) === ' ') {
+            if (!config.IMEMode &amp;&amp; chunkLC.charAt(1) === ' ') {
               kanaChar = 'ん ';
               break;
             }
             // Convert IME input of n' to "ん"
-            if (config.IMEMode && chunkLC === "n'") {
+            if (config.IMEMode &amp;&amp; chunkLC === "n'") {
               kanaChar = 'ん';
               break;
             }
           }
           // Handle edge case of n followed by n and vowel
-          if (isCharConsonant(chunkLC.charAt(1), false) && isCharVowel(chunkLC.charAt(2))) {
+          if (isCharConsonant(chunkLC.charAt(1), false) &amp;&amp; isCharVowel(chunkLC.charAt(2))) {
             chunkSize = 1;
             chunk = getChunk(roma, cursor, cursor + chunkSize);
             chunkLC = chunk.toLowerCase();
@@ -303,8 +342,8 @@ export function romajiToKana(roma, options = {}, ignoreCase = false) {
         }
 
         // Handle case of double consonants
-        if (chunkLC.charAt(0) !== 'n' &&
-          isCharConsonant(chunkLC.charAt(0)) &&
+        if (chunkLC.charAt(0) !== 'n' &amp;&amp;
+          isCharConsonant(chunkLC.charAt(0)) &amp;&amp;
           chunk.charAt(0) === chunk.charAt(1)
         ) {
           chunkSize = 1;
@@ -342,8 +381,8 @@ export function romajiToKana(roma, options = {}, ignoreCase = false) {
       if (chunkLC === 'we') kanaChar = 'ゑ';
     }
 
-    if (!!config.IMEMode && chunkLC.charAt(0) === 'n') {
-      if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
+    if (!!config.IMEMode &amp;&amp; chunkLC.charAt(0) === 'n') {
+      if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &amp;&amp;
         isCharVowel(roma.charAt(cursor + 2)) === false) ||
         cursor === (len - 1) ||
         isKana(roma.charAt(cursor + 1))
@@ -382,7 +421,7 @@ export function stripOkurigana(input, options = { all: false }) {
 
   // strip trailing only
   const reverseChars = chars.reverse();
-  for (let i = 0, len = reverseChars.length; i < len; i += 1) {
+  for (let i = 0, len = reverseChars.length; i &lt; len; i += 1) {
     const char = reverseChars[i];
     // pass if it's punctuation
     if (isCharPunctuation(char)) continue; // eslint-disable-line no-continue
@@ -394,3 +433,22 @@ export function stripOkurigana(input, options = { all: false }) {
 
   return reverseChars.reverse().join('');
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jan 01 2017 22:50:33 GMT+0700 (ICT) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
