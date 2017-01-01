@@ -18,13 +18,28 @@ import {
   UPPERCASE_END,
 } from './constants';
 
-// Returns a substring based on start/end values
+/**
+ * Returns a substring based on start/end values
+ * @param  {String} text
+ * @param  {Number} start index
+ * @param  {Number} end index
+ * @return {String} new substring
+ */
 export const getChunk = (text, start, end) => text.slice(start, end);
 
-// Don't pick a chunk that is bigger than the remaining characters.
+/**
+ * Don't pick a chunk that is bigger than the remaining characters.
+ * @param  {Number} max index limit
+ * @param  {Number} remaining
+ * @return {Number}
+ */
 export const getChunkSize = (max, remaining) => Math.min(max, remaining);
 
-// Checks if char is in English unicode uppercase range
+/**
+ * Checks if char is in English unicode uppercase range
+ * @param  {String} char
+ * @return {Boolean}
+ */
 export const isCharUpperCase = (char) => isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
 
 /**
@@ -61,12 +76,20 @@ export function isCharConsonant(char, includeY = true) {
   return char.toLowerCase().charAt(0).search(regexp) !== -1;
 }
 
-// Returns true if char is 'ー'
+/**
+ * Returns true if char is 'ー'
+ * @param  {String} char
+ * @return {Boolean}
+ */
 export function isCharLongDash(char) {
   return char.charCodeAt(0) === PROLONGED_SOUND_MARK;
 }
 
-// Returns true if char is '・'
+/**
+ * Returns true if char is '・'
+ * @param  {String} char
+ * @return {Boolean}
+ */
 export function isCharSlashDot(char) {
   return char.charCodeAt(0) === KANA_SLASH_DOT;
 }
@@ -108,14 +131,29 @@ export function isCharKanji(char) {
   return isCharInRange(char, KANJI_START, KANJI_END);
 }
 
+/**
+ * Tests a character. Returns true if the character is considered Japanese punctuation.
+ * @param  {String} char character string to test
+ * @return {Boolean}
+ */
 export function isCharJapanesePunctuation(char) {
   return JAPANESE_FULLWIDTH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }
 
+/**
+ * Tests a character. Returns true if the character is considered English punctuation.
+ * @param  {String} char character string to test
+ * @return {Boolean}
+ */
 export function isCharEnglishPunctuation(char) {
   return ENGLISH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }
 
+/**
+ * Tests a character. Returns true if the character is considered Japanese or English punctuation.
+ * @param  {String} char character string to test
+ * @return {Boolean}
+ */
 export function isCharPunctuation(char) {
   return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
 }

@@ -14,7 +14,6 @@ import {
 } from './characterTables';
 
 import {
-  convertFullwidthCharsToASCII,
   getChunk,
   getChunkSize,
   isCharLongDash,
@@ -30,6 +29,10 @@ import {
   isCharUpperCase,
 } from './utils';
 
+/**
+ * Default config for KanaWana, user passed options will be merged with this
+ * @type {Object}
+ */
 export const defaultOptions = {
   // Set to true to use obsolete characters, such as ゐ and ゑ.
   useObsoleteKana: false,
@@ -40,36 +43,11 @@ export const defaultOptions = {
   IMEMode: false,
 };
 
-export function bind(input, options) {
-  input.addEventListener('input', (event) => onInput(event, options));
-}
-
-export function unbind(input) {
-  input.removeEventListener('input', onInput);
-}
-
-function onInput(event, opts) {
-  const options = Object.assign({}, defaultOptions, opts, { IMEMode: true });
-  const input = event.target;
-  // const startingCursor = input.selectionStart;
-  // const startingLength = input.value.length;
-  const normalizedInputString = convertFullwidthCharsToASCII(input.value);
-  const newText = toKana(normalizedInputString, options);
-  if (normalizedInputString !== newText) {
-    input.value = newText;
-    if (typeof input.selectionStart === 'number') {
-      input.selectionStart = input.selectionEnd = input.value.length;
-      return;
-    }
-    if (typeof input.createTextRange !== 'undefined') {
-      input.focus();
-      const range = input.createTextRange();
-      range.collapse(false);
-      range.select();
-    }
-  }
-}
-
+/**
+ * Convert katakana to hiragana
+ * @param  {String} kata text input
+ * @return {String} converted text
+ */
 export function katakanaToHiragana(kata) {
   const hira = [];
   let previousKana = '';
@@ -100,6 +78,11 @@ export function katakanaToHiragana(kata) {
   return hira.join('');
 }
 
+/**
+ * Convert hiragana to katakana
+ * @param  {String} hira text input
+ * @return {String} converted text
+ */
 export function hiraganaToKatakana(hira) {
   const kata = [];
   hira.split('').forEach((hiraChar) => {
@@ -119,7 +102,13 @@ export function hiraganaToKatakana(hira) {
   return kata.join('');
 }
 
-export function romajiToHiragana(roma, options) {
+/**
+ * Convert romaji to hiragana
+ * @param  {String} roma text input
+ * @param  {Object}
+ * @return {String} converted text
+ */
+export function romajiToHiragana(roma, options = {}) {
   return romajiToKana(roma, options, true);
 }
 
@@ -166,22 +155,22 @@ export function isMixed(input, options = { passKanji: true }) {
   return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji) && !hasKanji;
 }
 
-export function toHiragana(input, opts = {}) {
-  const options = Object.assign({}, defaultOptions, opts);
-  if (options.passRomaji) return katakanaToHiragana(input);
-  if (isRomaji(input)) return romajiToHiragana(input, options);
+export function toHiragana(input, options = {}) {
+  const config = Object.assign({}, defaultOptions, options);
+  if (config.passRomaji) return katakanaToHiragana(input);
+  if (isRomaji(input)) return romajiToHiragana(input, config);
   if (isMixed(input, { passKanji: true })) {
     const romaji = katakanaToHiragana(input);
-    return romajiToHiragana(romaji, options);
+    return romajiToHiragana(romaji, config);
   }
   return katakanaToHiragana(input);
 }
 
-export function toKatakana(input, opts = {}) {
-  const options = Object.assign({}, defaultOptions, opts);
-  if (options.passRomaji) return hiraganaToKatakana(input);
+export function toKatakana(input, options = {}) {
+  const config = Object.assign({}, defaultOptions, options);
+  if (config.passRomaji) return hiraganaToKatakana(input);
   if (isRomaji(input) || isMixed(input)) {
-    const romaji = romajiToHiragana(input, options);
+    const romaji = romajiToHiragana(input, config);
     return hiraganaToKatakana(romaji);
   }
   return hiraganaToKatakana(input);
@@ -195,9 +184,9 @@ export function toRomaji(input, options) {
   return hiraganaToRomaji(input, options);
 }
 
-function hiraganaToRomaji(hira, opts = {}) {
+function hiraganaToRomaji(hira, options = {}) {
   // merge options with default options
-  const options = Object.assign({}, defaultOptions, opts);
+  const config = Object.assign({}, defaultOptions, options);
   const len = hira.length;
   // Final output array
   const roma = [];
@@ -215,7 +204,7 @@ function hiraganaToRomaji(hira, opts = {}) {
     while (chunkSize > 0) {
       chunk = getChunk(hira, cursor, cursor + chunkSize);
       if (isKatakana(chunk)) {
-        convertThisChunkToUppercase = options.convertKatakanaToUppercase;
+        convertThisChunkToUppercase = config.convertKatakanaToUppercase;
         chunk = katakanaToHiragana(chunk);
       }
       // special case for small tsus
@@ -252,9 +241,8 @@ function hiraganaToRomaji(hira, opts = {}) {
   return roma.join('');
 }
 
-export function romajiToKana(roma, opts = {}, ignoreCase = false) {
-  // merge options with default options
-  const options = Object.assign({}, defaultOptions, opts);
+export function romajiToKana(roma, options = {}, ignoreCase = false) {
+  const config = Object.assign({}, defaultOptions, options);
   // Final output array
   const kana = [];
   // Position in the string that is being evaluated
@@ -285,12 +273,12 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
         if (chunkLC.charAt(0) === 'n') {
           if (chunkSize === 2) {
             // Handle edge case of n followed by a space (only if not in IME mode)
-            if (!options.IMEMode && chunkLC.charAt(1) === ' ') {
+            if (!config.IMEMode && chunkLC.charAt(1) === ' ') {
               kanaChar = 'ん ';
               break;
             }
             // Convert IME input of n' to "ん"
-            if (options.IMEMode && chunkLC === "n'") {
+            if (config.IMEMode && chunkLC === "n'") {
               kanaChar = 'ん';
               break;
             }
@@ -338,12 +326,12 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
     }
 
     // Handle special cases.
-    if (options.useObsoleteKana) {
+    if (config.useObsoleteKana) {
       if (chunkLC === 'wi') kanaChar = 'ゐ';
       if (chunkLC === 'we') kanaChar = 'ゑ';
     }
 
-    if (!!options.IMEMode && chunkLC.charAt(0) === 'n') {
+    if (!!config.IMEMode && chunkLC.charAt(0) === 'n') {
       if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
         isCharVowel(roma.charAt(cursor + 2)) === false) ||
         cursor === (len - 1) ||
