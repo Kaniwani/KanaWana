@@ -1,18 +1,18 @@
 <div align="center">
 <!-- Dependency Status -->
-  <a href="https://david-dm.org/DJTB/KanaWana">
+  <a href="https://david-dm.org/KaniWani/KanaWana">
     <img src="https://img.shields.io/david/Kaniwani/KanaWana.svg" alt="Dependency Status" />
   </a>
   <!-- devDependency Status -->
-  <a href="https://david-dm.org/DJTB/KanaWana#info=devDependencies">
+  <a href="https://david-dm.org/KaniWani/KanaWana#info=devDependencies">
     <img src="https://img.shields.io/david/dev/Kaniwani/KanaWana.svg" alt="devDependency Status" />
   </a>
  <!-- Build Status -->
-  <a href="https://travis-ci.org/DJTB/KanaWana">
+  <a href="https://travis-ci.org/KaniWani/KanaWana">
     <img src="https://img.shields.io/travis/Kaniwani/KanaWana.svg" alt="Build Status" />
   </a>
   <!-- Test Coverage -->
-  <a href="https://coveralls.io/r/DJTB/KanaWana">
+  <a href="https://coveralls.io/r/KaniWani/KanaWana">
     <img src="https://img.shields.io/coveralls/Kaniwani/KanaWana.svg" alt="Test Coverage" />
   </a>
 </div>
