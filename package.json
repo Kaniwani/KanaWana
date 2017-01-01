@@ -11,9 +11,9 @@
   "bugs": {
     "url": "https://github.com/DJTB/KanaWana/issues"
   },
-  "jsnext:main": "src/core.js",
-  "main": "build/kanawana.js",
-  "browser": "build/kanawana.min.js",
+  "jsnext:main": "src/index.js",
+  "main": "lib/kanawana.js",
+  "browser": "lib/kanawana.min.js",
   "license": "MIT",
   "keywords": [
     "japanese",
@@ -25,9 +25,9 @@
     "transliteration"
   ],
   "scripts": {
-    "build": "npm run build:browser && npm run build:node",
-    "build:node": "cross-env NODE_ENV=dev webpack --config webpack.node.js --color --progress",
-    "build:browser": "cross-env NODE_ENV=production webpack --config webpack.browser.js --color -p --progress",
+    "start": "cross-env NODE_ENV=dev webpack --config webpack.dev.js --color --progress --watch",
+    "build": "npm run build:production",
+    "build:production": "cross-env NODE_ENV=production webpack --config webpack.production.js --color -p --progress",
     "commit": "git-cz",
     "precommit": "npm run lint",
     "pretest": "npm run test:clean",
@@ -61,7 +61,6 @@
     "collectCoverageFrom": [
       "src/*.js",
       "!src/index.js",
-      "!src/browser.js",
       "!**/node_modules/**"
     ]
   },
@@ -69,6 +68,7 @@
     "path": "node_modules/cz-conventional-changelog"
   },
   "devDependencies": {
+    "babel-core": "^6.21.0",
     "babel-eslint": "7.1.1",
     "babel-jest": "17.0.2",
     "babel-loader": "6.2.8",
@@ -92,8 +92,5 @@
     "rimraf": "2.5.4",
     "webpack": "1.13.3"
   },
-  "dependencies": {
-    "babel-core": "^6.21.0",
-    "eslint-plugin-react": "^6.8.0"
-  }
+  "dependencies": {}
 }
