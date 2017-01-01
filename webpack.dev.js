@@ -21,6 +21,7 @@ module.exports = {
     ],
   },
   resolve: {
+    modules: ['src', 'node_modules'],
     root: path.resolve('./src'),
     extensions: ['', '.js', '!test.js'],
   },
