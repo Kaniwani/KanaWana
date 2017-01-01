@@ -20,8 +20,10 @@ import {
   isCharLongDash,
   isCharSlashDot,
   isCharConsonant,
+  isCharPunctuation,
   isCharHiragana,
   isCharKana,
+  isCharKanji,
   isCharInRange,
   isCharKatakana,
   isCharVowel,
@@ -133,27 +135,42 @@ export function isKana(input) {
   return [...input].every(isCharKana);
 }
 
+export function isRomaji(input) {
+  return [...input].every((char) =>
+    !isHiragana(char) && !isKatakana(char) && !isKanji(char)
+  );
+}
+
+export function isKanji(input) {
+  return [...input].every(isCharKanji);
+}
+
 // Test if input is All Japanese, for mixes of kanji and kana like "泣き虫。"
 // Includes Japanese full-width punctuation ranges
 export function isKanjiKana(input) {
   return [...input].every((char) => KANJI_KANA_REGEX.test(char));
 }
 
-export function isRomaji(input) {
-  return [...input].every((char) => !isHiragana(char) && !isKatakana(char));
-}
-
-// Returns true if input is a mix of romaji and kana
-export function isMixed(input) {
+/**
+ * Test if input is a mix of kana and romaji, defaults to skip kanji
+ * @param  {String} input text
+ * @param  {Object} [options={ passKanji: true }] optional config to skip over kanji
+ * @return {Boolean} true if input is mixed
+ */
+export function isMixed(input, options = { passKanji: true }) {
   const chars = [...input];
-  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji);
+  let hasKanji = false;
+  if (!options.passKanji) {
+    hasKanji = chars.some(isKanji);
+  }
+  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji) && !hasKanji;
 }
 
 export function toHiragana(input, opts = {}) {
   const options = Object.assign({}, defaultOptions, opts);
   if (options.passRomaji) return katakanaToHiragana(input);
   if (isRomaji(input)) return romajiToHiragana(input, options);
-  if (isMixed(input)) {
+  if (isMixed(input, { passKanji: true })) {
     const romaji = katakanaToHiragana(input);
     return romajiToHiragana(romaji, options);
   }
@@ -349,4 +366,32 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
   }
 
   return kana.join('');
+}
+
+/**
+ * Strips trailing okurigana if input is a mix of kanji and kana
+ * @param  {String} input text to parse
+ * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed
+ * @return {String} string new string with trailing okurigana removed
+ */
+export function stripOkurigana(input, options = { all: false }) {
+  if (!isKanjiKana(input) || isKana(input)) return input;
+  const chars = [...input];
+
+  // strip every kana
+  if (options.all) return chars.filter((char) => !isCharKana(char)).join('');
+
+  // strip trailing only
+  const reverseChars = chars.reverse();
+  for (let i = 0, len = reverseChars.length; i < len; i += 1) {
+    const char = reverseChars[i];
+    // pass if it's punctuation
+    if (isCharPunctuation(char)) continue; // eslint-disable-line no-continue
+    // blank out if not kanji
+    if (!isKanji(char)) {
+      reverseChars[i] = '';
+    } else break; // stop when we hit a kanji char
+  }
+
+  return reverseChars.reverse().join('');
 }

@@ -66,14 +66,16 @@ module.exports =
 	exports.isHiragana = isHiragana;
 	exports.isKatakana = isKatakana;
 	exports.isKana = isKana;
-	exports.isKanjiKana = isKanjiKana;
 	exports.isRomaji = isRomaji;
+	exports.isKanji = isKanji;
+	exports.isKanjiKana = isKanjiKana;
 	exports.isMixed = isMixed;
 	exports.toHiragana = toHiragana;
 	exports.toKatakana = toKatakana;
 	exports.toKana = toKana;
 	exports.toRomaji = toRomaji;
 	exports.romajiToKana = romajiToKana;
+	exports.stripOkurigana = stripOkurigana;
 
 	var _constants = __webpack_require__(2);
 
@@ -193,6 +195,16 @@ module.exports =
 	  return [].concat(_toConsumableArray(input)).every(_utils.isCharKana);
 	}
 
+	function isRomaji(input) {
+	  return [].concat(_toConsumableArray(input)).every(function (char) {
+	    return !isHiragana(char) && !isKatakana(char) && !isKanji(char);
+	  });
+	}
+
+	function isKanji(input) {
+	  return [].concat(_toConsumableArray(input)).every(_utils.isCharKanji);
+	}
+
 	// Test if input is All Japanese, for mixes of kanji and kana like "泣き虫。"
 	// Includes Japanese full-width punctuation ranges
 	function isKanjiKana(input) {
@@ -201,16 +213,21 @@ module.exports =
 	  });
 	}
 
-	function isRomaji(input) {
-	  return [].concat(_toConsumableArray(input)).every(function (char) {
-	    return !isHiragana(char) && !isKatakana(char);
-	  });
-	}
-
-	// Returns true if input is a mix of romaji and kana
+	/**
+	 * Test if input is a mix of kana and romaji, defaults to skip kanji
+	 * @param  {String} input text
+	 * @param  {Object} [options={ passKanji: true }] optional config to skip over kanji
+	 * @return {Boolean} true if input is mixed
+	 */
 	function isMixed(input) {
+	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { passKanji: true };
+
 	  var chars = [].concat(_toConsumableArray(input));
-	  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji);
+	  var hasKanji = false;
+	  if (!options.passKanji) {
+	    hasKanji = chars.some(isKanji);
+	  }
+	  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji) && !hasKanji;
 	}
 
 	function toHiragana(input) {
@@ -219,7 +236,7 @@ module.exports =
 	  var options = Object.assign({}, defaultOptions, opts);
 	  if (options.passRomaji) return katakanaToHiragana(input);
 	  if (isRomaji(input)) return romajiToHiragana(input, options);
-	  if (isMixed(input)) {
+	  if (isMixed(input, { passKanji: true })) {
 	    var romaji = katakanaToHiragana(input);
 	    return romajiToHiragana(romaji, options);
 	  }
@@ -417,6 +434,38 @@ module.exports =
 	  return kana.join('');
 	}
 
+	/**
+	 * Strips trailing okurigana if input is a mix of kanji and kana
+	 * @param  {String} input text to parse
+	 * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed
+	 * @return {String} string new string with trailing okurigana removed
+	 */
+	function stripOkurigana(input) {
+	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { all: false };
+
+	  if (!isKanjiKana(input) || isKana(input)) return input;
+	  var chars = [].concat(_toConsumableArray(input));
+
+	  // strip every kana
+	  if (options.all) return chars.filter(function (char) {
+	    return !(0, _utils.isCharKana)(char);
+	  }).join('');
+
+	  // strip trailing only
+	  var reverseChars = chars.reverse();
+	  for (var i = 0, len = reverseChars.length; i < len; i += 1) {
+	    var char = reverseChars[i];
+	    // pass if it's punctuation
+	    if ((0, _utils.isCharPunctuation)(char)) continue; // eslint-disable-line no-continue
+	    // blank out if not kanji
+	    if (!isKanji(char)) {
+	      reverseChars[i] = '';
+	    } else break; // stop when we hit a kanji char
+	  }
+
+	  return reverseChars.reverse().join('');
+	}
+
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
@@ -426,10 +475,12 @@ module.exports =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	// References
 	// http://unicode-table.com
-	// export const ENGLISH_PUNCTUATION_RANGES = [[0x21, 0x2F], [0x3A, 0x3F], [0x5B, 0x60], [0x7B, 0x7E]];
 	// http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
-	// export const JAPANESE_FULLWIDTH_PUNCTUATION_RANGES = [[0x3001, 0x303E], [0x30FB, 0x30FC], [0XFF01, 0XFF0F], [0xFF1A, 0xFF1F], [0xFF3B, 0xFF3F], [0xFF5B, 0xFF60]];
+
+	var ENGLISH_PUNCTUATION_RANGES = exports.ENGLISH_PUNCTUATION_RANGES = [[0x21, 0x2F], [0x3A, 0x3F], [0x5B, 0x60], [0x7B, 0x7E]];
+	var JAPANESE_FULLWIDTH_PUNCTUATION_RANGES = exports.JAPANESE_FULLWIDTH_PUNCTUATION_RANGES = [[0x3001, 0x303E], [0x30FB, 0x30FC], [0xFF01, 0xFF0F], [0xFF1A, 0xFF1F], [0xFF3B, 0xFF3F], [0xFF5B, 0xFF60]];
 	var LOWERCASE_START = exports.LOWERCASE_START = 0x61;
 	var LOWERCASE_END = exports.LOWERCASE_END = 0x7A;
 	var UPPERCASE_START = exports.UPPERCASE_START = 0x41;
@@ -438,6 +489,8 @@ module.exports =
 	var HIRAGANA_END = exports.HIRAGANA_END = 0x3096;
 	var KATAKANA_START = exports.KATAKANA_START = 0x30A1;
 	var KATAKANA_END = exports.KATAKANA_END = 0x30FC;
+	var KANJI_START = exports.KANJI_START = 0x4E00;
+	var KANJI_END = exports.KANJI_END = 0x9FAF;
 	var LOWERCASE_FULLWIDTH_START = exports.LOWERCASE_FULLWIDTH_START = 0xFF41;
 	var LOWERCASE_FULLWIDTH_END = exports.LOWERCASE_FULLWIDTH_END = 0xFF5A;
 	var UPPERCASE_FULLWIDTH_START = exports.UPPERCASE_FULLWIDTH_START = 0xFF21;
@@ -447,7 +500,7 @@ module.exports =
 
 	// All Japanese regex, for mixes of kanji and kana like "泣き虫"
 	// Includes Japanese full-width punctuation ranges
-	// doesn't including *half-width katakana / roman letters* since they should be considered typos
+	// doesn't include *half-width katakana / roman letters* since they should be considered typos
 	var KANJI_KANA_REGEX = exports.KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;
 
 /***/ },
@@ -1025,6 +1078,9 @@ module.exports =
 	  value: true
 	});
 	exports.isCharUpperCase = exports.getChunkSize = exports.getChunk = undefined;
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	exports.isCharInRange = isCharInRange;
 	exports.isCharVowel = isCharVowel;
 	exports.isCharConsonant = isCharConsonant;
@@ -1033,17 +1089,17 @@ module.exports =
 	exports.isCharKatakana = isCharKatakana;
 	exports.isCharHiragana = isCharHiragana;
 	exports.isCharKana = isCharKana;
-	exports.isCharNotKana = isCharNotKana;
+	exports.isCharKanji = isCharKanji;
+	exports.isCharJapanesePunctuation = isCharJapanesePunctuation;
+	exports.isCharEnglishPunctuation = isCharEnglishPunctuation;
+	exports.isCharPunctuation = isCharPunctuation;
 	exports.convertFullwidthCharsToASCII = convertFullwidthCharsToASCII;
-	exports.stripKana = stripKana;
 
 	var _constants = __webpack_require__(2);
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	// Returns a substring based on start/end values
-	var getChunk = exports.getChunk = function getChunk(str, start, end) {
-	  return str.slice(start, end);
+	var getChunk = exports.getChunk = function getChunk(text, start, end) {
+	  return text.slice(start, end);
 	};
 
 	// Don't pick a chunk that is bigger than the remaining characters.
@@ -1058,9 +1114,9 @@ module.exports =
 
 	/**
 	 * Takes a character and a unicode range. Returns true if the char is in the range.
-	 * @param  {string}  char  unicode character
-	 * @param  {number}  start unicode start range
-	 * @param  {number}  end   unicode end range
+	 * @param  {String}  char  unicode character
+	 * @param  {Number}  start unicode start range
+	 * @param  {Number}  end   unicode end range
 	 * @return {Boolean}
 	 */
 	function isCharInRange(char, start, end) {
@@ -1070,7 +1126,7 @@ module.exports =
 
 	/**
 	 * Tests a character and an english vowel. Returns true if the char is a vowel.
-	 * @param  {string} char
+	 * @param  {String} char
 	 * @param  {Boolean} [includeY=true] Optional parameter to include y as a vowel in test
 	 * @return {Boolean}
 	 */
@@ -1083,7 +1139,7 @@ module.exports =
 
 	/**
 	 * Tests a character and an english consonant. Returns true if the char is a consonant.
-	 * @param  {string} char
+	 * @param  {String} char
 	 * @param  {Boolean} [includeY=true] Optional parameter to include y as a consonant in test
 	 * @return {Boolean}
 	 */
@@ -1106,7 +1162,7 @@ module.exports =
 
 	/**
 	 * Tests a character. Returns true if the character is katakana.
-	 * @param  {string} char character string to test
+	 * @param  {String} char character string to test
 	 * @return {Boolean}
 	 */
 	function isCharKatakana(char) {
@@ -1115,7 +1171,7 @@ module.exports =
 
 	/**
 	 * Tests a character. Returns true if the character is Hiragana.
-	 * @param  {string} char character string to test
+	 * @param  {String} char character string to test
 	 * @return {Boolean}
 	 */
 	function isCharHiragana(char) {
@@ -1125,7 +1181,7 @@ module.exports =
 
 	/**
 	 * Tests a character. Returns true if the character is hiragana or katakana.
-	 * @param  {string} char character string to test
+	 * @param  {String} char character string to test
 	 * @return {Boolean}
 	 */
 	function isCharKana(char) {
@@ -1133,21 +1189,45 @@ module.exports =
 	}
 
 	/**
-	 * Tests a character. Returns true if the character is not hiragana or katakana.
-	 * @param  {string} char character string to test
+	 * Tests a character. Returns true if the character is a CJK ideograph (kanji).
+	 * @param  {String} char character string to test
 	 * @return {Boolean}
 	 */
-	function isCharNotKana(char) {
-	  return !isCharHiragana(char) && !isCharKatakana(char);
+	function isCharKanji(char) {
+	  return isCharInRange(char, _constants.KANJI_START, _constants.KANJI_END);
+	}
+
+	function isCharJapanesePunctuation(char) {
+	  return _constants.JAPANESE_FULLWIDTH_PUNCTUATION_RANGES.some(function (_ref) {
+	    var _ref2 = _slicedToArray(_ref, 2),
+	        start = _ref2[0],
+	        end = _ref2[1];
+
+	    return isCharInRange(char, start, end);
+	  });
+	}
+
+	function isCharEnglishPunctuation(char) {
+	  return _constants.ENGLISH_PUNCTUATION_RANGES.some(function (_ref3) {
+	    var _ref4 = _slicedToArray(_ref3, 2),
+	        start = _ref4[0],
+	        end = _ref4[1];
+
+	    return isCharInRange(char, start, end);
+	  });
+	}
+
+	function isCharPunctuation(char) {
+	  return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
 	}
 
 	/**
 	 * Converts all fullwidth roman letters in string to proper ASCII
-	 * @param  {string} str Full Width roman letters
-	 * @return {string} ASCII
+	 * @param  {String} text Full Width roman letters
+	 * @return {String} ASCII
 	 */
-	function convertFullwidthCharsToASCII(str) {
-	  var asciiChars = str.split('').map(function (char) {
+	function convertFullwidthCharsToASCII(text) {
+	  var asciiChars = text.split('').map(function (char) {
 	    var code = char.charCodeAt(0);
 	    var lower = isCharInRange(char, _constants.LOWERCASE_FULLWIDTH_START, _constants.LOWERCASE_FULLWIDTH_END);
 	    var upper = isCharInRange(char, _constants.UPPERCASE_FULLWIDTH_START, _constants.UPPERCASE_FULLWIDTH_END);
@@ -1160,17 +1240,6 @@ module.exports =
 	  });
 
 	  return asciiChars.join('');
-	}
-
-	/**
-	 * Strips kana and returns a new string
-	 * @param  {String} str text to parse
-	 * @return {String} string with kana removed
-	 */
-	function stripKana(str) {
-	  return [].concat(_toConsumableArray(str)).filter(function (char) {
-	    return isCharNotKana(char);
-	  }).join('');
 	}
 
 /***/ }

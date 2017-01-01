@@ -14,10 +14,12 @@ import {
   isCharKatakana,
   isCharHiragana,
   isCharKana,
-  isCharNotKana,
+  isCharKanji,
+  isCharJapanesePunctuation,
+  isCharEnglishPunctuation,
+  isCharPunctuation,
   isCharUpperCase,
   convertFullwidthCharsToASCII,
-  stripKana,
 } from '../utils';
 
 /* eslint-disable no-undef */
@@ -113,20 +115,77 @@ describe('isCharKana', () => {
     expect(isCharKana('n')).toBe(false);
     expect(isCharKana('!')).toBe(false);
     expect(isCharKana('')).toBe(false);
+    expect(isCharKana('-')).toBe(false);
+    expect(isCharKana('ー')).toBe(true);
   });
 });
 
-describe('isCharNotKana', () => {
+describe('isCharKanji', () => {
   it('passes parameter tests', () => {
-    expect(isCharNotKana('n')).toBe(true);
-    expect(isCharNotKana('!')).toBe(true);
-    expect(isCharNotKana('')).toBe(true);
-    expect(isCharNotKana('-')).toBe(true);
-    expect(isCharNotKana('ー')).toBe(false);
-    expect(isCharNotKana('は')).toBe(false);
-    expect(isCharNotKana('ナ')).toBe(false);
+    expect(isCharKanji('腹')).toBe(true);
+    expect(isCharKanji('一')).toBe(true); // kanji for いち・1 - not a long hyphen
+    expect(isCharKanji('は')).toBe(false);
+    expect(isCharKanji('ナ')).toBe(false);
+    expect(isCharKanji('n')).toBe(false);
+    expect(isCharKanji('!')).toBe(false);
+    expect(isCharKanji('ー')).toBe(false); // long hyphen
+    expect(isCharKanji('')).toBe(false);
   });
 });
+
+describe('isCharJapanesePunctuation', () => {
+  it('passes parameter tests', () => {
+    expect(isCharJapanesePunctuation('！')).toBe(true);
+    expect(isCharJapanesePunctuation('？')).toBe(true);
+    expect(isCharJapanesePunctuation('・')).toBe(true);
+    expect(isCharJapanesePunctuation('「')).toBe(true);
+    expect(isCharJapanesePunctuation('｝')).toBe(true);
+    expect(isCharJapanesePunctuation('!')).toBe(false);
+    expect(isCharJapanesePunctuation('a')).toBe(false);
+    expect(isCharJapanesePunctuation('ふ')).toBe(false);
+    expect(isCharJapanesePunctuation('字')).toBe(false);
+    expect(isCharJapanesePunctuation('')).toBe(false);
+  });
+});
+
+describe('isCharEnglishPunctuation', () => {
+  it('passes parameter tests', () => {
+    expect(isCharEnglishPunctuation('!')).toBe(true);
+    expect(isCharEnglishPunctuation('?')).toBe(true);
+    expect(isCharEnglishPunctuation('/')).toBe(true);
+    expect(isCharEnglishPunctuation('.')).toBe(true);
+    expect(isCharEnglishPunctuation(',')).toBe(true);
+    expect(isCharEnglishPunctuation('！')).toBe(false);
+    expect(isCharEnglishPunctuation('？')).toBe(false);
+    expect(isCharEnglishPunctuation('・')).toBe(false);
+    expect(isCharEnglishPunctuation('「')).toBe(false);
+    expect(isCharEnglishPunctuation('｝')).toBe(false);
+    expect(isCharEnglishPunctuation('a')).toBe(false);
+    expect(isCharEnglishPunctuation('ふ')).toBe(false);
+    expect(isCharEnglishPunctuation('字')).toBe(false);
+    expect(isCharEnglishPunctuation('')).toBe(false);
+  });
+});
+
+describe('isCharPunctuation', () => {
+  it('passes parameter tests', () => {
+    expect(isCharPunctuation('!')).toBe(true);
+    expect(isCharPunctuation('?')).toBe(true);
+    expect(isCharPunctuation('/')).toBe(true);
+    expect(isCharPunctuation('.')).toBe(true);
+    expect(isCharPunctuation(',')).toBe(true);
+    expect(isCharPunctuation('！')).toBe(true);
+    expect(isCharPunctuation('？')).toBe(true);
+    expect(isCharPunctuation('・')).toBe(true);
+    expect(isCharPunctuation('「')).toBe(true);
+    expect(isCharPunctuation('｝')).toBe(true);
+    expect(isCharPunctuation('a')).toBe(false);
+    expect(isCharPunctuation('ふ')).toBe(false);
+    expect(isCharPunctuation('字')).toBe(false);
+    expect(isCharPunctuation('')).toBe(false);
+  });
+});
+
 
 describe('isCharUpperCase', () => {
   it('passes parameter tests', () => {
@@ -145,16 +204,5 @@ describe('convertFullwidthCharsToASCII', () => {
     expect(convertFullwidthCharsToASCII('come on ＦＨＱＷＨＧＡＤＳ')).toBe('come on FHQWHGADS');
     expect(convertFullwidthCharsToASCII('ＦＨＱＷＨＧＡＤＳ')).toBe('FHQWHGADS');
     expect(convertFullwidthCharsToASCII('ｆｈｑｗｈｇａｄｓ')).toBe('fhqwhgads');
-  });
-});
-
-describe('stripKana', () => {
-  it('passes parameter tests', () => {
-    expect(stripKana('ふふフフ')).toBe('');
-    expect(stripKana('ふaふbフcフ')).toBe('abc');
-    expect(stripKana('お腹')).toBe('腹');
-    expect(stripKana('お祝い')).toBe('祝');
-    expect(stripKana('粘り')).toBe('粘');
-    expect(stripKana('〜海軍い、。')).toBe('〜海軍、。');
   });
 });

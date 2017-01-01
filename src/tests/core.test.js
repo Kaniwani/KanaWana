@@ -3,6 +3,7 @@ import testTable from './transliteration-table';
 import {
   defaultOptions,
   isKana,
+  isKanji,
   isKanjiKana,
   isKatakana,
   isHiragana,
@@ -12,6 +13,7 @@ import {
   toKatakana,
   toHiragana,
   toRomaji,
+  stripOkurigana,
 } from '../core';
 
 describe('Character type detection', () => {
@@ -42,6 +44,17 @@ describe('Character type detection', () => {
     it('ignores long dash in mixed kana', () => expect(isKana('アーあ')).toBe(true));
   });
 
+  describe('isKanji()', () => {
+    it('切腹 is kanji', () => expect(isKanji('切腹')).toBe(true));
+    it('刀 is kanji', () => expect(isKanji('刀')).toBe(true));
+    it('🐸 is not kanji', () => expect(isKanji('🐸')).toBe(false));
+    it('あ is not kanji', () => expect(isKanji('あ')).toBe(false));
+    it('ア is not kanji', () => expect(isKanji('ア')).toBe(false));
+    it('あア is not kanji', () => expect(isKanji('あア')).toBe(false));
+    it('A is not kanji', () => expect(isKanji('A')).toBe(false));
+    it('あAア is not kanji', () => expect(isKanji('あAア')).toBe(false));
+  });
+
   describe('isKanjiKana()', () => {
     it('泣き虫 is kanji/kana', () => expect(isKanjiKana('泣き虫')).toBe(true));
     it('あア is kanji/kana', () => expect(isKanjiKana('あア')).toBe(true));
@@ -61,13 +74,20 @@ describe('Character type detection', () => {
     it('ア is not romaji', () => expect(isRomaji('ア')).toBe(false));
     it('あア is not romaji', () => expect(isRomaji('あア')).toBe(false));
     it('Aア is not romaji', () => expect(isRomaji('Aア')).toBe(false));
+    it('お願い is not romaji', () => expect(isRomaji('お願い')).toBe(false));
+    it('熟成 is not romaji', () => expect(isRomaji('熟成')).toBe(false));
     it('passes roman punctuation', () => expect(isRomaji('a*b&c-d')).toBe(true));
   });
 
   describe('isMixed()', () => {
     it('Aア is mixed', () => expect(isMixed('Aア')).toBe(true));
     it('Aあ is mixed', () => expect(isMixed('Aあ')).toBe(true));
+    it('Aあア is mixed', () => expect(isMixed('Aあ')).toBe(true));
     it('あア is not mixed', () => expect(isMixed('あア')).toBe(false));
+    it('お腹A is mixed', () => expect(isMixed('お腹A')).toBe(true));
+    it('お腹A is not mixed when { passKanji: false }', () => expect(isMixed('お腹A', { passKanji: false })).toBe(false));
+    it('お腹 is not mixed', () => expect(isMixed('お腹')).toBe(false));
+    it('腹 is not mixed', () => expect(isMixed('腹')).toBe(false));
     it('A is not mixed', () => expect(isMixed('A')).toBe(false));
     it('あ is not mixed', () => expect(isMixed('あ')).toBe(false));
     it('ア is not mixed', () => expect(isMixed('ア')).toBe(false));
@@ -272,6 +292,24 @@ describe('Kana to Romaji', () => {
   });
 });
 
+describe('stripOkurigana', () => {
+  it('passes default parameter tests', () => {
+    expect(stripOkurigana('ふふフフ')).toBe('ふふフフ');
+    expect(stripOkurigana('ふaふbフcフ')).toBe('ふaふbフcフ');
+    expect(stripOkurigana('お腹')).toBe('お腹');
+    expect(stripOkurigana('踏み込む')).toBe('踏み込');
+    expect(stripOkurigana('お祝い')).toBe('お祝');
+    expect(stripOkurigana('粘り')).toBe('粘');
+    expect(stripOkurigana('〜い海軍い、。')).toBe('〜い海軍、。');
+  });
+  it('strips all kana when passed optional config', () => {
+    expect(stripOkurigana('お腹', { all: true })).toBe('腹');
+    expect(stripOkurigana('踏み込む', { all: true })).toBe('踏込');
+    expect(stripOkurigana('お祝い', { all: true })).toBe('祝');
+    expect(stripOkurigana('〜い海軍い、。', { all: true })).toBe('〜海軍、。');
+  });
+});
+
 describe('Options', () => {
   it('useObsoleteKana', () => {
     const options = { useObsoleteKana: true };
@@ -286,16 +324,21 @@ describe('Options', () => {
   });
 
   describe('IMEMode', () => {
-    /** Simulate real typing by calling the function on every character in sequence */
-    function testTyping(str, opts) {
+    /**
+     * Simulate real typing by calling the function on every character in sequence
+     * @param  {String} input
+     * @param  {Object} options
+     * @return {String} converted romaji as kana
+     */
+    function testTyping(input, options) {
       let pos = 1;
-      let text = str;
-      const len = str.length;
-      // console.log(`--${str}--`);
+      let text = input;
+      const len = text.length;
+      // console.log(`--${text}--`);
       while (pos <= len) {
-        let buffer = str.slice(0, pos);
-        const rest = str.slice(pos);
-        buffer = toKana(buffer, opts);
+        let buffer = text.slice(0, pos);
+        const rest = text.slice(pos);
+        buffer = toKana(buffer, options);
         // console.log(`${pos}:${buffer} <-${rest}`);
         text = buffer + rest;
         pos += 1;

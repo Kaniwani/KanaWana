@@ -1,22 +1,25 @@
 import {
-  HIRAGANA_END,
+  ENGLISH_PUNCTUATION_RANGES,
+  JAPANESE_FULLWIDTH_PUNCTUATION_RANGES,
   HIRAGANA_START,
-  KATAKANA_END,
+  HIRAGANA_END,
   KATAKANA_START,
+  KATAKANA_END,
+  KANJI_START,
+  KANJI_END,
   PROLONGED_SOUND_MARK,
   KANA_SLASH_DOT,
-  LOWERCASE_FULLWIDTH_END,
   LOWERCASE_FULLWIDTH_START,
+  LOWERCASE_FULLWIDTH_END,
   LOWERCASE_START,
-  UPPERCASE_FULLWIDTH_END,
   UPPERCASE_FULLWIDTH_START,
-  UPPERCASE_END,
+  UPPERCASE_FULLWIDTH_END,
   UPPERCASE_START,
+  UPPERCASE_END,
 } from './constants';
 
-
 // Returns a substring based on start/end values
-export const getChunk = (str, start, end) => str.slice(start, end);
+export const getChunk = (text, start, end) => text.slice(start, end);
 
 // Don't pick a chunk that is bigger than the remaining characters.
 export const getChunkSize = (max, remaining) => Math.min(max, remaining);
@@ -26,9 +29,9 @@ export const isCharUpperCase = (char) => isCharInRange(char, UPPERCASE_START, UP
 
 /**
  * Takes a character and a unicode range. Returns true if the char is in the range.
- * @param  {string}  char  unicode character
- * @param  {number}  start unicode start range
- * @param  {number}  end   unicode end range
+ * @param  {String}  char  unicode character
+ * @param  {Number}  start unicode start range
+ * @param  {Number}  end   unicode end range
  * @return {Boolean}
  */
 export function isCharInRange(char, start, end) {
@@ -38,7 +41,7 @@ export function isCharInRange(char, start, end) {
 
 /**
  * Tests a character and an english vowel. Returns true if the char is a vowel.
- * @param  {string} char
+ * @param  {String} char
  * @param  {Boolean} [includeY=true] Optional parameter to include y as a vowel in test
  * @return {Boolean}
  */
@@ -49,7 +52,7 @@ export function isCharVowel(char, includeY = true) {
 
 /**
  * Tests a character and an english consonant. Returns true if the char is a consonant.
- * @param  {string} char
+ * @param  {String} char
  * @param  {Boolean} [includeY=true] Optional parameter to include y as a consonant in test
  * @return {Boolean}
  */
@@ -70,7 +73,7 @@ export function isCharSlashDot(char) {
 
 /**
  * Tests a character. Returns true if the character is katakana.
- * @param  {string} char character string to test
+ * @param  {String} char character string to test
  * @return {Boolean}
  */
 export function isCharKatakana(char) {
@@ -79,7 +82,7 @@ export function isCharKatakana(char) {
 
 /**
  * Tests a character. Returns true if the character is Hiragana.
- * @param  {string} char character string to test
+ * @param  {String} char character string to test
  * @return {Boolean}
  */
 export function isCharHiragana(char) {
@@ -89,7 +92,7 @@ export function isCharHiragana(char) {
 
 /**
  * Tests a character. Returns true if the character is hiragana or katakana.
- * @param  {string} char character string to test
+ * @param  {String} char character string to test
  * @return {Boolean}
  */
 export function isCharKana(char) {
@@ -97,21 +100,33 @@ export function isCharKana(char) {
 }
 
 /**
- * Tests a character. Returns true if the character is not hiragana or katakana.
- * @param  {string} char character string to test
+ * Tests a character. Returns true if the character is a CJK ideograph (kanji).
+ * @param  {String} char character string to test
  * @return {Boolean}
  */
-export function isCharNotKana(char) {
-  return !isCharHiragana(char) && !isCharKatakana(char);
+export function isCharKanji(char) {
+  return isCharInRange(char, KANJI_START, KANJI_END);
+}
+
+export function isCharJapanesePunctuation(char) {
+  return JAPANESE_FULLWIDTH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
+}
+
+export function isCharEnglishPunctuation(char) {
+  return ENGLISH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
+}
+
+export function isCharPunctuation(char) {
+  return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
 }
 
 /**
  * Converts all fullwidth roman letters in string to proper ASCII
- * @param  {string} str Full Width roman letters
- * @return {string} ASCII
+ * @param  {String} text Full Width roman letters
+ * @return {String} ASCII
  */
-export function convertFullwidthCharsToASCII(str) {
-  const asciiChars = str.split('').map((char) => {
+export function convertFullwidthCharsToASCII(text) {
+  const asciiChars = text.split('').map((char) => {
     const code = char.charCodeAt(0);
     const lower = isCharInRange(char, LOWERCASE_FULLWIDTH_START, LOWERCASE_FULLWIDTH_END);
     const upper = isCharInRange(char, UPPERCASE_FULLWIDTH_START, UPPERCASE_FULLWIDTH_END);
@@ -124,13 +139,4 @@ export function convertFullwidthCharsToASCII(str) {
   });
 
   return asciiChars.join('');
-}
-
-/**
- * Strips kana and returns a new string
- * @param  {String} str text to parse
- * @return {String} string with kana removed
- */
-export function stripKana(str) {
-  return [...str].filter((char) => isCharNotKana(char)).join('');
 }
