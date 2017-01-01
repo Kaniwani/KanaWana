@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/travis/Kaniwani/KanaWana.svg" alt="Build Status" />
   </a>
   <!-- Test Coverage -->
-  <a href="https://coveralls.io/r/KaniWani/KanaWana">
+  <a href="https://coveralls.io/github/Kaniwani/KanaWana">
     <img src="https://img.shields.io/coveralls/Kaniwani/KanaWana.svg" alt="Test Coverage" />
   </a>
 </div>
