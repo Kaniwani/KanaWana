@@ -18,11 +18,16 @@ if (env === 'production') {
     }),
     new DedupePlugin(),
     new UglifyJsPlugin({
-      compress: {
+      minimize: true,
+      sourceMap: false,
+      output: {
+        comments: false,
+      },
+      compressor: {
         warnings: false,
       },
     }),
-    new OccurrenceOrderPlugin(),
+    new OccurrenceOrderPlugin()
   );
   outputFile = `${libraryName}.min.js`;
 } else {

@@ -1,4 +1,4 @@
-export const longVowels = {
+const longVowels = {
   a: 'あ',
   i: 'い',
   u: 'う',
@@ -6,13 +6,13 @@ export const longVowels = {
   o: 'う',
 };
 
-export const fourCharacterEdgeCases = [
+const fourCharacterEdgeCases = [
   'lts',
   'chy',
   'shy',
 ];
 
-export const RtoJ = {
+const RtoJ = {
   '.': '。',
   ',': '、',
   '/': '・',
@@ -318,7 +318,7 @@ export const RtoJ = {
   'ltsu': 'っ',  // 4 character code
 };
 
-export const JtoR = {
+const JtoR = {
   '　': ' ',
   '！': '!',
   '？': '?',
@@ -557,4 +557,11 @@ export const JtoR = {
   'んや': 'n\'ya',
   'んゆ': 'n\'yu',
   'んよ': 'n\'yo',
+};
+
+export {
+  longVowels,
+  fourCharacterEdgeCases,
+  RtoJ,
+  JtoR,
 };

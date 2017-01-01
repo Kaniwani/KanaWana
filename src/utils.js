@@ -25,7 +25,9 @@ import {
  * @param  {Number} end index
  * @return {String} new substring
  */
-export const getChunk = (text, start, end) => text.slice(start, end);
+export function getChunk(text, start, end) {
+  return text.slice(start, end);
+}
 
 /**
  * Don't pick a chunk that is bigger than the remaining characters.
@@ -33,14 +35,18 @@ export const getChunk = (text, start, end) => text.slice(start, end);
  * @param  {Number} remaining
  * @return {Number}
  */
-export const getChunkSize = (max, remaining) => Math.min(max, remaining);
+export function getChunkSize(max, remaining) {
+  return Math.min(max, remaining);
+}
 
 /**
  * Checks if char is in English unicode uppercase range
  * @param  {String} char
  * @return {Boolean}
  */
-export const isCharUpperCase = (char) => isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
+export function isCharUpperCase(char) {
+  return isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
+}
 
 /**
  * Takes a character and a unicode range. Returns true if the char is in the range.
