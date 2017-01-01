@@ -26,7 +26,8 @@
   ],
   "scripts": {
     "start": "cross-env NODE_ENV=dev webpack --config webpack.dev.js --color --progress --watch",
-    "build": "npm run build:production",
+    "build": "npm run build:dev && npm run build:production",
+    "build:dev": "cross-env NODE_ENV=dev webpack --config webpack.dev.js --color --progress",
     "build:production": "cross-env NODE_ENV=production webpack --config webpack.production.js --color -p --progress",
     "commit": "git-cz",
     "precommit": "npm run lint",

@@ -5,7 +5,7 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const DedupePlugin = webpack.optimize.DedupePlugin;
 const OccurrenceOrderPlugin = webpack.optimize.OccurrenceOrderPlugin;
 
-const env = process.env.WEBPACK_ENV;
+const env = process.env.NODE_ENV;
 const libraryName = 'kanawana';
 const plugins = [];
 let outputFile;
@@ -19,7 +19,6 @@ if (env === 'production') {
     new DedupePlugin(),
     new UglifyJsPlugin({
       minimize: true,
-      sourceMap: false,
       output: {
         comments: false,
       },
