@@ -1,7 +1,7 @@
 <div align="center">
-<!-- Dependency Status -->
-  <a href="https://david-dm.org/KaniWani/KanaWana">
-    <img src="https://img.shields.io/david/Kaniwani/KanaWana.svg" alt="Dependency Status" />
+  <!-- Npm Version -->
+  <a href="https://www.npmjs.com/package/kanawana">
+    <img src="https://img.shields.io/npm/v/kanawana.svg" alt="devDependency Status" />
   </a>
   <!-- devDependency Status -->
   <a href="https://david-dm.org/KaniWani/KanaWana#info=devDependencies">
