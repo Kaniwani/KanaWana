@@ -1,9 +1,8 @@
 sudo: required
 language: node_js
+node_js: 7
 
-node_js:
-  - 7
-
+# required for microtime npm module
 env:
   - CXX=g++-4.8
 addons:
@@ -13,7 +12,11 @@ addons:
     packages:
       - g++-4.8
 
-script: yarn run build
+script:
+  # microtime needs to build binaries, so lets explicitly reinstall it since the cached version will be fubar
+  - yarn remove microtime
+  - yarn add microtime
+  - yarn run build
 
 notifications:
   email:
