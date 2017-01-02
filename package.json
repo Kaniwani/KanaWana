@@ -61,8 +61,8 @@
     },
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
-      "src/*.js",
-      "!src/index.js",
+      "src/core/*.js",
+      "src/utils/*.js",
       "!**/node_modules/**"
     ]
   },
