@@ -4,6 +4,8 @@
  * @param  {Number} remaining
  * @return {Number}
  */
-export default function getChunkSize(max, remaining) {
+function getChunkSize(max, remaining) {
   return Math.min(max, remaining);
 }
+
+export default getChunkSize;

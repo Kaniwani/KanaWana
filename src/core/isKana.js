@@ -5,6 +5,8 @@ import isCharKana from '../utils/isCharKana';
  * @param  {String} input text to test
  * @return {Boolean} true if either Katakana or Hiragana, else false
  */
-export default function isKana(input) {
+function isKana(input) {
   return [...input].every(isCharKana);
 }
+
+export default isKana;

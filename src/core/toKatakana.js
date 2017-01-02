@@ -4,7 +4,7 @@ import isRomaji from './isRomaji';
 import isRomajiKana from './isRomajiKana';
 import romajiToHiragana from './romajiToHiragana';
 
-export default function toKatakana(input, options = {}) {
+function toKatakana(input, options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.passRomaji) return hiraganaToKatakana(input);
   if (isRomaji(input) || isRomajiKana(input)) {
@@ -13,3 +13,5 @@ export default function toKatakana(input, options = {}) {
   }
   return hiraganaToKatakana(input);
 }
+
+export default toKatakana;

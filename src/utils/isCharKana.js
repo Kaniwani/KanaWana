@@ -6,6 +6,8 @@ import isCharKatakana from './isCharKatakana';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-export default function isCharKana(char) {
+function isCharKana(char) {
   return isCharHiragana(char) || isCharKatakana(char);
 }
+
+export default isCharKana;

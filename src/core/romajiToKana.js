@@ -16,7 +16,7 @@ import isKana from './isKana';
 import hiraganaToKatakana from './hiraganaToKatakana';
 
 
-export default function romajiToKana(roma, options = {}, ignoreCase = false) {
+function romajiToKana(roma, options = {}, ignoreCase = false) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   // Final output array
   const kana = [];
@@ -130,3 +130,5 @@ export default function romajiToKana(roma, options = {}, ignoreCase = false) {
 
   return kana.join('');
 }
+
+export default romajiToKana;

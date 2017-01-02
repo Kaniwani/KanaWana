@@ -6,6 +6,8 @@ import isCharJapanesePunctuation from './isCharJapanesePunctuation';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-export default function isCharPunctuation(char) {
+function isCharPunctuation(char) {
   return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
 }
+
+export default isCharPunctuation;

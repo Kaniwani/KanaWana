@@ -8,7 +8,7 @@ import isKatakana from './isKatakana';
 import katakanaToHiragana from './katakanaToHiragana';
 
 
-export default function hiraganaToRomaji(hira, options = {}) {
+function hiraganaToRomaji(hira, options = {}) {
   // merge options with default options
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   const len = hira.length;
@@ -64,3 +64,5 @@ export default function hiraganaToRomaji(hira, options = {}) {
 
   return roma.join('');
 }
+
+export default hiraganaToRomaji;

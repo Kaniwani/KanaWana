@@ -4,7 +4,9 @@
  * @param  {Boolean} [includeY=true] Optional parameter to include y as a consonant in test
  * @return {Boolean}
  */
-export default function isCharConsonant(char, includeY = true) {
+function isCharConsonant(char, includeY = true) {
   const regexp = includeY ? /[bcdfghjklmnpqrstvwxyz]/ : /[bcdfghjklmnpqrstvwxz]/;
   return char.toLowerCase().charAt(0).search(regexp) !== -1;
 }
+
+export default isCharConsonant;

@@ -10,7 +10,9 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-export default function isCharHiragana(char) {
+function isCharHiragana(char) {
   if (isCharLongDash(char)) return true;
   return isCharInRange(char, HIRAGANA_START, HIRAGANA_END);
 }
+
+export default isCharHiragana;

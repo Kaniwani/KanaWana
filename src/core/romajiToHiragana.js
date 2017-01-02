@@ -6,6 +6,8 @@ import romajiToKana from './romajiToKana';
  * @param  {Object}
  * @return {String} converted text
  */
-export default function romajiToHiragana(roma, options = {}) {
+function romajiToHiragana(roma, options = {}) {
   return romajiToKana(roma, options, true);
 }
+
+export default romajiToHiragana;

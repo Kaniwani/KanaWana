@@ -5,7 +5,9 @@
  * @param  {Number}  end   unicode end range
  * @return {Boolean}
  */
-export default function isCharInRange(char, start, end) {
+function isCharInRange(char, start, end) {
   const code = char.charCodeAt(0);
   return start <= code && code <= end;
 }
+
+export default isCharInRange;

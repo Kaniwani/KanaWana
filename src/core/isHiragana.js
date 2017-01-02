@@ -5,6 +5,8 @@ import isCharHiragana from '../utils/isCharHiragana';
  * @param  {String} input text to Tests
  * @return {Boolean} true if hiragana
  */
-export default function isHiragana(input) {
+function isHiragana(input) {
   return [...input].every(isCharHiragana);
 }
+
+export default isHiragana;

@@ -4,7 +4,9 @@
  * @param  {Boolean} [includeY=true] Optional parameter to include y as a vowel in test
  * @return {Boolean}
  */
-export default function isCharVowel(char, includeY = true) {
+function isCharVowel(char, includeY = true) {
   const regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
   return char.toLowerCase().charAt(0).search(regexp) !== -1;
 }
+
+export default isCharVowel;

@@ -5,6 +5,8 @@
  * @param  {Number} end index
  * @return {String} new substring
  */
-export default function getChunk(text, start, end) {
+function getChunk(text, start, end) {
   return text.slice(start, end);
 }
+
+export default getChunk;

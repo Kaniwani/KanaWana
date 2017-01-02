@@ -8,7 +8,5 @@ import isKanji from './isKanji';
  * @return {Boolean} true if not kana or kanji
  */
 export default function isRomaji(input) {
-  return [...input].every((char) =>
-    !isHiragana(char) && !isKatakana(char) && !isKanji(char),
-  );
+  return [...input].every((char) => !isHiragana(char) && !isKatakana(char) && !isKanji(char));
 }

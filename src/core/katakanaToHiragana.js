@@ -15,7 +15,7 @@ import hiraganaToRomaji from './hiraganaToKatakana';
  * @param  {String} kata text input
  * @return {String} converted text
  */
-export default function katakanaToHiragana(kata) {
+function katakanaToHiragana(kata) {
   const hira = [];
   let previousKana = '';
   const iterable = kata.split('');
@@ -44,3 +44,5 @@ export default function katakanaToHiragana(kata) {
   }
   return hira.join('');
 }
+
+export default katakanaToHiragana;

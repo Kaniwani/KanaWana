@@ -1,10 +1,10 @@
 {
   "tags": {
-    "allowUnknownTags": false
+    "allowUnknownTags": true
   },
   "source": {
     "include": "src/",
-    "includePattern": "(index|core|utils).js$",
+    "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs|tests)"
   },
   "plugins": [

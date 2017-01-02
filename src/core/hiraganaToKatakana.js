@@ -12,7 +12,7 @@ import isCharHiragana from '../utils/isCharHiragana';
  * @param  {String} hira text input
  * @return {String} converted text
  */
-export default function hiraganaToKatakana(hira) {
+function hiraganaToKatakana(hira) {
   const kata = [];
   hira.split('').forEach((hiraChar) => {
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
@@ -30,3 +30,5 @@ export default function hiraganaToKatakana(hira) {
   });
   return kata.join('');
 }
+
+export default hiraganaToKatakana;

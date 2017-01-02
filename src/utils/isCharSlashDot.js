@@ -5,6 +5,8 @@ import { KANA_SLASH_DOT } from '../constants';
  * @param  {String} char
  * @return {Boolean} true if '・'
  */
-export default function isCharSlashDot(char) {
+function isCharSlashDot(char) {
   return char.charCodeAt(0) === KANA_SLASH_DOT;
 }
+
+export default isCharSlashDot;

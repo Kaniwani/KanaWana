@@ -14,7 +14,7 @@ import isCharInRange from './isCharInRange';
  * @param  {String} text Full Width roman letters
  * @return {String} ASCII
  */
-export default function convertFullwidthCharsToASCII(text) {
+function convertFullwidthCharsToASCII(text) {
   const asciiChars = text.split('').map((char) => {
     const code = char.charCodeAt(0);
     const lower = isCharInRange(char, LOWERCASE_FULLWIDTH_START, LOWERCASE_FULLWIDTH_END);
@@ -29,3 +29,5 @@ export default function convertFullwidthCharsToASCII(text) {
 
   return asciiChars.join('');
 }
+
+export default convertFullwidthCharsToASCII;

@@ -1,5 +1,7 @@
 import hiraganaToRomaji from './hiraganaToRomaji';
 
-export default function toRomaji(input, options) {
+function toRomaji(input, options) {
   return hiraganaToRomaji(input, options);
 }
+
+export default toRomaji;

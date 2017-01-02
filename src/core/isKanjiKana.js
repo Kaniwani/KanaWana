@@ -6,6 +6,8 @@ import { KANJI_KANA_REGEX } from '../constants';
  * @param  {String} input text to test
  * @return {Boolean} true if ALL Japanese, else false
  */
-export default function isKanjiKana(input) {
+function isKanjiKana(input) {
   return [...input].every((char) => KANJI_KANA_REGEX.test(char));
 }
+
+export default isKanjiKana;

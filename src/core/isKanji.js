@@ -5,6 +5,8 @@ import isCharKanji from '../utils/isCharKanji';
  * @param  {String} input text to test
  * @return {Boolean} true if all Kanji, else false
  */
-export default function isKanji(input) {
+function isKanji(input) {
   return [...input].every(isCharKanji);
 }
+
+export default isKanji;

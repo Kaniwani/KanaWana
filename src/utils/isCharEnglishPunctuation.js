@@ -6,6 +6,8 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-export default function isCharEnglishPunctuation(char) {
+function isCharEnglishPunctuation(char) {
   return ENGLISH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }
+
+export default isCharEnglishPunctuation;

@@ -10,6 +10,8 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char
  * @return {Boolean}
  */
-export default function isCharUpperCase(char) {
+function isCharUpperCase(char) {
   return isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
 }
+
+export default isCharUpperCase;
