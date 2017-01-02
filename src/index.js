@@ -17,6 +17,8 @@ import toKana from './core/toKana';
 import toRomaji from './core/toRomaji';
 import stripOkurigana from './core/stripOkurigana';
 
+// TODO: add @examples to docstrings for doc generation
+
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
  * @param  {HTMLElement} input textarea, input[type="text"] etc
