@@ -1,20 +1,18 @@
 import microtime from 'microtime';
 import testTable from './transliteration-table';
-import {
-  defaultOptions,
-  isKana,
-  isKanji,
-  isKanjiKana,
-  isKatakana,
-  isHiragana,
-  isRomaji,
-  isMixed,
-  toKana,
-  toKatakana,
-  toHiragana,
-  toRomaji,
-  stripOkurigana,
-} from '../core';
+import { DEFAULT_OPTIONS } from '../src/constants';
+import isKana from '../src/core/isKana';
+import isKanji from '../src/core/isKanji';
+import isKanjiKana from '../src/core/isKanjiKana';
+import isKatakana from '../src/core/isKatakana';
+import isHiragana from '../src/core/isHiragana';
+import isRomaji from '../src/core/isRomaji';
+import isRomajiKana from '../src/core/isRomajiKana';
+import toKana from '../src/core/toKana';
+import toKatakana from '../src/core/toKatakana';
+import toHiragana from '../src/core/toHiragana';
+import toRomaji from '../src/core/toRomaji';
+import stripOkurigana from '../src/core/stripOkurigana';
 
 describe('Character type detection', () => {
   describe('isHiragana()', () => {
@@ -79,18 +77,18 @@ describe('Character type detection', () => {
     it('passes roman punctuation', () => expect(isRomaji('a*b&c-d')).toBe(true));
   });
 
-  describe('isMixed()', () => {
-    it('Aア is mixed', () => expect(isMixed('Aア')).toBe(true));
-    it('Aあ is mixed', () => expect(isMixed('Aあ')).toBe(true));
-    it('Aあア is mixed', () => expect(isMixed('Aあ')).toBe(true));
-    it('あア is not mixed', () => expect(isMixed('あア')).toBe(false));
-    it('お腹A is mixed', () => expect(isMixed('お腹A')).toBe(true));
-    it('お腹A is not mixed when { passKanji: false }', () => expect(isMixed('お腹A', { passKanji: false })).toBe(false));
-    it('お腹 is not mixed', () => expect(isMixed('お腹')).toBe(false));
-    it('腹 is not mixed', () => expect(isMixed('腹')).toBe(false));
-    it('A is not mixed', () => expect(isMixed('A')).toBe(false));
-    it('あ is not mixed', () => expect(isMixed('あ')).toBe(false));
-    it('ア is not mixed', () => expect(isMixed('ア')).toBe(false));
+  describe('isRomajiKana()', () => {
+    it('Aア is mixed', () => expect(isRomajiKana('Aア')).toBe(true));
+    it('Aあ is mixed', () => expect(isRomajiKana('Aあ')).toBe(true));
+    it('Aあア is mixed', () => expect(isRomajiKana('Aあ')).toBe(true));
+    it('あア is not mixed', () => expect(isRomajiKana('あア')).toBe(false));
+    it('お腹A is mixed', () => expect(isRomajiKana('お腹A')).toBe(true));
+    it('お腹A is not mixed when { passKanji: false }', () => expect(isRomajiKana('お腹A', { passKanji: false })).toBe(false));
+    it('お腹 is not mixed', () => expect(isRomajiKana('お腹')).toBe(false));
+    it('腹 is not mixed', () => expect(isRomajiKana('腹')).toBe(false));
+    it('A is not mixed', () => expect(isRomajiKana('A')).toBe(false));
+    it('あ is not mixed', () => expect(isRomajiKana('あ')).toBe(false));
+    it('ア is not mixed', () => expect(isRomajiKana('ア')).toBe(false));
   });
 });
 
@@ -376,8 +374,8 @@ describe('Options', () => {
     it('Checking other combinations', () => expect(toRomaji('んよ んあ んゆ')).toBe("n'yo n'a n'yu"));
   });
 
-  describe('Options use defaultOptions by default', () => {
-    defaultOptions.useObsoleteKana = true;
+  describe('Options use DEFAULT_OPTIONS by default', () => {
+    DEFAULT_OPTIONS.useObsoleteKana = true;
     it('Overwrite default (temporarily)', () => expect(toHiragana('wi')).toBe('ゐ'));
     const options = { IMEMode: true };
     it("Defaults aren't overwritten by being omitted", () => expect(toHiragana('wi', options)).toBe('ゐ'));

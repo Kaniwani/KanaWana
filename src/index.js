@@ -1,24 +1,21 @@
-import { convertFullwidthCharsToASCII } from './utils';
-
-import {
-  defaultOptions,
-  katakanaToHiragana,
-  hiraganaToKatakana,
-  romajiToHiragana,
-  romajiToKana,
-  isHiragana,
-  isKatakana,
-  isKana,
-  isKanjiKana,
-  isRomaji,
-  isMixed,
-  isKanji,
-  toHiragana,
-  toKatakana,
-  toKana,
-  toRomaji,
-  stripOkurigana,
-} from './core';
+import { DEFAULT_OPTIONS } from './constants';
+import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
+import katakanaToHiragana from './core/katakanaToHiragana';
+import hiraganaToKatakana from './core/hiraganaToKatakana';
+import romajiToHiragana from './core/romajiToHiragana';
+import romajiToKana from './core/romajiToKana';
+import isHiragana from './core/isHiragana';
+import isKatakana from './core/isKatakana';
+import isKana from './core/isKana';
+import isKanjiKana from './core/isKanjiKana';
+import isRomaji from './core/isRomaji';
+import isRomajiKana from './core/isRomajiKana';
+import isKanji from './core/isKanji';
+import toHiragana from './core/toHiragana';
+import toKatakana from './core/toKatakana';
+import toKana from './core/toKana';
+import toRomaji from './core/toRomaji';
+import stripOkurigana from './core/stripOkurigana';
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
@@ -43,7 +40,7 @@ function unbind(input) {
  * @param  {Object} [options={}] user config overrides
  */
 function onInput(event, options = {}) {
-  const config = Object.assign({}, defaultOptions, options, { IMEMode: true });
+  const config = Object.assign({}, DEFAULT_OPTIONS, options, { IMEMode: true });
   const input = event.target;
   // const startingCursor = input.selectionStart;
   // const startingLength = input.value.length;
@@ -76,7 +73,7 @@ export {
   isKana,
   isKanjiKana,
   isRomaji,
-  isMixed,
+  isRomajiKana,
   isKanji,
   toHiragana,
   toKatakana,

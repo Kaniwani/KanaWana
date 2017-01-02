@@ -1,29 +1,24 @@
 import {
   HIRAGANA_END,
   HIRAGANA_START,
-} from '../constants';
+} from '../src/constants';
 
-import {
-  getChunk,
-  getChunkSize,
-  isCharInRange,
-  isCharVowel,
-  isCharConsonant,
-  isCharLongDash,
-  isCharSlashDot,
-  isCharKatakana,
-  isCharHiragana,
-  isCharKana,
-  isCharKanji,
-  isCharJapanesePunctuation,
-  isCharEnglishPunctuation,
-  isCharPunctuation,
-  isCharUpperCase,
-  convertFullwidthCharsToASCII,
-} from '../utils';
-
-/* eslint-disable no-undef */
-/* since { describe, it, test, expect } etc aren't explicitly imported from jest */
+import getChunk from '../src/utils/getChunk';
+import getChunkSize from '../src/utils/getChunkSize';
+import isCharInRange from '../src/utils/isCharInRange';
+import isCharVowel from '../src/utils/isCharVowel';
+import isCharConsonant from '../src/utils/isCharConsonant';
+import isCharLongDash from '../src/utils/isCharLongDash';
+import isCharSlashDot from '../src/utils/isCharSlashDot';
+import isCharKatakana from '../src/utils/isCharKatakana';
+import isCharHiragana from '../src/utils/isCharHiragana';
+import isCharKana from '../src/utils/isCharKana';
+import isCharKanji from '../src/utils/isCharKanji';
+import isCharJapanesePunctuation from '../src/utils/isCharJapanesePunctuation';
+import isCharEnglishPunctuation from '../src/utils/isCharEnglishPunctuation';
+import isCharPunctuation from '../src/utils/isCharPunctuation';
+import isCharUpperCase from '../src/utils/isCharUpperCase';
+import convertFullwidthCharsToASCII from '../src/utils/convertFullwidthCharsToASCII';
 
 describe('getChunk', () => {
   it('passes parameter tests', () => {

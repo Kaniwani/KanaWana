@@ -1,12 +1,13 @@
 const path = require('path');
+
 const libraryName = 'kanawana';
 const outputFile = `${libraryName}.js`;
 
 module.exports = {
-  entry: `${__dirname}/src/index.js`,
+  entry: path.resolve(__dirname, 'src', 'index'),
   devtool: 'source-map',
   output: {
-    path: `${__dirname}/lib`,
+    path: path.resolve(__dirname, 'lib'),
     filename: outputFile,
     library: libraryName,
     libraryTarget: 'umd',
@@ -22,7 +23,6 @@ module.exports = {
   },
   resolve: {
     modules: ['src', 'node_modules'],
-    root: path.resolve('./src'),
-    extensions: ['', '.js', '!test.js'],
+    extensions: ['.js', '!test.js'],
   },
 };

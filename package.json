@@ -68,14 +68,7 @@
   },
   "babel": {
     "presets": [
-      [
-        "latest",
-        {
-          "es2015": {
-            "modules": false
-          }
-        }
-      ],
+      "es2015",
       "stage-2"
     ]
   },
@@ -193,7 +186,7 @@
     "settings": {
       "import/resolver": {
         "webpack": {
-          "config": "./webpack.prod.js"
+          "config": "./webpack.dev.js"
         }
       }
     }

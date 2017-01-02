@@ -1,0 +1,10 @@
+/**
+ * Tests a character and an english vowel. Returns true if the char is a vowel.
+ * @param  {String} char
+ * @param  {Boolean} [includeY=true] Optional parameter to include y as a vowel in test
+ * @return {Boolean}
+ */
+export default function isCharVowel(char, includeY = true) {
+  const regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
+  return char.toLowerCase().charAt(0).search(regexp) !== -1;
+}
