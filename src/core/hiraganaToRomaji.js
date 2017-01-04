@@ -7,7 +7,6 @@ import getChunk from '../utils/getChunk';
 import isKatakana from './isKatakana';
 import katakanaToHiragana from './katakanaToHiragana';
 
-
 function hiraganaToRomaji(hira, options = {}) {
   // merge options with default options
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
@@ -61,7 +60,6 @@ function hiraganaToRomaji(hira, options = {}) {
     roma.push(romaChar);
     cursor += chunkSize || 1;
   }
-
   return roma.join('');
 }
 

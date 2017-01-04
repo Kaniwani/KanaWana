@@ -2,13 +2,12 @@ import {
   LONG_VOWELS,
   KATAKANA_START,
   HIRAGANA_START,
+  TO_ROMAJI,
 } from '../constants';
 
 import isCharLongDash from '../utils/isCharLongDash';
 import isCharSlashDot from '../utils/isCharSlashDot';
 import isCharKatakana from '../utils/isCharKatakana';
-
-import hiraganaToRomaji from './hiraganaToKatakana';
 
 /**
  * Convert katakana to hiragana
@@ -27,8 +26,8 @@ function katakanaToHiragana(kata) {
       hira.push(kataChar);
     // Transform long vowels: 'オー' to 'おう'
     } else if (longDash && index > 0) {
-      // Transform previousKana back to romaji
-      const romaji = hiraganaToRomaji(previousKana).slice(-1);
+      // Transform previousKana back to romaji, and slice off the vowel
+      const romaji = TO_ROMAJI[previousKana].slice(-1);
       hira.push(LONG_VOWELS[romaji]);
     } else if (isCharKatakana(kataChar)) {
       // Shift charcode.

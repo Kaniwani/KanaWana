@@ -181,7 +181,6 @@ describe('Character conversion', () => {
     it('It survives only hiragana toHiragana', () => expect(toHiragana('すたいる')).toBe('すたいる'));
     it('Mixed kana converts every char k -> h', () => expect(toKatakana('アメリカじん')).toBe('アメリカジン'));
     it('Mixed kana converts every char h -> k', () => expect(toHiragana('アメリカじん')).toBe('あめりかじん'));
-    // FIXME: failing test since extracting/modularizing functions
     it('Converts long vowels correctly from k -> h', () => expect(toHiragana('バツゴー')).toBe('ばつごう'));
     it('Preserves long dash from h -> k', () => expect(toKatakana('ばつゲーム')).toBe('バツゲーム'));
 
@@ -247,7 +246,6 @@ describe('Kana to Romaji', () => {
     it('Use the convertKatakanaToUppercase flag to preserve casing. Works for mixed kana.',
      () => expect(toRomaji('ワニカニ　が　すごい　だ', { convertKatakanaToUppercase: true })).toBe('WANIKANI ga sugoi da'));
 
-    // FIXME: failing test since extracting/modularizing functions
     it("Doesn't mangle the long dash 'ー' or slashdot '・'",
      () => expect(toRomaji('罰ゲーム・ばつげーむ')).toBe('罰ge-mu/batsuge-mu'));
 

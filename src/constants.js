@@ -54,7 +54,6 @@ const UPPERCASE_FULLWIDTH_END = 0xFF3A;
 const PROLONGED_SOUND_MARK = 0x30FC;
 const KANA_SLASH_DOT = 0x30FB;
 
-
 /**
  * All Japanese regex, for mixes of kanji and kana like "泣き虫"
  * Includes Japanese full-width punctuation ranges
