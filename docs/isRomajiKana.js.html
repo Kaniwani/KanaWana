@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isRomajiKana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,40 @@
 
 <div id="main">
     
+    <h1 class="page-title">isRomajiKana.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import isKanji from './isKanji';
+import isHiragana from './isHiragana';
+import isKatakana from './isKatakana';
+import isRomaji from './isRomaji';
 
+/**
+ * Test if input is a mix of romaji and kana, defaults to skip kanji
+ * @param  {String} input text
+ * @param  {Object} [options={ passKanji: true }] optional config to skip over kanji
+ * @return {Boolean} true if input is mixed
+ */
+function isRomajiKana(input, options = { passKanji: true }) {
+  const chars = [...input];
+  let hasKanji = false;
+  if (!options.passKanji) {
+    hasKanji = chars.some(isKanji);
+  }
+  return (chars.some(isHiragana) || chars.some(isKatakana)) &amp;&amp; chars.some(isRomaji) &amp;&amp; !hasKanji;
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default isRomajiKana;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isKatakana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,31 @@
 
 <div id="main">
     
+    <h1 class="page-title">isKatakana.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import isCharKatakana from '../utils/isCharKatakana';
 
+/**
+ * Tests if all text is katakana
+ * @param  {String} input text to Tests
+ * @return {Boolean} true if katakana
+ */
+function isKatakana(input) {
+  return [...input].every(isCharKatakana);
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default isKatakana;
+</code></pre>
+        </article>
+    </section>
 
 
 

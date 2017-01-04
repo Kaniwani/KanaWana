@@ -3,7 +3,7 @@
     "allowUnknownTags": true
   },
   "source": {
-    "include": "src/",
+    "include": "src/core/",
     "includePattern": ".js$",
     "excludePattern": "(node_modules/|docs|tests)"
   },

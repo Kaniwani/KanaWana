@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isKana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,31 @@
 
 <div id="main">
     
+    <h1 class="page-title">isKana.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import isCharKana from '../utils/isCharKana';
 
+/**
+ * Test if all text is Katakana, Hiragana or both
+ * @param  {String} input text to test
+ * @return {Boolean} true if either Katakana or Hiragana, else false
+ */
+function isKana(input) {
+  return [...input].every(isCharKana);
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default isKana;
+</code></pre>
+        </article>
+    </section>
 
 
 

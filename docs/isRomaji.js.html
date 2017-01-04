@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isRomaji.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,31 @@
 
 <div id="main">
     
+    <h1 class="page-title">isRomaji.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import isHiragana from './isHiragana';
+import isKatakana from './isKatakana';
+import isKanji from './isKanji';
 
-
-
-
-
-
-
-
-
-    
-
-
-
+/**
+ * Test if text is all Romaji (by determining that it isn't kana or kanji)
+ * @param  {String} input text to test
+ * @return {Boolean} true if not kana or kanji
+ */
+export default function isRomaji(input) {
+  return [...input].every((char) => !isHiragana(char) &amp;&amp; !isKatakana(char) &amp;&amp; !isKanji(char));
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

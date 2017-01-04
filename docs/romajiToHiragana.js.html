@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>romajiToHiragana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,32 @@
 
 <div id="main">
     
+    <h1 class="page-title">romajiToHiragana.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import romajiToKana from './romajiToKana';
 
+/**
+ * Convert romaji to hiragana
+ * @param  {String} roma text input
+ * @param  {Object}
+ * @return {String} converted text
+ */
+function romajiToHiragana(roma, options) {
+  return romajiToKana(roma, options, true);
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default romajiToHiragana;
+</code></pre>
+        </article>
+    </section>
 
 
 

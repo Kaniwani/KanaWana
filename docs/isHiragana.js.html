@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isHiragana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,31 @@
 
 <div id="main">
     
+    <h1 class="page-title">isHiragana.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import isCharHiragana from '../utils/isCharHiragana';
 
+/**
+ * Tests if all text is hiragana
+ * @param  {String} input text to Tests
+ * @return {Boolean} true if hiragana
+ */
+function isHiragana(input) {
+  return [...input].every(isCharHiragana);
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default isHiragana;
+</code></pre>
+        </article>
+    </section>
 
 
 

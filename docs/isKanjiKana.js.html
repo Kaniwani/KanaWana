@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isKanjiKana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,32 @@
 
 <div id="main">
     
+    <h1 class="page-title">isKanjiKana.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { KANJI_KANA_REGEX } from '../constants';
 
+/**
+ * Test if input is All Japanese, for mixes of kanji and kana like "泣き虫。"
+ * Includes Japanese full-width punctuation ranges
+ * @param  {String} input text to test
+ * @return {Boolean} true if ALL Japanese, else false
+ */
+function isKanjiKana(input) {
+  return [...input].every((char) => KANJI_KANA_REGEX.test(char));
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default isKanjiKana;
+</code></pre>
+        </article>
+    </section>
 
 
 
