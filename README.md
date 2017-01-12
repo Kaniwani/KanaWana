@@ -36,7 +36,9 @@ yarn add kanawana
 ```javascript
 
 const kanawana = require('kanawana');
-// Or cherrypick in ES6 via import { toKana, isHiragana } from 'kanawana';
+// Or directly import in ES6 via:
+// import toKana from 'kanawana/core/toKana';
+// for smaller builds.
 
 // Adds event listener to an input field, defaulting to IME mode
 kanawana.bind(domElement [, options]);
@@ -54,7 +56,8 @@ kanawana.isKana(string);
 kanawana.isKatakana(string);
 
 // Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.
-// Non romaji and some punctuation is passed through: 12345 @#$%, except for .,[]{}()!?/ which become 。、「」｛｝（）！？・
+// Non romaji and _some_ punctuation is passed through: 12345 @#$%
+// However, .,-~[]{}()!?/ will become 。、ー〜「」｛｝（）！？・
 kanawana.toKana(string [, options]);
 
 // Convert Katakana or Romaji to Hiragana.

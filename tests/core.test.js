@@ -238,7 +238,7 @@ describe('Kana to Romaji', () => {
      () => expect(toRomaji('ワニカニ　が　すごい　だ')).toBe('wanikani ga sugoi da'));
 
     it('Will convert punctuation and full-width spaces',
-     () => expect(toRomaji('　。、「」｛｝ー（）！？・')).toBe(' .,[]{}-()!?/'));
+     () => expect(toRomaji('　。、「」｛｝ー〜（）！？・')).toBe(' .,[]{}-~()!?/'));
 
     it('Use the convertKatakanaToUppercase flag to preserve casing. Works for katakana.',
      () => expect(toRomaji('ワニカニ', { convertKatakanaToUppercase: true })).toBe('WANIKANI'));
