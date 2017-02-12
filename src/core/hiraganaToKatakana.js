@@ -11,6 +11,9 @@ import isCharHiragana from '../utils/isCharHiragana';
  * Convert hiragana to katakana
  * @param  {String} hira text input
  * @return {String} converted text
+ * @example
+ * hiraganaToKatakana('ひらがな')
+ * // => "ヒラガナ"
  */
 function hiraganaToKatakana(hira) {
   const kata = [];

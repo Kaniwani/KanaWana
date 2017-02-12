@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>hiraganaToKatakana.js - Documentation</title>
+    <title>hiraganaToRomaji.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">hiraganaToKatakana.js</h1>
+    <h1 class="page-title">hiraganaToRomaji.js</h1>
     
 
     
@@ -38,42 +38,79 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import {
-  KATAKANA_START,
-  HIRAGANA_START,
+  DEFAULT_OPTIONS,
+  TO_ROMAJI,
 } from '../constants';
-
-import isCharLongDash from '../utils/isCharLongDash';
-import isCharSlashDot from '../utils/isCharSlashDot';
-import isCharHiragana from '../utils/isCharHiragana';
+import getChunkSize from '../utils/getChunkSize';
+import getChunk from '../utils/getChunk';
+import isKatakana from './isKatakana';
+import katakanaToHiragana from './katakanaToHiragana';
 
 /**
- * Convert hiragana to katakana
+ * Convert hiragana to romaji
  * @param  {String} hira text input
  * @return {String} converted text
  * @example
- * hiraganaToKatakana('ひらがな')
- * // => "ヒラガナ"
+ * hiraganaToRomaji('ひらがな')
+ * // => "hiragana"
  */
-function hiraganaToKatakana(hira) {
-  const kata = [];
-  hira.split('').forEach((hiraChar) => {
-    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-    if (isCharLongDash(hiraChar) || isCharSlashDot(hiraChar)) {
-      kata.push(hiraChar);
-    } else if (isCharHiragana(hiraChar)) {
-      // Shift charcode.
-      const code = hiraChar.charCodeAt(0) + (KATAKANA_START - HIRAGANA_START);
-      const kataChar = String.fromCharCode(code);
-      kata.push(kataChar);
-    } else {
-      // Pass non hiragana chars through
-      kata.push(hiraChar);
+function hiraganaToRomaji(hira, options = {}) {
+  // merge options with default options
+  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+  const len = hira.length;
+  // Final output array
+  const roma = [];
+  // Position in the string that is being evaluated
+  let cursor = 0;
+  const maxChunk = 2;
+  let chunkSize = 2;
+  let chunk = '';
+  let romaChar = '';
+  let nextCharIsDoubleConsonant;
+
+  while (cursor &lt; len) {
+    chunkSize = getChunkSize(maxChunk, len - cursor);
+    let convertThisChunkToUppercase = false;
+    while (chunkSize > 0) {
+      chunk = getChunk(hira, cursor, cursor + chunkSize);
+      if (isKatakana(chunk)) {
+        convertThisChunkToUppercase = config.convertKatakanaToUppercase;
+        chunk = katakanaToHiragana(chunk);
+      }
+      // special case for small tsus
+      if (chunk.charAt(0) === 'っ' &amp;&amp; chunkSize === 1 &amp;&amp; cursor &lt; (len - 1)) {
+        nextCharIsDoubleConsonant = true;
+        romaChar = '';
+        break;
+      }
+
+      romaChar = TO_ROMAJI[chunk];
+
+      if ((romaChar != null) &amp;&amp; nextCharIsDoubleConsonant) {
+        romaChar = romaChar.charAt(0).concat(romaChar);
+        nextCharIsDoubleConsonant = false;
+      }
+      // console.log(`${cursor}x${chunkSize}:${chunk} => ${romaChar}`);
+      if (romaChar != null) {
+        break;
+      }
+      chunkSize -= 1;
     }
-  });
-  return kata.join('');
+    if (romaChar == null) {
+      // Passthrough undefined values
+      romaChar = chunk;
+    }
+
+    if (convertThisChunkToUppercase) {
+      romaChar = romaChar.toUpperCase();
+    }
+    roma.push(romaChar);
+    cursor += chunkSize || 1;
+  }
+  return roma.join('');
 }
 
-export default hiraganaToKatakana;
+export default hiraganaToRomaji;
 </code></pre>
         </article>
     </section>

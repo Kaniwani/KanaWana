@@ -3,6 +3,7 @@ import {
   HIRAGANA_START,
 } from '../src/constants';
 
+import convertFullwidthCharsToASCII from '../src/utils/convertFullwidthCharsToASCII';
 import getChunk from '../src/utils/getChunk';
 import getChunkSize from '../src/utils/getChunkSize';
 import isCharInRange from '../src/utils/isCharInRange';
@@ -18,7 +19,15 @@ import isCharJapanesePunctuation from '../src/utils/isCharJapanesePunctuation';
 import isCharEnglishPunctuation from '../src/utils/isCharEnglishPunctuation';
 import isCharPunctuation from '../src/utils/isCharPunctuation';
 import isCharUpperCase from '../src/utils/isCharUpperCase';
-import convertFullwidthCharsToASCII from '../src/utils/convertFullwidthCharsToASCII';
+
+describe('convertFullwidthCharsToASCII', () => {
+  it('passes parameter tests', () => {
+    expect(convertFullwidthCharsToASCII('ａ')).toBe('a');
+    expect(convertFullwidthCharsToASCII('ａａａ')).toBe('aaa');
+    expect(convertFullwidthCharsToASCII('Ａ')).toBe('A');
+    expect(convertFullwidthCharsToASCII('ＮＡＴＯ')).toBe('NATO');
+  });
+});
 
 describe('getChunk', () => {
   it('passes parameter tests', () => {
@@ -47,7 +56,8 @@ describe('isCharInRange', () => {
 
 describe('isCharVowel', () => {
   it('passes parameter tests', () => {
-    [...'aeiouy'].forEach((vowel) => expect(isCharVowel(vowel)).toBe(true));
+    [...'aeiou'].forEach((vowel) => expect(isCharVowel(vowel)).toBe(true));
+    expect(isCharVowel('y' /* includes 'y' as a vowel by default */)).toBe(true);
     expect(isCharVowel('y', false /* excludes 'y' as a vowel */)).toBe(false);
     expect(isCharVowel('x')).toBe(false);
     expect(isCharVowel('!')).toBe(false);
@@ -119,11 +129,11 @@ describe('isCharKanji', () => {
   it('passes parameter tests', () => {
     expect(isCharKanji('腹')).toBe(true);
     expect(isCharKanji('一')).toBe(true); // kanji for いち・1 - not a long hyphen
+    expect(isCharKanji('ー')).toBe(false); // long hyphen
     expect(isCharKanji('は')).toBe(false);
     expect(isCharKanji('ナ')).toBe(false);
     expect(isCharKanji('n')).toBe(false);
     expect(isCharKanji('!')).toBe(false);
-    expect(isCharKanji('ー')).toBe(false); // long hyphen
     expect(isCharKanji('')).toBe(false);
   });
 });
@@ -180,7 +190,6 @@ describe('isCharPunctuation', () => {
     expect(isCharPunctuation('')).toBe(false);
   });
 });
-
 
 describe('isCharUpperCase', () => {
   it('passes parameter tests', () => {

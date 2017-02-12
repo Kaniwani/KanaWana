@@ -1,7 +1,46 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/kanawana.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#hiraganaToRomaji">hiraganaToRomaji</a></li><li><a href="global.html#hiraganaToKatakana">hiraganaToKatakana</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKanjiKana">isKanjiKana</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isRomajiKana">isRomajiKana</a></li><li><a href="global.html#katakanaToHiragana">katakanaToHiragana</a></li><li><a href="global.html#romajiToHiragana">romajiToHiragana</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">lib/kanawana.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' &amp;&amp; typeof module === 'object')
 		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
+	else if(typeof define === 'function' &amp;&amp; define.amd)
 		define("kanawana", [], factory);
 	else if(typeof exports === 'object')
 		exports["kanawana"] = factory();
@@ -131,7 +170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stripOkurigana2 = _interopRequireDefault(_stripOkurigana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	// TODO: add @examples to docstrings for doc generation
 	
@@ -141,7 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param  {Object} [options={}] user config overrides
 	 */
 	function bind(input) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 	
 	  input.addEventListener('input', function (event) {
 	    return onInput(event, options);
@@ -162,7 +201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param  {Object} [options={}] user config overrides
 	 */
 	function onInput(event) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 	
 	  var config = Object.assign({}, _constants.DEFAULT_OPTIONS, options, { IMEMode: true });
 	  var input = event.target;
@@ -224,7 +263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Default config for KanaWana, user passed options will be merged with this
 	 * @type {DefaultOptions}
-	 * @example <caption>{ passRomaji: true }</caption>
+	 * @example &lt;caption>{ passRomaji: true }&lt;/caption>
 	 * toHiragana('romaji is not ヒラガナ', {passRomaji: true})
 	 * // => "romaji is not ひらがな"
 	 */
@@ -864,9 +903,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Converts all fullwidth roman letters in string to proper ASCII
@@ -909,7 +948,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	function isCharInRange(char, start, end) {
 	  var code = char.charCodeAt(0);
-	  return start <= code && code <= end;
+	  return start &lt;= code &amp;&amp; code &lt;= end;
 	}
 	
 	exports.default = isCharInRange;
@@ -938,7 +977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharKatakana2 = _interopRequireDefault(_isCharKatakana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Convert katakana to hiragana
@@ -949,17 +988,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var hira = [];
 	  var previousKana = '';
 	  var iterable = kata.split('');
-	  for (var index = 0; index < iterable.length; index += 1) {
+	  for (var index = 0; index &lt; iterable.length; index += 1) {
 	    var kataChar = iterable[index];
 	    var _ref = [(0, _isCharSlashDot2.default)(kataChar), (0, _isCharLongDash2.default)(kataChar)],
 	        slashDot = _ref[0],
 	        longDash = _ref[1];
 	    // Short circuit to avoid incorrect codeshift for 'ー' and '・'
 	
-	    if (slashDot || longDash && index < 1) {
+	    if (slashDot || longDash &amp;&amp; index &lt; 1) {
 	      hira.push(kataChar);
 	      // Transform long vowels: 'オー' to 'おう'
-	    } else if (longDash && index > 0) {
+	    } else if (longDash &amp;&amp; index > 0) {
 	      // Transform previousKana back to romaji, and slice off the vowel
 	      var romaji = _constants.TO_ROMAJI[previousKana].slice(-1);
 	      hira.push(_constants.LONG_VOWELS[romaji]);
@@ -1042,7 +1081,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is katakana.
@@ -1079,7 +1118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharHiragana2 = _interopRequireDefault(_isCharHiragana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Convert hiragana to katakana
@@ -1130,7 +1169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is Hiragana.
@@ -1158,7 +1197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _romajiToKana2 = _interopRequireDefault(_romajiToKana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Convert romaji to hiragana
@@ -1216,11 +1255,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _hiraganaToKatakana2 = _interopRequireDefault(_hiraganaToKatakana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	function romajiToKana(roma) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-	  var ignoreCase = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+	  var ignoreCase = arguments.length > 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : false;
 	
 	  var config = Object.assign({}, _constants.DEFAULT_OPTIONS, options);
 	  // Final output array
@@ -1237,14 +1276,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // against the romaji to kana table. If there is no match, the last character in the chunk
 	  // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
 	  // to be invalid or punctuation or other and gets passed through.
-	  while (cursor < len) {
+	  while (cursor &lt; len) {
 	    var kanaChar = null;
 	    chunkSize = (0, _getChunkSize2.default)(maxChunk, len - cursor);
 	    while (chunkSize > 0) {
 	      chunk = (0, _getChunk2.default)(roma, cursor, cursor + chunkSize);
 	      chunkLC = chunk.toLowerCase();
 	      // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-	      if (_constants.FOUR_CHAR_EDGECASES.includes(chunkLC) && len - cursor >= 4) {
+	      if (_constants.FOUR_CHAR_EDGECASES.includes(chunkLC) &amp;&amp; len - cursor >= 4) {
 	        chunkSize += 1;
 	        chunk = (0, _getChunk2.default)(roma, cursor, cursor + chunkSize);
 	        chunkLC = chunk.toLowerCase();
@@ -1253,18 +1292,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (chunkLC.charAt(0) === 'n') {
 	          if (chunkSize === 2) {
 	            // Handle edge case of n followed by a space (only if not in IME mode)
-	            if (!config.IMEMode && chunkLC.charAt(1) === ' ') {
+	            if (!config.IMEMode &amp;&amp; chunkLC.charAt(1) === ' ') {
 	              kanaChar = 'ん ';
 	              break;
 	            }
 	            // Convert IME input of n' to "ん"
-	            if (config.IMEMode && chunkLC === "n'") {
+	            if (config.IMEMode &amp;&amp; chunkLC === "n'") {
 	              kanaChar = 'ん';
 	              break;
 	            }
 	          }
 	          // Handle edge case of n followed by n and vowel
-	          if ((0, _isCharConsonant2.default)(chunkLC.charAt(1), false) && (0, _isCharVowel2.default)(chunkLC.charAt(2))) {
+	          if ((0, _isCharConsonant2.default)(chunkLC.charAt(1), false) &amp;&amp; (0, _isCharVowel2.default)(chunkLC.charAt(2))) {
 	            chunkSize = 1;
 	            chunk = (0, _getChunk2.default)(roma, cursor, cursor + chunkSize);
 	            chunkLC = chunk.toLowerCase();
@@ -1272,7 +1311,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	
 	        // Handle case of double consonants
-	        if (chunkLC.charAt(0) !== 'n' && (0, _isCharConsonant2.default)(chunkLC.charAt(0)) && chunk.charAt(0) === chunk.charAt(1)) {
+	        if (chunkLC.charAt(0) !== 'n' &amp;&amp; (0, _isCharConsonant2.default)(chunkLC.charAt(0)) &amp;&amp; chunk.charAt(0) === chunk.charAt(1)) {
 	          chunkSize = 1;
 	          // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
 	          if ((0, _isCharInRange2.default)(chunk.charAt(0), _constants.UPPERCASE_START, _constants.UPPERCASE_END)) {
@@ -1308,8 +1347,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (chunkLC === 'we') kanaChar = 'ゑ';
 	    }
 	
-	    if (!!config.IMEMode && chunkLC.charAt(0) === 'n') {
-	      if (roma.charAt(cursor + 1).toLowerCase() === 'y' && (0, _isCharVowel2.default)(roma.charAt(cursor + 2)) === false || cursor === len - 1 || (0, _isKana2.default)(roma.charAt(cursor + 1))) {
+	    if (!!config.IMEMode &amp;&amp; chunkLC.charAt(0) === 'n') {
+	      if (roma.charAt(cursor + 1).toLowerCase() === 'y' &amp;&amp; (0, _isCharVowel2.default)(roma.charAt(cursor + 2)) === false || cursor === len - 1 || (0, _isKana2.default)(roma.charAt(cursor + 1))) {
 	        // Don't transliterate this yet.
 	        kanaChar = chunk.charAt(0);
 	      }
@@ -1347,7 +1386,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests if char is in English unicode uppercase range
@@ -1419,7 +1458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Boolean}
 	 */
 	function isCharConsonant(char) {
-	  var includeY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	  var includeY = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : true;
 	
 	  var regexp = includeY ? /[bcdfghjklmnpqrstvwxyz]/ : /[bcdfghjklmnpqrstvwxz]/;
 	  return char.toLowerCase().charAt(0).search(regexp) !== -1;
@@ -1443,7 +1482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Boolean}
 	 */
 	function isCharVowel(char) {
-	  var includeY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	  var includeY = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : true;
 	
 	  var regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
 	  return char.toLowerCase().charAt(0).search(regexp) !== -1;
@@ -1465,9 +1504,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharKana2 = _interopRequireDefault(_isCharKana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Test if all text is Katakana, Hiragana or both
@@ -1498,7 +1537,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharKatakana2 = _interopRequireDefault(_isCharKatakana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is hiragana or katakana.
@@ -1525,9 +1564,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharHiragana2 = _interopRequireDefault(_isCharHiragana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Tests if all text is hiragana
@@ -1554,9 +1593,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharKatakana2 = _interopRequireDefault(_isCharKatakana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Tests if all text is katakana
@@ -1581,7 +1620,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _constants = __webpack_require__(1);
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Test if input is All Japanese, for mixes of kanji and kana like "泣き虫。"
@@ -1620,9 +1659,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isKanji2 = _interopRequireDefault(_isKanji);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Test if text is all Romaji (by determining that it isn't kana or kanji)
@@ -1631,7 +1670,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	function isRomaji(input) {
 	  return [].concat(_toConsumableArray(input)).every(function (char) {
-	    return !(0, _isHiragana2.default)(char) && !(0, _isKatakana2.default)(char) && !(0, _isKanji2.default)(char);
+	    return !(0, _isHiragana2.default)(char) &amp;&amp; !(0, _isKatakana2.default)(char) &amp;&amp; !(0, _isKanji2.default)(char);
 	  });
 	}
 
@@ -1649,9 +1688,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharKanji2 = _interopRequireDefault(_isCharKanji);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Test if all chars are Kanji (CJK ideographs)
@@ -1680,7 +1719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is a CJK ideograph (kanji).
@@ -1719,9 +1758,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isRomaji2 = _interopRequireDefault(_isRomaji);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Test if input is a mix of romaji and kana, defaults to skip kanji
@@ -1730,14 +1769,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Boolean} true if input is mixed
 	 */
 	function isRomajiKana(input) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { passKanji: true };
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : { passKanji: true };
 	
 	  var chars = [].concat(_toConsumableArray(input));
 	  var hasKanji = false;
 	  if (!options.passKanji) {
 	    hasKanji = chars.some(_isKanji2.default);
 	  }
-	  return (chars.some(_isHiragana2.default) || chars.some(_isKatakana2.default)) && chars.some(_isRomaji2.default) && !hasKanji;
+	  return (chars.some(_isHiragana2.default) || chars.some(_isKatakana2.default)) &amp;&amp; chars.some(_isRomaji2.default) &amp;&amp; !hasKanji;
 	}
 	
 	exports.default = isRomajiKana;
@@ -1770,10 +1809,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _romajiToHiragana2 = _interopRequireDefault(_romajiToHiragana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	function toHiragana(input) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 	
 	  var config = Object.assign({}, _constants.DEFAULT_OPTIONS, options);
 	  if (config.passRomaji) return (0, _katakanaToHiragana2.default)(input);
@@ -1815,10 +1854,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _romajiToHiragana2 = _interopRequireDefault(_romajiToHiragana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	function toKatakana(input) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 	
 	  var config = Object.assign({}, _constants.DEFAULT_OPTIONS, options);
 	  if (config.passRomaji) return (0, _hiraganaToKatakana2.default)(input);
@@ -1845,7 +1884,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _romajiToKana2 = _interopRequireDefault(_romajiToKana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	function toKana(input, options) {
 	  return (0, _romajiToKana2.default)(input, options);
@@ -1867,7 +1906,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _hiraganaToRomaji2 = _interopRequireDefault(_hiraganaToRomaji);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	function toRomaji(input, options) {
 	  return (0, _hiraganaToRomaji2.default)(input, options);
@@ -1903,7 +1942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _katakanaToHiragana2 = _interopRequireDefault(_katakanaToHiragana);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Convert hiragana to romaji
@@ -1915,7 +1954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	
 	function hiraganaToRomaji(hira) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
 	
 	  // merge options with default options
 	  var config = Object.assign({}, _constants.DEFAULT_OPTIONS, options);
@@ -1930,7 +1969,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var romaChar = '';
 	  var nextCharIsDoubleConsonant = void 0;
 	
-	  while (cursor < len) {
+	  while (cursor &lt; len) {
 	    chunkSize = (0, _getChunkSize2.default)(maxChunk, len - cursor);
 	    var convertThisChunkToUppercase = false;
 	    while (chunkSize > 0) {
@@ -1940,7 +1979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        chunk = (0, _katakanaToHiragana2.default)(chunk);
 	      }
 	      // special case for small tsus
-	      if (chunk.charAt(0) === 'っ' && chunkSize === 1 && cursor < len - 1) {
+	      if (chunk.charAt(0) === 'っ' &amp;&amp; chunkSize === 1 &amp;&amp; cursor &lt; len - 1) {
 	        nextCharIsDoubleConsonant = true;
 	        romaChar = '';
 	        break;
@@ -1948,7 +1987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      romaChar = _constants.TO_ROMAJI[chunk];
 	
-	      if (romaChar != null && nextCharIsDoubleConsonant) {
+	      if (romaChar != null &amp;&amp; nextCharIsDoubleConsonant) {
 	        romaChar = romaChar.charAt(0).concat(romaChar);
 	        nextCharIsDoubleConsonant = false;
 	      }
@@ -2004,9 +2043,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isKanji2 = _interopRequireDefault(_isKanji);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i &lt; arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	/**
 	 * Strips trailing okurigana if input is a mix of kanji and kana
@@ -2015,7 +2054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {String} string new string with trailing okurigana removed
 	 */
 	function stripOkurigana(input) {
-	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { all: false };
+	  var options = arguments.length > 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : { all: false };
 	
 	  if (!(0, _isKanjiKana2.default)(input) || (0, _isKana2.default)(input)) return input;
 	  var chars = [].concat(_toConsumableArray(input));
@@ -2027,7 +2066,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  // strip trailing only
 	  var reverseChars = chars.reverse();
-	  for (var i = 0, len = reverseChars.length; i < len; i += 1) {
+	  for (var i = 0, len = reverseChars.length; i &lt; len; i += 1) {
 	    var char = reverseChars[i];
 	    // pass if it's punctuation
 	    if ((0, _isCharPunctuation2.default)(char)) continue; // eslint-disable-line no-continue
@@ -2060,7 +2099,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharJapanesePunctuation2 = _interopRequireDefault(_isCharJapanesePunctuation);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is considered Japanese or English punctuation.
@@ -2083,7 +2122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i &amp;&amp; _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n &amp;&amp; _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 	
 	var _constants = __webpack_require__(1);
 	
@@ -2091,7 +2130,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is considered English punctuation.
@@ -2120,7 +2159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i &amp;&amp; _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n &amp;&amp; _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 	
 	var _constants = __webpack_require__(1);
 	
@@ -2128,7 +2167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _isCharInRange2 = _interopRequireDefault(_isCharInRange);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
 	
 	/**
 	 * Tests a character. Returns true if the character is considered Japanese punctuation.
@@ -2151,4 +2190,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=kanawana.js.map
+//# sourceMappingURL=kanawana.js.map</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Feb 12 2017 20:00:57 GMT+0530 (+0530) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
