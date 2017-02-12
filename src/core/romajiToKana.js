@@ -15,7 +15,6 @@ import isCharVowel from '../utils/isCharVowel';
 import isKana from './isKana';
 import hiraganaToKatakana from './hiraganaToKatakana';
 
-
 function romajiToKana(roma, options = {}, ignoreCase = false) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   // Final output array

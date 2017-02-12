@@ -7,6 +7,14 @@ import getChunk from '../utils/getChunk';
 import isKatakana from './isKatakana';
 import katakanaToHiragana from './katakanaToHiragana';
 
+/**
+ * Convert hiragana to romaji
+ * @param  {String} hira text input
+ * @return {String} converted text
+ * @example
+ * hiraganaToRomaji('ひらがな')
+ * // => "hiragana"
+ */
 function hiraganaToRomaji(hira, options = {}) {
   // merge options with default options
   const config = Object.assign({}, DEFAULT_OPTIONS, options);

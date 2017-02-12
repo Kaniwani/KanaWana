@@ -13,7 +13,7 @@ addons:
       - g++-4.8
 
 script:
-  # microtime needs to build binaries, so lets explicitly reinstall it since the cached version will be fubar
+  # microtime needs to build binaries, so lets explicitly reinstall it (the cached version is always fubar)
   - yarn remove microtime
   - yarn add microtime
   - yarn run build
@@ -22,7 +22,7 @@ notifications:
   email:
     on_failure: change
 
-after_success: 'yarn run coveralls'
+after_success: 'yarn run coverage'
 
 cache:
   yarn: true
