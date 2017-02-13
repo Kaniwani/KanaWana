@@ -24,34 +24,34 @@
     "conversion",
     "transliteration"
   ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "scripts": {
-    "start": "npm run server",
-    "server": "cross-env NODE_ENV=dev webpack --config webpack.dev.js --color --progress --watch",
+    "start": "npm run build:dev:watch",
     "prebuild": "npm-run-all --parallel lint:src test",
     "build": "npm-run-all --parallel build:*",
     "build:dev": "cross-env NODE_ENV=dev webpack --config webpack.dev.js --color --progress",
     "build:production": "cross-env NODE_ENV=production webpack --config webpack.production.js --color -p --progress",
-    "precommit": "npm-run-all --parallel lint-staged test docs:build",
-    "docs:build": "node_modules/.bin/jsdoc -c jsdoc.json && git add .",
+    "build:dev:watch": "npm run build:dev -- --watch",
+    "docs:build": "node_modules/.bin/jsdoc -c jsdoc.json && git add ./docs",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs:build",
     "pretest": "npm run test:clean",
     "test": "cross-env NODE_ENV=test jest",
     "test:clean": "rimraf ./coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --watch",
+    "test:watch": "npm run test -- --watch",
     "lint": "eslint --ignore-path ./.gitignore --ignore-pattern 'lib' --ignore-pattern 'docs' --color",
     "lint:staged": "npm run lint",
     "lint:src": "npm run lint -- './src/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "coverage:open": "open ./coverage/lcov-report/index.html 2>/dev/null || xdg-open ./coverage/lcov-report/index.html",
-    "watch": "npm-run-all --parallel test:watch docs:watch",
-    "//": "used by pre-commit to run the lint-staged config below",
+    "coverage:view": "opn ./coverage/lcov-report/index.html",
+    "watch": "npm-run-all --parallel build:watch test:watch docs:watch",
+    "prepush": "npm-run-all --parallel lint-staged test",
+    "//": "used by husky in git hooks like prepush to run the lint-staged config below",
     "lint-staged": "lint-staged"
   },
-  "pre-commit": [
-    "lint-staged",
-    "test",
-    "docs:build"
-  ],
   "lint-staged": {
     "*.js": [
       "lint:staged"
@@ -94,7 +94,7 @@
     },
     "plugins": [
       "import"
-    ],
+      ],
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module"
@@ -231,8 +231,6 @@
     "jsdoc": "^3.4.3",
     "lint-staged": "~3.2.5",
     "microtime": "~2.1.2",
-    "npm-run-all": "~4.0.1",
-    "onchange": "~3.2.1",
     "pre-commit": "~1.2.2",
     "rimraf": "~2.5.4",
     "webpack": "~1.14.0"
