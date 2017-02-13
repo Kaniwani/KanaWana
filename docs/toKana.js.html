@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>isHiragana.js - Documentation</title>
+    <title>toKana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">isHiragana.js</h1>
+    <h1 class="page-title">toKana.js</h1>
     
 
     
@@ -37,18 +37,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import isCharHiragana from '../utils/isCharHiragana';
+            <pre class="prettyprint source linenums"><code>import romajiToKana from './romajiToKana';
 
 /**
- * Tests if all text is hiragana
- * @param  {String} input text to Tests
- * @return {Boolean} true if hiragana
+ * Converts input to kana.
+ * Uses romajiToKana under the hood
+ * @param  {String} input text to convert
+ * @param  {Object} options
+ * @return {String} converted text
+ * @example
+ * toKana('hiragana')
+ * // => 'ひらがな'
+ * toKana('KATAKANA')
+ * // => 'カタカナ'
  */
-function isHiragana(input) {
-  return [...input].every(isCharHiragana);
+function toKana(input, options) {
+  return romajiToKana(input, options);
 }
 
-export default isHiragana;
+export default toKana;
 </code></pre>
         </article>
     </section>
