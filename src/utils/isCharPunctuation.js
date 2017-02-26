@@ -1,3 +1,4 @@
+import isEmpty from './isEmpty';
 import isCharEnglishPunctuation from './isCharEnglishPunctuation';
 import isCharJapanesePunctuation from './isCharJapanesePunctuation';
 
@@ -6,7 +7,8 @@ import isCharJapanesePunctuation from './isCharJapanesePunctuation';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-function isCharPunctuation(char) {
+function isCharPunctuation(char = '') {
+  if (isEmpty(char)) return false;
   return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
 }
 

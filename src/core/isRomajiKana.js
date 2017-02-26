@@ -9,7 +9,7 @@ import isRomaji from './isRomaji';
  * @param  {Object} [options={ passKanji: true }] optional config to skip over kanji
  * @return {Boolean} true if input is mixed
  */
-function isRomajiKana(input, options = { passKanji: true }) {
+function isRomajiKana(input = '', options = { passKanji: true }) {
   const chars = [...input];
   let hasKanji = false;
   if (!options.passKanji) {

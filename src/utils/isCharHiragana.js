@@ -2,6 +2,7 @@ import {
   HIRAGANA_START,
   HIRAGANA_END,
 } from '../constants';
+import isEmpty from './isEmpty';
 import isCharLongDash from './isCharLongDash';
 import isCharInRange from './isCharInRange';
 
@@ -10,7 +11,8 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-function isCharHiragana(char) {
+function isCharHiragana(char = '') {
+  if (isEmpty(char)) return false;
   if (isCharLongDash(char)) return true;
   return isCharInRange(char, HIRAGANA_START, HIRAGANA_END);
 }

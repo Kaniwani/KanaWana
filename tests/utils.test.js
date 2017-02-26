@@ -6,6 +6,7 @@ import {
 import convertFullwidthCharsToASCII from '../src/utils/convertFullwidthCharsToASCII';
 import getChunk from '../src/utils/getChunk';
 import getChunkSize from '../src/utils/getChunkSize';
+import isEmpty from '../src/utils/isEmpty';
 import isCharInRange from '../src/utils/isCharInRange';
 import isCharVowel from '../src/utils/isCharVowel';
 import isCharConsonant from '../src/utils/isCharConsonant';
@@ -20,12 +21,43 @@ import isCharEnglishPunctuation from '../src/utils/isCharEnglishPunctuation';
 import isCharPunctuation from '../src/utils/isCharPunctuation';
 import isCharUpperCase from '../src/utils/isCharUpperCase';
 
+describe('Methods should return sane defaults when given no input', () => {
+  it('convertFullwidthCharsToASCII()', () => expect(convertFullwidthCharsToASCII()).toBe(''));
+  it('getChunk()', () => expect(getChunk()).toBe(''));
+  it('getChunkSize()', () => expect(getChunkSize()).toBe(0));
+  it('isEmpty()', () => expect(isEmpty()).toBe(true));
+  it('isCharInRange()', () => expect(isCharInRange()).toBe(false));
+  it('isCharVowel()', () => expect(isCharVowel()).toBe(false));
+  it('isCharConsonant()', () => expect(isCharConsonant()).toBe(false));
+  it('isCharLongDash()', () => expect(isCharLongDash()).toBe(false));
+  it('isCharSlashDot()', () => expect(isCharSlashDot()).toBe(false));
+  it('isCharKatakana()', () => expect(isCharKatakana()).toBe(false));
+  it('isCharHiragana()', () => expect(isCharHiragana()).toBe(false));
+  it('isCharKana()', () => expect(isCharKana()).toBe(false));
+  it('isCharKanji()', () => expect(isCharKanji()).toBe(false));
+  it('isCharJapanesePunctuation()', () => expect(isCharJapanesePunctuation()).toBe(false));
+  it('isCharEnglishPunctuation()', () => expect(isCharEnglishPunctuation()).toBe(false));
+  it('isCharPunctuation()', () => expect(isCharPunctuation()).toBe(false));
+  it('isCharUpperCase()', () => expect(isCharUpperCase()).toBe(false));
+});
+
+describe('isEmpty', () => {
+  it('passes parameter tests', () => {
+    expect(isEmpty()).toBe(true);
+    expect(isEmpty(22)).toBe(true);
+    expect(isEmpty(null)).toBe(true);
+    expect(isEmpty('')).toBe(true);
+    expect(isEmpty([])).toBe(true);
+    expect(isEmpty({})).toBe(true);
+    expect(isEmpty('nope')).toBe(false);
+  });
+});
+
 describe('convertFullwidthCharsToASCII', () => {
   it('passes parameter tests', () => {
-    expect(convertFullwidthCharsToASCII('ａ')).toBe('a');
-    expect(convertFullwidthCharsToASCII('ａａａ')).toBe('aaa');
-    expect(convertFullwidthCharsToASCII('Ａ')).toBe('A');
-    expect(convertFullwidthCharsToASCII('ＮＡＴＯ')).toBe('NATO');
+    expect(convertFullwidthCharsToASCII('come on ＦＨＱＷＨＧＡＤＳ')).toBe('come on FHQWHGADS');
+    expect(convertFullwidthCharsToASCII('ＦＨＱＷＨＧＡＤＳ')).toBe('FHQWHGADS');
+    expect(convertFullwidthCharsToASCII('ｆｈｑｗｈｇａｄｓ')).toBe('fhqwhgads');
   });
 });
 
@@ -200,13 +232,5 @@ describe('isCharUpperCase', () => {
     expect(isCharUpperCase('ー')).toBe(false);
     expect(isCharUpperCase('a')).toBe(false);
     expect(isCharUpperCase('d')).toBe(false);
-  });
-});
-
-describe('convertFullwidthCharsToASCII', () => {
-  it('passes parameter tests', () => {
-    expect(convertFullwidthCharsToASCII('come on ＦＨＱＷＨＧＡＤＳ')).toBe('come on FHQWHGADS');
-    expect(convertFullwidthCharsToASCII('ＦＨＱＷＨＧＡＤＳ')).toBe('FHQWHGADS');
-    expect(convertFullwidthCharsToASCII('ｆｈｑｗｈｇａｄｓ')).toBe('fhqwhgads');
   });
 });

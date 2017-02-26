@@ -9,7 +9,7 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-function isCharKanji(char) {
+function isCharKanji(char = '') {
   return isCharInRange(char, KANJI_START, KANJI_END);
 }
 

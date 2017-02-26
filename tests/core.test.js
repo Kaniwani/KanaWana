@@ -12,7 +12,28 @@ import toKana from '../src/core/toKana';
 import toKatakana from '../src/core/toKatakana';
 import toHiragana from '../src/core/toHiragana';
 import toRomaji from '../src/core/toRomaji';
+import romajiToHiragana from '../src/core/romajiToHiragana';
+import hiraganaToKatakana from '../src/core/hiraganaToKatakana';
+import katakanaToHiragana from '../src/core/katakanaToHiragana';
 import stripOkurigana from '../src/core/stripOkurigana';
+
+describe('Methods should return false or an empty string when given no input', () => {
+  it('isKana() with no input', () => expect(isKana()).toBe(false));
+  it('isKanji() with no input', () => expect(isKanji()).toBe(false));
+  it('isKanjiKana() with no input', () => expect(isKanjiKana()).toBe(false));
+  it('isKatakana() with no input', () => expect(isKatakana()).toBe(false));
+  it('isHiragana() with no input', () => expect(isHiragana()).toBe(false));
+  it('isRomaji() with no input', () => expect(isRomaji()).toBe(false));
+  it('isRomajiKana() with no input', () => expect(isRomajiKana()).toBe(false));
+  it('toKana() with no input', () => expect(toKana()).toBe(''));
+  it('toKatakana() with no input', () => expect(toKatakana()).toBe(''));
+  it('toHiragana() with no input', () => expect(toHiragana()).toBe(''));
+  it('toRomaji() with no input', () => expect(toRomaji()).toBe(''));
+  it('romajiToHiragana() with no input', () => expect(romajiToHiragana()).toBe(''));
+  it('hiraganaToKatakana() with no input', () => expect(hiraganaToKatakana()).toBe(''));
+  it('katakanaToHiragana() with no input', () => expect(katakanaToHiragana()).toBe(''));
+  it('stripOkurigana() with no input', () => expect(stripOkurigana()).toBe(''));
+});
 
 describe('Character type detection', () => {
   describe('isHiragana()', () => {

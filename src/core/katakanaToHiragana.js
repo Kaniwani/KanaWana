@@ -14,7 +14,7 @@ import isCharKatakana from '../utils/isCharKatakana';
  * @param  {String} kata text input
  * @return {String} converted text
  */
-function katakanaToHiragana(kata) {
+function katakanaToHiragana(kata = '') {
   const hira = [];
   let previousKana = '';
   const iterable = kata.split('');

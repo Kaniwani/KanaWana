@@ -6,7 +6,7 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-function isCharJapanesePunctuation(char) {
+function isCharJapanesePunctuation(char = '') {
   return JAPANESE_FULLWIDTH_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }
 

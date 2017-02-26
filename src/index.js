@@ -1,9 +1,5 @@
 import { DEFAULT_OPTIONS } from './constants';
 import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
-import katakanaToHiragana from './core/katakanaToHiragana';
-import hiraganaToKatakana from './core/hiraganaToKatakana';
-import romajiToHiragana from './core/romajiToHiragana';
-import romajiToKana from './core/romajiToKana';
 import isHiragana from './core/isHiragana';
 import isKatakana from './core/isKatakana';
 import isKana from './core/isKana';
@@ -11,6 +7,9 @@ import isKanjiKana from './core/isKanjiKana';
 import isRomaji from './core/isRomaji';
 import isRomajiKana from './core/isRomajiKana';
 import isKanji from './core/isKanji';
+import hiraganaToKatakana from './core/hiraganaToKatakana';
+import katakanaToHiragana from './core/katakanaToHiragana';
+import romajiToHiragana from './core/romajiToHiragana';
 import toHiragana from './core/toHiragana';
 import toKatakana from './core/toKatakana';
 import toKana from './core/toKana';
@@ -66,10 +65,6 @@ function onInput(event, options = {}) {
 export {
   bind,
   unbind,
-  katakanaToHiragana,
-  hiraganaToKatakana,
-  romajiToHiragana,
-  romajiToKana,
   isHiragana,
   isKatakana,
   isKana,
@@ -77,6 +72,9 @@ export {
   isRomaji,
   isRomajiKana,
   isKanji,
+  hiraganaToKatakana,
+  katakanaToHiragana,
+  romajiToHiragana,
   toHiragana,
   toKatakana,
   toKana,

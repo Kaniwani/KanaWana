@@ -5,7 +5,7 @@
  * @param  {Number} end index
  * @return {String} new substring
  */
-function getChunk(text, start, end) {
+function getChunk(text = '', start = 0, end) {
   return text.slice(start, end);
 }
 

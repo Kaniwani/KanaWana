@@ -1,3 +1,4 @@
+import isEmpty from '../utils/isEmpty';
 import isCharKanji from '../utils/isCharKanji';
 
 /**
@@ -5,7 +6,8 @@ import isCharKanji from '../utils/isCharKanji';
  * @param  {String} input text to test
  * @return {Boolean} true if all Kanji, else false
  */
-function isKanji(input) {
+function isKanji(input = '') {
+  if (isEmpty(input)) return false;
   return [...input].every(isCharKanji);
 }
 

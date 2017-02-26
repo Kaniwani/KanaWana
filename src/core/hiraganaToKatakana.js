@@ -15,7 +15,7 @@ import isCharHiragana from '../utils/isCharHiragana';
  * hiraganaToKatakana('ひらがな')
  * // => "ヒラガナ"
  */
-function hiraganaToKatakana(hira) {
+function hiraganaToKatakana(hira = '') {
   const kata = [];
   hira.split('').forEach((hiraChar) => {
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'

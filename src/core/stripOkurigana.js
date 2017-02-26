@@ -1,3 +1,4 @@
+import isEmpty from '../utils/isEmpty';
 import isCharKana from '../utils/isCharKana';
 import isCharPunctuation from '../utils/isCharPunctuation';
 import isKanjiKana from './isKanjiKana';
@@ -10,8 +11,8 @@ import isKanji from './isKanji';
  * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed
  * @return {String} string new string with trailing okurigana removed
  */
-function stripOkurigana(input, options = { all: false }) {
-  if (!isKanjiKana(input) || isKana(input)) return input;
+function stripOkurigana(input = '', options = { all: false }) {
+  if (isEmpty(input) || !isKanjiKana(input) || isKana(input)) return input;
   const chars = [...input];
 
   // strip every kana

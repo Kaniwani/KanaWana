@@ -4,7 +4,7 @@
  * @param  {Number} remaining
  * @return {Number}
  */
-function getChunkSize(max, remaining) {
+function getChunkSize(max = 0, remaining = 0) {
   return Math.min(max, remaining);
 }
 

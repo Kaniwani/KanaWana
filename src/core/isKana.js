@@ -1,3 +1,4 @@
+import isEmpty from '../utils/isEmpty';
 import isCharKana from '../utils/isCharKana';
 
 /**
@@ -5,7 +6,8 @@ import isCharKana from '../utils/isCharKana';
  * @param  {String} input text to test
  * @return {Boolean} true if either Katakana or Hiragana, else false
  */
-function isKana(input) {
+function isKana(input = '') {
+  if (isEmpty(input)) return false;
   return [...input].every(isCharKana);
 }
 

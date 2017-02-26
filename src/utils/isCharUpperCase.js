@@ -2,7 +2,7 @@ import {
   UPPERCASE_START,
   UPPERCASE_END,
 } from '../constants';
-
+import isEmpty from './isEmpty';
 import isCharInRange from './isCharInRange';
 
 /**
@@ -10,7 +10,8 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char
  * @return {Boolean}
  */
-function isCharUpperCase(char) {
+function isCharUpperCase(char = '') {
+  if (isEmpty(char)) return false;
   return isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
 }
 

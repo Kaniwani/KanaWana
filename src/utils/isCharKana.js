@@ -1,3 +1,4 @@
+import isEmpty from './isEmpty';
 import isCharHiragana from './isCharHiragana';
 import isCharKatakana from './isCharKatakana';
 
@@ -6,7 +7,8 @@ import isCharKatakana from './isCharKatakana';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-function isCharKana(char) {
+function isCharKana(char = '') {
+  if (isEmpty(char)) return false;
   return isCharHiragana(char) || isCharKatakana(char);
 }
 

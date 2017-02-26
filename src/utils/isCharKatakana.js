@@ -10,7 +10,7 @@ import isCharInRange from './isCharInRange';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-function isCharKatakana(char) {
+function isCharKatakana(char = '') {
   return isCharInRange(char, KATAKANA_START, KATAKANA_END);
 }
 
