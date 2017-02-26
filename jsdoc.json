@@ -5,7 +5,7 @@
   "source": {
     "include": "src/core/",
     "includePattern": ".js$",
-    "excludePattern": "(node_modules/|docs|tests)"
+    "excludePattern": "(node_modules/|docs|tests|hiraganaTo|katakanaTo|romajiTo)"
   },
   "plugins": [
     "plugins/markdown"

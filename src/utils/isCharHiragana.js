@@ -7,7 +7,7 @@ import isCharLongDash from './isCharLongDash';
 import isCharInRange from './isCharInRange';
 
 /**
- * Tests a character. Returns true if the character is Hiragana.
+ * Tests a character. Returns true if the character is [Hiragana](https://en.wikipedia.org/wiki/Hiragana).
  * @param  {String} char character string to test
  * @return {Boolean}
  */

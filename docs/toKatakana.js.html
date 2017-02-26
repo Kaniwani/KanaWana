@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>isRomajiKana.js - Documentation</title>
+    <title>toKatakana.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">isRomajiKana.js</h1>
+    <h1 class="page-title">toKatakana.js</h1>
     
 
     
@@ -37,38 +37,38 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import isKanji from './isKanji';
-import isHiragana from './isHiragana';
-import isKatakana from './isKatakana';
+            <pre class="prettyprint source linenums"><code>import { DEFAULT_OPTIONS } from '../constants';
+import hiraganaToKatakana from './hiraganaToKatakana';
 import isRomaji from './isRomaji';
+import isRomajiKana from './isRomajiKana';
+import romajiToHiragana from './romajiToHiragana';
 
 /**
- * Test if `input` is a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to skip over [Kanji](https://en.wikipedia.org/wiki/Kanji)
- * @param  {String} input text
- * @param  {Object} [options={ passKanji: true }] optional config to skip over kanji
- * @return {Boolean} true if mixed
+ * Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
+ * @param  {String} [input=''] text
+ * @param  {Object} [options={ useObsoleteKana: false, passRomaji: false }]
+ * @return {String} converted text
  * @example
- * isRomajiKana('Abあア'))
- * // => true
- * isRomajiKana('お腹A'))
- * // => true
- * isRomajiKana('お腹A', { passKanji: false }))
- * // => false
- * isRomajiKana('ab'))
- * // => false
- * isRomajiKana('あア'))
- * // => false
- */
-function isRomajiKana(input = '', options = { passKanji: true }) {
-  const chars = [...input];
-  let hasKanji = false;
-  if (!options.passKanji) {
-    hasKanji = chars.some(isKanji);
+ * toKatakana('toukyou, おおさか')
+ * // => 'トウキョウ、　オオサカ'
+ * toKatakana('only かな', { passRomaji: true })
+ * // => 'only カナ'
+ * toKatakana('wi')
+ * // => 'うぃ'
+ * toKatakana('wi', { useObsoleteKana: true })
+ * // => 'ヰ'
+*/
+function toKatakana(input = '', options = {}) {
+  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+  if (config.passRomaji) return hiraganaToKatakana(input);
+  if (isRomaji(input) || isRomajiKana(input)) {
+    const romaji = romajiToHiragana(input, config);
+    return hiraganaToKatakana(romaji);
   }
-  return (chars.some(isHiragana) || chars.some(isKatakana)) &amp;&amp; chars.some(isRomaji) &amp;&amp; !hasKanji;
+  return hiraganaToKatakana(input);
 }
 
-export default isRomajiKana;
+export default toKatakana;
 </code></pre>
         </article>
     </section>

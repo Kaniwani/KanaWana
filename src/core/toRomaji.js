@@ -1,6 +1,8 @@
 import {
+  DEFAULT_OPTIONS,
   TO_ROMAJI,
 } from '../constants';
+
 import getChunkSize from '../utils/getChunkSize';
 import getChunk from '../utils/getChunk';
 import isKatakana from './isKatakana';
@@ -9,16 +11,16 @@ import katakanaToHiragana from './katakanaToHiragana';
 /**
  * Convert kana to romaji
  * @param  {String} kana text input
- * @param  {Object} [options={ convertKatakanaToUppercase: false }] config object specifying if katakana should result in capitalised romaji
+ * @param  {DefaultOptions} [options={ upcaseKatakana: false, IMEMode: false }]
  * @return {String} converted text
  * @example
  * toRomaji('ひらがな　カタカナ')
  * // => "hiragana katakana"
- * @example <caption>options = { convertKatakanaToUppercase: true }</caption>
- * toRomaji('ひらがな　カタカナ', { convertKatakanaToUppercase: true })
+ * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => "hiragana KATAKANA"
  */
-function toRomaji(kana = '', options = { convertKatakanaToUppercase : false }) {
+function toRomaji(kana = '', options = {}) {
+  const config = Object.assign({}, DEFAULT_OPTIONS, options);
   const len = kana.length;
   // Final output array
   const roma = [];
@@ -36,7 +38,7 @@ function toRomaji(kana = '', options = { convertKatakanaToUppercase : false }) {
     while (chunkSize > 0) {
       chunk = getChunk(kana, cursor, cursor + chunkSize);
       if (isKatakana(chunk)) {
-        convertThisChunkToUppercase = options.convertKatakanaToUppercase;
+        convertThisChunkToUppercase = config.upcaseKatakana;
         chunk = katakanaToHiragana(chunk);
       }
       // special case for small tsus

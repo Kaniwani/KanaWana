@@ -8,27 +8,30 @@ import isCharSlashDot from '../utils/isCharSlashDot';
 import isCharHiragana from '../utils/isCharHiragana';
 
 /**
- * Convert hiragana to katakana
- * @param  {String} hira text input
+ * Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
+ * Passes through any non-hiragana chars
+ * @param  {String} [input=''] text input
  * @return {String} converted text
  * @example
  * hiraganaToKatakana('ひらがな')
  * // => "ヒラガナ"
+ * hiraganaToKatakana('ひらがな is a type of kana')
+ * // => "ヒラガナ is a type of kana"
  */
-function hiraganaToKatakana(hira = '') {
+function hiraganaToKatakana(input = '') {
   const kata = [];
-  hira.split('').forEach((hiraChar) => {
+  input.split('').forEach((char) => {
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-    if (isCharLongDash(hiraChar) || isCharSlashDot(hiraChar)) {
-      kata.push(hiraChar);
-    } else if (isCharHiragana(hiraChar)) {
+    if (isCharLongDash(char) || isCharSlashDot(char)) {
+      kata.push(char);
+    } else if (isCharHiragana(char)) {
       // Shift charcode.
-      const code = hiraChar.charCodeAt(0) + (KATAKANA_START - HIRAGANA_START);
+      const code = char.charCodeAt(0) + (KATAKANA_START - HIRAGANA_START);
       const kataChar = String.fromCharCode(code);
       kata.push(kataChar);
     } else {
-      // Pass non hiragana chars through
-      kata.push(hiraChar);
+      // Pass non-hiragana chars through
+      kata.push(char);
     }
   });
   return kata.join('');

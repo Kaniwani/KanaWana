@@ -6,7 +6,7 @@ import {
 import isCharInRange from './isCharInRange';
 
 /**
- * Tests a character. Returns true if the character is katakana.
+ * Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
  * @param  {String} char character string to test
  * @return {Boolean}
  */

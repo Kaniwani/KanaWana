@@ -1,27 +1,49 @@
 /**
-  * @typedef DefaultOptions
-  * @type {Object}
+  * @typedef {Object} DefaultOptions
   * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
+  * @example
+  * toHiragana('we', { useObsoleteKana: true })
+  * // => 'ゑ'
   * @property {Boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
-  * @property {Boolean} [IMEMode=false] - Set to true to handle input from a text input as it is typed
+  * @example
+  * toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
+  * // => "only convert the katakana: ひらがな"
+  * @property {Boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
+  * @example
+  * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
+  * // => "hiragana KATAKANA"
+  * @property {Boolean} [IMEMode=false] - Set to true to handle conversion from a text input as it is being typed
 */
 
 /**
  * Default config for KanaWana, user passed options will be merged with this
  * @type {DefaultOptions}
- * @example <caption>{ passRomaji: true }</caption>
- * toHiragana('romaji is not ヒラガナ', {passRomaji: true})
- * // => "romaji is not ひらがな"
  */
 const DEFAULT_OPTIONS = {
   useObsoleteKana: false,
   passRomaji: false,
+  upcaseKatakana: false,
   IMEMode: false,
 };
 
 // CharCode References
 // http://unicode-table.com
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
+
+/**
+ * All Japanese regex, for mixes of kanji and kana like "泣き虫"
+ * Includes Japanese full-width punctuation ranges
+ * Doesn't include *half-width katakana / roman letters* since they should be considered typos
+ * @type {RegExp}
+ */
+const KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;
+
+/**
+* Basic Latin unicode regex, for determining Romaji written as Hepburn romanisation
+* Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
+* @type {RegExp}
+*/
+const ROMAJI_REGEX = /[\u0000-\u007f\u0100—\u0101\u0112—\u0113\u012a—\u012b\u014c—\u014d\u016a—\u016b]/;
 
 const ENGLISH_PUNCTUATION_RANGES = [
   [0x21, 0x2F],
@@ -53,14 +75,6 @@ const UPPERCASE_FULLWIDTH_START = 0xFF21;
 const UPPERCASE_FULLWIDTH_END = 0xFF3A;
 const PROLONGED_SOUND_MARK = 0x30FC;
 const KANA_SLASH_DOT = 0x30FB;
-
-/**
- * All Japanese regex, for mixes of kanji and kana like "泣き虫"
- * Includes Japanese full-width punctuation ranges
- * Doesn't include *half-width katakana / roman letters* since they should be considered typos
- * @type {RegExp}
- */
-const KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;
 
 const LONG_VOWELS = {
   a: 'あ',
@@ -627,6 +641,8 @@ const TO_ROMAJI = {
 
 export {
   DEFAULT_OPTIONS,
+  KANJI_KANA_REGEX,
+  ROMAJI_REGEX,
   ENGLISH_PUNCTUATION_RANGES,
   JAPANESE_FULLWIDTH_PUNCTUATION_RANGES,
   LOWERCASE_START,
@@ -645,7 +661,6 @@ export {
   UPPERCASE_FULLWIDTH_END,
   PROLONGED_SOUND_MARK,
   KANA_SLASH_DOT,
-  KANJI_KANA_REGEX,
   // character tables
   LONG_VOWELS,
   FOUR_CHAR_EDGECASES,

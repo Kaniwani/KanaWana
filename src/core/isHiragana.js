@@ -2,9 +2,16 @@ import isCharHiragana from '../utils/isCharHiragana';
 import isEmpty from '../utils/isEmpty';
 
 /**
- * Tests if all text is hiragana
- * @param  {String} input text to Tests
- * @return {Boolean} true if hiragana
+ * Test if `input` is [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+ * @param  {String} [input=''] text
+ * @return {Boolean} true if all [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+ * @example
+ * isHiragana('げーむ')
+ * // => true
+ * isHiragana('A')
+ * // => false
+ * isHiragana('あア')
+ * // => false
  */
 function isHiragana(input = '') {
   if (isEmpty(input)) return false;

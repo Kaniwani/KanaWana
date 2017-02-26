@@ -2,9 +2,20 @@ import isEmpty from '../utils/isEmpty';
 import isCharKanji from '../utils/isCharKanji';
 
 /**
- * Test if all chars are Kanji (CJK ideographs)
- * @param  {String} input text to test
- * @return {Boolean} true if all Kanji, else false
+ * Tests if `input` is [Kanji](https://en.wikipedia.org/wiki/Kanji) ([Japanese CJK ideographs](https://en.wikipedia.org/wiki/CJK_Unified_Ideographs))
+ * @param  {String} [input=''] text
+ * @return {Boolean} true if all [Kanji](https://en.wikipedia.org/wiki/Kanji)
+ * @example
+ * isKanji('刀')
+ * // => true
+ * isKanji('切腹')
+ * // => true
+ * isKanji('勢い')
+ * // => false
+ * isKanji('あAア')
+ * // => false
+ * isKanji('🐸')
+ * // => false
  */
 function isKanji(input = '') {
   if (isEmpty(input)) return false;

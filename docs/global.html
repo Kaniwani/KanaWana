@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#hiraganaToKatakana">hiraganaToKatakana</a></li><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKanjiKana">isKanjiKana</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isRomajiKana">isRomajiKana</a></li><li><a href="global.html#kanaToRomaji">kanaToRomaji</a></li><li><a href="global.html#katakanaToHiragana">katakanaToHiragana</a></li><li><a href="global.html#romajiToHiragana">romajiToHiragana</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toKana">toKana</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKanjiKana">isKanjiKana</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isRomajiKana">isRomajiKana</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li></ul>
 </nav>
 
 <div id="main">
@@ -115,7 +115,7 @@
 
     
 
-    <h4 class="name" id="hiraganaToKatakana"><span class="type-signature"></span>hiraganaToKatakana<span class="signature">(hira)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="isHiragana"><span class="type-signature"></span>isHiragana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
 
@@ -127,7 +127,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="hiraganaToKatakana.js.html">hiraganaToKatakana.js</a>, <a href="hiraganaToKatakana.js.html#line18">line 18</a>
+        <a href="isHiragana.js.html">isHiragana.js</a>, <a href="isHiragana.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -167,7 +167,7 @@
 
 
 <div class="description">
-    <p>Convert hiragana to katakana</p>
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
 </div>
 
 
@@ -180,8 +180,12 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>hiraganaToKatakana('ひらがな')
-// => "ヒラガナ"</code></pre>
+    <pre class="prettyprint"><code>isHiragana('げーむ')
+// => true
+isHiragana('A')
+// => false
+isHiragana('あア')
+// => false</code></pre>
 
 
 
@@ -199,162 +203,11 @@
         <th>Type</th>
 
         
-
+        <th>Attributes</th>
         
 
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>hira</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>text input</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
         
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isHiragana"><span class="type-signature"></span>isHiragana<span class="signature">(input)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isHiragana.js.html">isHiragana.js</a>, <a href="isHiragana.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Tests if all text is hiragana</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -379,10 +232,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>text to Tests</p></td>
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
         </tr>
 
     
@@ -406,7 +275,7 @@
 
         
 <div class="param-desc">
-    <p>true if hiragana</p>
+    <p>true if all <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
 </div>
 
 
@@ -431,7 +300,7 @@
 
     
 
-    <h4 class="name" id="isKana"><span class="type-signature"></span>isKana<span class="signature">(input)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="isKana"><span class="type-signature"></span>isKana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
 
@@ -443,7 +312,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKana.js.html">isKana.js</a>, <a href="isKana.js.html#line8">line 8</a>
+        <a href="isKana.js.html">isKana.js</a>, <a href="isKana.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -483,7 +352,7 @@
 
 
 <div class="description">
-    <p>Test if all text is Katakana, Hiragana or both</p>
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> (<a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a> and/or <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a>)</p>
 </div>
 
 
@@ -492,6 +361,20 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isKana('あ')
+// => true
+isKana('ア')
+// => true
+isKana('あーア')
+// => true
+isKana('A')
+// => false
+isKana('あAア')
+// => false</code></pre>
 
 
 
@@ -509,7 +392,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -534,10 +421,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>text to test</p></td>
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
         </tr>
 
     
@@ -561,7 +464,7 @@
 
         
 <div class="param-desc">
-    <p>true if either Katakana or Hiragana, else false</p>
+    <p>true if all <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
 </div>
 
 
@@ -586,7 +489,7 @@
 
     
 
-    <h4 class="name" id="isKanji"><span class="type-signature"></span>isKanji<span class="signature">(input)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="isKanji"><span class="type-signature"></span>isKanji<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
 
@@ -598,7 +501,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKanji.js.html">isKanji.js</a>, <a href="isKanji.js.html#line8">line 8</a>
+        <a href="isKanji.js.html">isKanji.js</a>, <a href="isKanji.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -638,7 +541,7 @@
 
 
 <div class="description">
-    <p>Test if all chars are Kanji (CJK ideographs)</p>
+    <p>Tests if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> (<a href="https://en.wikipedia.org/wiki/CJK_Unified_Ideographs">Japanese CJK ideographs</a>)</p>
 </div>
 
 
@@ -647,6 +550,20 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isKanji('刀')
+// => true
+isKanji('切腹')
+// => true
+isKanji('勢い')
+// => false
+isKanji('あAア')
+// => false
+isKanji('🐸')
+// => false</code></pre>
 
 
 
@@ -664,7 +581,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -689,10 +610,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>text to test</p></td>
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
         </tr>
 
     
@@ -716,7 +653,7 @@
 
         
 <div class="param-desc">
-    <p>true if all Kanji, else false</p>
+    <p>true if all <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
 </div>
 
 
@@ -741,7 +678,7 @@
 
     
 
-    <h4 class="name" id="isKanjiKana"><span class="type-signature"></span>isKanjiKana<span class="signature">(input)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="isKanjiKana"><span class="type-signature"></span>isKanjiKana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
 
@@ -753,7 +690,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKanjiKana.js.html">isKanjiKana.js</a>, <a href="isKanjiKana.js.html#line9">line 9</a>
+        <a href="isKanjiKana.js.html">isKanjiKana.js</a>, <a href="isKanjiKana.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -793,7 +730,7 @@
 
 
 <div class="description">
-    <p>Test if input is All Japanese, for mixes of kanji and kana like &quot;泣き虫。&quot;<br>Includes Japanese full-width punctuation ranges</p>
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> like “「泣き虫」”<br>Includes Japanese full-width punctuation ranges</p>
 </div>
 
 
@@ -802,6 +739,22 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isKanjiKana('泣き虫')
+// => true
+isKanjiKana('あア')
+// => true
+isKanjiKana('泣き虫。！〜') // Full-width punctuation
+// => true
+isKanjiKana('泣き虫.!~') // Half-width / Latin punctuation
+// => false
+isKanjiKana('泣き虫A')
+// => false
+isKanjiKana('A')
+// => false</code></pre>
 
 
 
@@ -819,7 +772,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -844,10 +801,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>text to test</p></td>
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
         </tr>
 
     
@@ -871,7 +844,7 @@
 
         
 <div class="param-desc">
-    <p>true if ALL Japanese, else false</p>
+    <p>true if all <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
 </div>
 
 
@@ -896,7 +869,7 @@
 
     
 
-    <h4 class="name" id="isKatakana"><span class="type-signature"></span>isKatakana<span class="signature">(input)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="isKatakana"><span class="type-signature"></span>isKatakana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
 
@@ -908,7 +881,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKatakana.js.html">isKatakana.js</a>, <a href="isKatakana.js.html#line8">line 8</a>
+        <a href="isKatakana.js.html">isKatakana.js</a>, <a href="isKatakana.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -948,7 +921,7 @@
 
 
 <div class="description">
-    <p>Tests if all text is katakana</p>
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
 </div>
 
 
@@ -957,6 +930,18 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isKatakana('ゲーム')
+// => true
+isKatakana('あ')
+// => false
+isKatakana('A')
+// => false
+isKatakana('あア')
+// => false</code></pre>
 
 
 
@@ -974,7 +959,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -999,10 +988,26 @@
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last"><p>text to Tests</p></td>
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
         </tr>
 
     
@@ -1026,7 +1031,7 @@
 
         
 <div class="param-desc">
-    <p>true if katakana</p>
+    <p>true if all <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
 </div>
 
 
@@ -1063,7 +1068,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isRomajiKana.js.html">isRomajiKana.js</a>, <a href="isRomajiKana.js.html#line12">line 12</a>
+        <a href="isRomajiKana.js.html">isRomajiKana.js</a>, <a href="isRomajiKana.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -1103,7 +1108,7 @@
 
 
 <div class="description">
-    <p>Test if input is a mix of romaji and kana, defaults to skip kanji</p>
+    <p>Test if <code>input</code> is a mix of <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> <em>and</em> <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, defaults to skip over <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
 </div>
 
 
@@ -1112,6 +1117,20 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isRomajiKana('Abあア'))
+// => true
+isRomajiKana('お腹A'))
+// => true
+isRomajiKana('お腹A', { passKanji: false }))
+// => false
+isRomajiKana('ab'))
+// => false
+isRomajiKana('あア'))
+// => false</code></pre>
 
 
 
@@ -1236,7 +1255,7 @@
 
         
 <div class="param-desc">
-    <p>true if input is mixed</p>
+    <p>true if mixed</p>
 </div>
 
 
@@ -1261,7 +1280,7 @@
 
     
 
-    <h4 class="name" id="kanaToRomaji"><span class="type-signature"></span>kanaToRomaji<span class="signature">(kana, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="stripOkurigana"><span class="type-signature"></span>stripOkurigana<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
 
     
 
@@ -1273,7 +1292,913 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="kanaToRomaji.js.html">kanaToRomaji.js</a>, <a href="kanaToRomaji.js.html#line22">line 22</a>
+        <a href="stripOkurigana.js.html">stripOkurigana.js</a>, <a href="stripOkurigana.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Strips trailing <a href="https://en.wikipedia.org/wiki/Okurigana">Okurigana</a> if <code>input</code> is a mix of <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>stripOkurigana('踏み込む')
+// => '踏み込'
+stripOkurigana('粘り。')
+// => '粘。'
+stripOkurigana('お祝い')
+// => 'お祝'
+stripOkurigana('踏み込む', { all: true })
+// => '踏込'
+stripOkurigana('お祝い', { all: true })
+// => '祝'</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{ all: false }</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>config object specifying if <em>all</em> kana should be removed, not just trailing okurigana</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>text with okurigana removed</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="toHiragana"><span class="type-signature"></span>toHiragana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="toHiragana.js.html">toHiragana.js</a>, <a href="toHiragana.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Convert input to <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>toHiragana('toukyou, オオサカ')
+// => 'とうきょう、　おおさか'
+toHiragana('only カナ', { passRomaji: true })
+// => 'only かな'
+toHiragana('wi')
+// => 'うぃ'
+toHiragana('wi', { useObsoleteKana: true })
+// => 'ゐ'</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{ useObsoleteKana: false, passRomaji: false }</code>
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>converted text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="toKana"><span class="type-signature"></span>toKana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Convert <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> to <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, lowercase text will result in <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a> and uppercase text will result in <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>toKana('onaji BUTTSUUJI'))
+// => 'おなじ ブッツウジ'
+toKana('ONAJI buttsuuji'))
+// => 'オナジ ぶっつうじ'
+toKana('座禅[zazen]スタイル'))
+// => '座禅「ざぜん」スタイル'
+toKana('batsuge-mu'))
+// => 'ばつげーむ'
+toKana('.,[]{}()!?/')) // Punctuation conversion
+// => '。、「」｛｝（）！？・'
+toKana('we', { useObsoleteKana: true })
+// => 'ゑ'</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{ useObsoleteKana: false, IMEMode: false }</code>
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>converted text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="toKatakana"><span class="type-signature"></span>toKatakana<span class="signature">(input<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="toKatakana.js.html">toKatakana.js</a>, <a href="toKatakana.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Convert input to <a href="https://en.wikipedia.org/wiki/Katakana">Katakana</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>toKatakana('toukyou, おおさか')
+// => 'トウキョウ、　オオサカ'
+toKatakana('only かな', { passRomaji: true })
+// => 'only カナ'
+toKatakana('wi')
+// => 'うぃ'
+toKatakana('wi', { useObsoleteKana: true })
+// => 'ヰ'</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{ useObsoleteKana: false, passRomaji: false }</code>
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>converted text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="toRomaji"><span class="type-signature"></span>toRomaji<span class="signature">(kana, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="toRomaji.js.html">toRomaji.js</a>, <a href="toRomaji.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -1324,14 +2249,11 @@
 
 
 
-    <h5>Examples</h5>
+    <h5>Example</h5>
     
-    <pre class="prettyprint"><code>kanaToRomaji('ひらがな　カタカナ')
-// => "hiragana katakana"</code></pre>
-
-        <p class="code-caption">{ convertKatakanaToUppercase: true }</p>
-    
-    <pre class="prettyprint"><code>kanaToRomaji('ひらがな　カタカナ', { convertKatakanaToUppercase: true })
+    <pre class="prettyprint"><code>toRomaji('ひらがな　カタカナ')
+// => "hiragana katakana"
+toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
 // => "hiragana KATAKANA"</code></pre>
 
 
@@ -1407,7 +2329,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#DefaultOptions">DefaultOptions</a></span>
 
 
             
@@ -1428,342 +2350,9 @@
             
                 <td class="default">
                 
-                    <code>{ convertKatakanaToUppercase: false }</code>
+                    <code>{ upcaseKatakana: false, IMEMode: false }</code>
                 
                 </td>
-            
-
-            <td class="description last"><p>config object specifying if katakana should result in capitalised romaji</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="katakanaToHiragana"><span class="type-signature"></span>katakanaToHiragana<span class="signature">(kata)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="katakanaToHiragana.js.html">katakanaToHiragana.js</a>, <a href="katakanaToHiragana.js.html#line17">line 17</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Convert katakana to hiragana</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>kata</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>text input</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="romajiToHiragana"><span class="type-signature"></span>romajiToHiragana<span class="signature">(roma, options)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="romajiToHiragana.js.html">romajiToHiragana.js</a>, <a href="romajiToHiragana.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Convert romaji to hiragana</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>roma</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>text input</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
             
 
             <td class="description last"></td>
@@ -1811,13 +2400,15 @@
 
 
         
-            
-
     
 
-    <h4 class="name" id="stripOkurigana"><span class="type-signature"></span>stripOkurigana<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
     
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="DefaultOptions">DefaultOptions</h4>
+
 
 
 
@@ -1827,7 +2418,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stripOkurigana.js.html">stripOkurigana.js</a>, <a href="stripOkurigana.js.html#line13">line 13</a>
+        <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -1864,26 +2455,11 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
 
-
-<div class="description">
-    <p>Strips trailing okurigana if input is a mix of kanji and kana</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
     
 
-<table class="params">
+<table class="props">
     <thead>
     <tr>
         
@@ -1909,48 +2485,13 @@
 
         <tr>
             
-                <td class="name"><code>input</code></td>
+                <td class="name"><code>useObsoleteKana</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last"><p>text to parse</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
+<span class="param-type">Boolean</span>
 
 
             
@@ -1963,6 +2504,41 @@
                 
 
                 
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>false</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Set to true to use obsolete characters, such as ゐ and ゑ.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>passRomaji</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
                 
                 </td>
@@ -1971,12 +2547,86 @@
             
                 <td class="default">
                 
-                    <code>{ all: false }</code>
+                    <code>false</code>
                 
                 </td>
             
 
-            <td class="description last"><p>config object specifying if <em>all</em> kana should be removed</p></td>
+            <td class="description last"><p>Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>upcaseKatakana</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>false</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Set to true to convert katakana to uppercase using toRomaji()</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>IMEMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>false</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Set to true to handle conversion from a text input as it is being typed</p></td>
         </tr>
 
     
@@ -1990,225 +2640,34 @@
 
 
 
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>string new string with trailing okurigana removed</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
+    <h5>Type:</h5>
+    <ul>
+        <li>
             
-
-    
-
-    <h4 class="name" id="toKana"><span class="type-signature"></span>toKana<span class="signature">(input, options)</span><span class="type-signature"> &rarr; {String}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="toKana.js.html">toKana.js</a>, <a href="toKana.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Converts input to kana.<br>Uses romajiToKana under the hood</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>toKana('hiragana')
-// => 'ひらがな'
-toKana('KATAKANA')
-// => 'カタカナ'</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>text to convert</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">Object</span>
 
 
-            
-            </td>
+        </li>
+    </ul>
 
-            
 
-            
 
-            <td class="description last"></td>
-        </tr>
 
+
+    <h5>Examples</h5>
     
-    </tbody>
-</table>
+    <pre class="prettyprint"><code>toHiragana('we', { useObsoleteKana: true })
+// => 'ゑ'</code></pre>
+
+    <pre class="prettyprint"><code>toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
+// => "only convert the katakana: ひらがな"</code></pre>
+
+    <pre class="prettyprint"><code>toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
+// => "hiragana KATAKANA"</code></pre>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>converted text</p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">String</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-    
-
+            
     
 
     
@@ -2224,7 +2683,7 @@ toKana('KATAKANA')
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Feb 26 2017 16:09:05 GMT+0530 (+0530) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Thu Mar 02 2017 16:10:14 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
