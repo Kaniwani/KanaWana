@@ -6,10 +6,21 @@ import isKana from './isKana';
 import isKanji from './isKanji';
 
 /**
- * Strips trailing okurigana if input is a mix of kanji and kana
- * @param  {String} input text to parse
- * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed
- * @return {String} string new string with trailing okurigana removed
+ * Strips trailing [Okurigana](https://en.wikipedia.org/wiki/Okurigana) if `input` is a mix of [Kanji](https://en.wikipedia.org/wiki/Kanji) and [Kana](https://en.wikipedia.org/wiki/Kana)
+ * @param  {String} input text
+ * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed, not just trailing okurigana
+ * @return {String} text with okurigana removed
+ * @example
+ * stripOkurigana('踏み込む')
+ * // => '踏み込'
+ * stripOkurigana('粘り。')
+ * // => '粘。'
+ * stripOkurigana('お祝い')
+ * // => 'お祝'
+ * stripOkurigana('踏み込む', { all: true })
+ * // => '踏込'
+ * stripOkurigana('お祝い', { all: true })
+ * // => '祝'
  */
 function stripOkurigana(input = '', options = { all: false }) {
   if (isEmpty(input) || !isKanjiKana(input) || isKana(input)) return input;

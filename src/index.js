@@ -7,16 +7,11 @@ import isKanjiKana from './core/isKanjiKana';
 import isRomaji from './core/isRomaji';
 import isRomajiKana from './core/isRomajiKana';
 import isKanji from './core/isKanji';
-import hiraganaToKatakana from './core/hiraganaToKatakana';
-import katakanaToHiragana from './core/katakanaToHiragana';
-import romajiToHiragana from './core/romajiToHiragana';
 import toHiragana from './core/toHiragana';
 import toKatakana from './core/toKatakana';
 import toKana from './core/toKana';
 import toRomaji from './core/toRomaji';
 import stripOkurigana from './core/stripOkurigana';
-
-// TODO: add @examples to docstrings for doc generation
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
@@ -72,9 +67,6 @@ export {
   isRomaji,
   isRomajiKana,
   isKanji,
-  hiraganaToKatakana,
-  katakanaToHiragana,
-  romajiToHiragana,
   toHiragana,
   toKatakana,
   toKana,

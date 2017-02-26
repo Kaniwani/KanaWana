@@ -10,34 +10,40 @@ import isCharSlashDot from '../utils/isCharSlashDot';
 import isCharKatakana from '../utils/isCharKatakana';
 
 /**
- * Convert katakana to hiragana
- * @param  {String} kata text input
+ * Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+ * Passes through any non-katakana chars
+ * @param  {String} [input=''] text input
  * @return {String} converted text
+ * @example
+ * katakanaToHiragana('カタカナ')
+ * // => "かたかな"
+ * katakanaToHiragana('カタカナ is a type of kana')
+ * // => "かたかな is a type of kana"
  */
-function katakanaToHiragana(kata = '') {
+function katakanaToHiragana(input = '') {
   const hira = [];
   let previousKana = '';
-  const iterable = kata.split('');
+  const iterable = input.split('');
   for (let index = 0; index < iterable.length; index += 1) {
-    const kataChar = iterable[index];
-    const [slashDot, longDash] = [isCharSlashDot(kataChar), isCharLongDash(kataChar)];
+    const char = iterable[index];
+    const [slashDot, longDash] = [isCharSlashDot(char), isCharLongDash(char)];
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
     if (slashDot || (longDash && index < 1)) {
-      hira.push(kataChar);
+      hira.push(char);
     // Transform long vowels: 'オー' to 'おう'
     } else if (longDash && index > 0) {
       // Transform previousKana back to romaji, and slice off the vowel
       const romaji = TO_ROMAJI[previousKana].slice(-1);
       hira.push(LONG_VOWELS[romaji]);
-    } else if (isCharKatakana(kataChar)) {
+    } else if (isCharKatakana(char)) {
       // Shift charcode.
-      const code = kataChar.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
+      const code = char.charCodeAt(0) + (HIRAGANA_START - KATAKANA_START);
       const hiraChar = String.fromCharCode(code);
       hira.push(hiraChar);
       previousKana = hiraChar;
     } else {
       // Pass non katakana chars through
-      hira.push(kataChar);
+      hira.push(char);
       previousKana = '';
     }
   }

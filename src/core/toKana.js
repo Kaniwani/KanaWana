@@ -15,13 +15,49 @@ import isCharVowel from '../utils/isCharVowel';
 import isKana from './isKana';
 import hiraganaToKatakana from './hiraganaToKatakana';
 
-function toKana(roma = '', options = {}, ignoreCase = false) {
+/**
+  * @typedef {Object} DefaultOptions
+  * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
+  * @example
+  * toHiragana('we', { useObsoleteKana: true })
+  * // => 'ゑ'
+  * @property {Boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
+  * @example
+  * toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
+  * // => "only convert the katakana: ひらがな"
+  * @property {Boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
+  * @example
+  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
+  * // => "hiragana KATAKANA"
+  * @property {Boolean} [IMEMode=false] - Set to true to handle conversion from a text input as it is being typed
+*/
+
+/**
+ * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
+ * @param  {String} [input=''] text
+ * @param  {DefaultOptions} [options={ useObsoleteKana: false, IMEMode: false }]
+ * @return {String} converted text
+ * @example
+ * toKana('onaji BUTTSUUJI'))
+ * // => 'おなじ ブッツウジ'
+ * toKana('ONAJI buttsuuji'))
+ * // => 'オナジ ぶっつうじ'
+ * toKana('座禅[zazen]スタイル'))
+ * // => '座禅「ざぜん」スタイル'
+ * toKana('batsuge-mu'))
+ * // => 'ばつげーむ'
+ * toKana('.,[]{}()!?/')) // Punctuation conversion
+ * // => '。、「」｛｝（）！？・'
+ * toKana('we', { useObsoleteKana: true })
+ * // => 'ゑ'
+ */
+function toKana(input = '', options = {}, ignoreCase = false) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   // Final output array
   const kana = [];
   // Position in the string that is being evaluated
   let cursor = 0;
-  const len = roma.length;
+  const len = input.length;
   const maxChunk = 3;
   let chunkSize = 3;
   let chunk = '';
@@ -35,12 +71,12 @@ function toKana(roma = '', options = {}, ignoreCase = false) {
     let kanaChar = null;
     chunkSize = getChunkSize(maxChunk, len - cursor);
     while (chunkSize > 0) {
-      chunk = getChunk(roma, cursor, cursor + chunkSize);
+      chunk = getChunk(input, cursor, cursor + chunkSize);
       chunkLC = chunk.toLowerCase();
       // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
       if (FOUR_CHAR_EDGECASES.includes(chunkLC) && (len - cursor) >= 4) {
         chunkSize += 1;
-        chunk = getChunk(roma, cursor, cursor + chunkSize);
+        chunk = getChunk(input, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
       } else {
         // Handle edge case of n followed by consonant
@@ -60,7 +96,7 @@ function toKana(roma = '', options = {}, ignoreCase = false) {
           // Handle edge case of n followed by n and vowel
           if (isCharConsonant(chunkLC.charAt(1), false) && isCharVowel(chunkLC.charAt(2))) {
             chunkSize = 1;
-            chunk = getChunk(roma, cursor, cursor + chunkSize);
+            chunk = getChunk(input, cursor, cursor + chunkSize);
             chunkLC = chunk.toLowerCase();
           }
         }
@@ -106,10 +142,10 @@ function toKana(roma = '', options = {}, ignoreCase = false) {
     }
 
     if (!!config.IMEMode && chunkLC.charAt(0) === 'n') {
-      if ((roma.charAt(cursor + 1).toLowerCase() === 'y' &&
-        isCharVowel(roma.charAt(cursor + 2)) === false) ||
+      if ((input.charAt(cursor + 1).toLowerCase() === 'y' &&
+        isCharVowel(input.charAt(cursor + 2)) === false) ||
         cursor === (len - 1) ||
-        isKana(roma.charAt(cursor + 1))
+        isKana(input.charAt(cursor + 1))
       ) {
         // Don't transliterate this yet.
         kanaChar = chunk.charAt(0);

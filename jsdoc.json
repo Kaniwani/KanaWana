@@ -3,9 +3,9 @@
     "allowUnknownTags": true
   },
   "source": {
-    "include": "src/core/",
+    "include": ["src/core/", "src/utils/"],
     "includePattern": ".js$",
-    "excludePattern": "(node_modules/|docs|tests)"
+    "excludePattern": "(node_modules/|docs|tests|hiraganaTo|katakanaTo|romajiTo)"
   },
   "plugins": [
     "plugins/markdown"
@@ -22,6 +22,7 @@
     "verbose": true
   },
   "docdash": {
+    "static": true,
     "sort": false
   }
 }

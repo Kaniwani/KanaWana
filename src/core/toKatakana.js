@@ -5,14 +5,20 @@ import isRomajiKana from './isRomajiKana';
 import romajiToHiragana from './romajiToHiragana';
 
 /**
- * Converts input to katakana.
- * @param  {String} input text to convert
- * @param  {Object} options used interally to pass along default options
+ * Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
+ * @param  {String} [input=''] text
+ * @param  {Object} [options={ useObsoleteKana: false, passRomaji: false }]
  * @return {String} converted text
  * @example
- * toKatakana('hiragana')
- * // => 'ヒラガナ'
- */
+ * toKatakana('toukyou, おおさか')
+ * // => 'トウキョウ、　オオサカ'
+ * toKatakana('only かな', { passRomaji: true })
+ * // => 'only カナ'
+ * toKatakana('wi')
+ * // => 'うぃ'
+ * toKatakana('wi', { useObsoleteKana: true })
+ * // => 'ヰ'
+*/
 function toKatakana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.passRomaji) return hiraganaToKatakana(input);
