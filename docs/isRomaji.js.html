@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>isRomaji.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,25 +27,44 @@
 
 <div id="main">
     
+    <h1 class="page-title">isRomaji.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import isEmpty from '../utils/isEmpty';
+import { ROMAJI_REGEX } from '../constants';
 
+/**
+ * Test if `input` is [Romaji](https://en.wikipedia.org/wiki/Romaji) (including [Hepburn romanisation](https://en.wikipedia.org/wiki/Hepburn_romanization))
+ * @param  {String} [input=''] text
+ * @return {Boolean} true if [Romaji](https://en.wikipedia.org/wiki/Romaji)
+ * @example
+ * isRomaji('Tōkyō and Ōsaka')
+ * // => true
+ * isRomaji('a*b&amp;c-d')
+ * // => true
+ * isRomaji('あアA')
+ * // => false
+ * isRomaji('お願い')
+ * // => false
+ * isRomaji('a！b&amp;cーd') // Full-width punctuation fails
+ * // => false
+ */
+function isRomaji(input = '') {
+  if (isEmpty(input)) return false;
+  return [...input].every((char) => ROMAJI_REGEX.test(char));
+}
 
-
-
-
-
-
-
-
-    
-
-
-
+export default isRomaji;
+</code></pre>
+        </article>
+    </section>
 
 
 

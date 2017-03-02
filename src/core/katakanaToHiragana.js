@@ -19,6 +19,7 @@ import isCharKatakana from '../utils/isCharKatakana';
  * // => "かたかな"
  * katakanaToHiragana('カタカナ is a type of kana')
  * // => "かたかな is a type of kana"
+ * @ignore
  */
 function katakanaToHiragana(input = '') {
   const hira = [];

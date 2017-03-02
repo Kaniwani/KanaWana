@@ -17,6 +17,7 @@ import isCharHiragana from '../utils/isCharHiragana';
  * // => "ヒラガナ"
  * hiraganaToKatakana('ひらがな is a type of kana')
  * // => "ヒラガナ is a type of kana"
+ * @ignore
  */
 function hiraganaToKatakana(input = '') {
   const kata = [];
