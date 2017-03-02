@@ -39,7 +39,7 @@
     "build:docs": "rimraf ./docs && node_modules/.bin/jsdoc -c jsdoc.json",
     "docs":"npm run build:docs",
     "docs:view": "opn ./docs/index.html",
-    "docs:watch": "onchange './src/**/*.js' -- npm run docs:build",
+    "docs:watch": "onchange './src/**/*.js' -- npm run docs",
     "pretest": "npm run test:clean",
     "test": "cross-env NODE_ENV=test jest",
     "test:clean": "rimraf ./coverage",

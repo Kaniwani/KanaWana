@@ -17,7 +17,9 @@ import { ROMAJI_REGEX } from '../constants';
  * isRomaji('a！b&cーd') // Full-width punctuation fails
  * // => false
  */
-export default function isRomaji(input = '') {
+function isRomaji(input = '') {
   if (isEmpty(input)) return false;
   return [...input].every((char) => ROMAJI_REGEX.test(char));
 }
+
+export default isRomaji;

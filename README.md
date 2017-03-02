@@ -19,77 +19,83 @@
 
 <div align="center">
 <h1>カナワナ &lt;--&gt; KanaWana &lt;--&gt; かなわな</h1>
-<h3>Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&gt; Romaji &lt;--&gt; Katakana.</h3>
+<h4>Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&gt; Romaji &lt;--&gt; Katakana.</h4>
 </div>
 
 
 ## Demo
 [kaniwani.github.io/KanaWana/](https://kaniwani.github.io/KanaWana/)
 
+
+## Documentation
+[kaniwani.github.io/KanaWana/docs](https://kaniwani.github.io/KanaWana/docs/global.html)
+
+
 ## Install
 ```shell
-yarn add kanawana
+npm install kanawana
+# or yarn add kanawana
 ```
 
-## Usage
-
+## Quick Use
 ```javascript
-
-const kanawana = require('kanawana');
-// Or directly import in ES6 via:
+const kw = require('kanawana');
+// Or directly import single methods using ES6 for smaller builds:
 // import toKana from 'kanawana/core/toKana';
-// for smaller builds.
 
-// Adds event listener to an input field, defaulting to IME mode
-kanawana.bind(domElement [, options]);
+// Default options object
+{
+  useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
+  passRomaji: false, // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
+  upcaseKatakana: false, // Set to true to convert katakana to uppercase when using toRomaji()
+  IMEMode: false, // Set to true to handle input from a text input as it is typed.
+}
+
+// Automatically converts romaji to kana by using an eventListener on input
+// Uses { IMEMode:true } by default (first example on the demo page)
+kw.bind(domElement [, options]);
 
 // Removes event listener
-kanawana.unbind(domElement);
-
-// Returns false if string contains mixed characters, otherwise true if Hiragana.
-kanawana.isHiragana(string);
+kw.unbind(domElement);
 
 // Returns false if string contains characters outside of the kana family, otherwise true if Hiragana and/or Katakana.
-kanawana.isKana(string);
+kw.isKana(string);
+
+// Returns false if string contains mixed characters, otherwise true if Hiragana.
+kw.isHiragana(string);
 
 // Returns false if string contains mixed characters, otherwise true if Katakana.
-kanawana.isKatakana(string);
+kw.isKatakana(string);
 
-// Convert Romaji to Kana. Lowcase entries output Hiragana, while upcase entries output Katakana.
+// Returns true if string contains basic latin or hepburn romanisation
+kw.isRomaji(string);
+
+// Returns true if string contains only kanji and/or kana
+kw.isKanjiKana(string);
+
+// Returns true if string contains both romaji *and* kana
+kw.isRomajiKana(string);
+
+// Convert Romaji to Kana. Lowercase becomes Hiragana, while uppercase becomes Katakana.
 // Non romaji and _some_ punctuation is passed through: 12345 @#$%
 // However, .,-~[]{}()!?/ will become 。、ー〜「」｛｝（）！？・
-kanawana.toKana(string [, options]);
+kw.toKana(string [, options]);
+
+// Convert Kana to Romaji.
+// Use {upcaseKatakana: true} if you want to convert katakana to uppercase romaji
+kw.toRomaji(string [, options]);
 
 // Convert Katakana or Romaji to Hiragana.
 // Use {passRomaji: true} if you want to convert Katakana while keeping any romaji intact
-kanawana.toHiragana(string [, options]);
+kw.toHiragana(string [, options]);
 
 // Convert Hiragana or Romaji to Katakana.
 // Use {passRomaji: true} if you want to convert Hiragana while keeping any romaji intact
-kanawana.toKatakana(string [, options]);
+kw.toKatakana(string [, options]);
 
-// Explicitly convert Hiragana to Katakana - always ignores romaji passed in
-// IE "zazen"はざぜん -> "zazen"ハザゼン
-kanawana.hiraganaToKatakana(string);
-
-// Explicitly convert Katakana to Hiragana - always ignores romaji passed in
-// IE "zazen"ハザゼン -> "zazen"はざぜん
-kanawana.katakanaToHiragana(string);
-
-// Convert Kana to Romaji.
-kanawana.toRomaji(string [, options]);
-
-// Options:
-// Many functions take an optional `options` object.
-// Here is the default object used for options.
-{
-  // Set to true to use obsolete characters, such as ゐ and ゑ.
-  useObsoleteKana: false,
-  // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana(), such as "romaji is not かな"
-  passRomaji: false,
-  // Set to true to handle input from a text input as it is typed.
-  IMEMode: false,
-;
+// Remove Okurigana
+// Use {all: true} if you want to remove all kana, not just trailing okurigana
+kw.stripOkurigana(string [, options]);
 ```
 
 ## Credits
