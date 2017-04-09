@@ -3,28 +3,33 @@ import isCharJapanesePunctuation from '../utils/isCharJapanesePunctuation';
 import isCharKanji from '../utils/isCharKanji';
 import isCharHiragana from '../utils/isCharHiragana';
 import isCharKatakana from '../utils/isCharKatakana';
-import isCharRomaji from '../utils/isCharRomaji';
 
-/**
- * Strips trailing [Okurigana](https://en.wikipedia.org/wiki/Okurigana) if `input` is a mix of [Kanji](https://en.wikipedia.org/wiki/Kanji) and [Kana](https://en.wikipedia.org/wiki/Kana)
- * @param  {String} input text
- * @return {Array} text split into kanji/kana tokens
- * @example
- * tokenize('踏み込む')
- * // => '踏み込'
- */
-
-function getType(input = '') {
+// TODO: worth splitting into utils? so far not used anywhere else
+function getType(input) {
   switch (true) {
     case (isCharJapanesePunctuation(input)): return 'japanesePunctuation';
     case (isCharKanji(input)): return 'kanji';
     case (isCharHiragana(input)): return 'hiragana';
     case (isCharKatakana(input)): return 'katakana';
-    case (isCharRomaji(input)): return 'romaji';
-    default: return 'unknown';
+    default: return 'romaji';
   }
 }
 
+/**
+ * Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana), [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
+ * Does not split into parts of speech!
+ * @param  {String} input text
+ * @return {Array} text split into tokens
+ * @example
+ * tokenize('ふふフフ')
+ * // => ['ふふ', 'フフ']
+ * tokenize('感じ')
+ * // => ['感', 'じ']
+ * tokenize('私は悲しい')
+ * // => ['私', 'は', '悲', 'しい']
+ * tokenize('what the...私は「悲しい」。')
+ * // => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
+ */
 function tokenize(input = '') {
   if (isEmpty(input)) return [''];
   const chars = [...input];

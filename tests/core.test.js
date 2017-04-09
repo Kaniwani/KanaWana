@@ -338,7 +338,7 @@ describe('tokenize', () => {
     expect(tokenize('阮咸')).toEqual(['阮咸']);
     expect(tokenize('感じ')).toEqual(['感', 'じ']);
     expect(tokenize('私は悲しい')).toEqual(['私', 'は', '悲', 'しい']);
-    expect(tokenize('what the..。ー「」私は悲しい')).toEqual(['what the..', '。ー「」', '私', 'は', '悲', 'しい']);
+    expect(tokenize('what the...私は「悲しい」。')).toEqual(['what the...', '私', 'は', '「', '悲', 'しい', '」。']);
   });
 });
 
