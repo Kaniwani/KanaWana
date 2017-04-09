@@ -2,11 +2,11 @@ import microtime from 'microtime';
 import testTable from './transliteration-table';
 import isKana from '../src/core/isKana';
 import isKanji from '../src/core/isKanji';
-import isKanjiKana from '../src/core/isKanjiKana';
+import isJapanese from '../src/core/isJapanese';
 import isKatakana from '../src/core/isKatakana';
 import isHiragana from '../src/core/isHiragana';
 import isRomaji from '../src/core/isRomaji';
-import isRomajiKana from '../src/core/isRomajiKana';
+import isMixed from '../src/core/isMixed';
 import toKana from '../src/core/toKana';
 import toKatakana from '../src/core/toKatakana';
 import toHiragana from '../src/core/toHiragana';
@@ -20,11 +20,11 @@ import tokenize from '../src/core/tokenize';
 describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));
   it('isKanji() with no input', () => expect(isKanji()).toBe(false));
-  it('isKanjiKana() with no input', () => expect(isKanjiKana()).toBe(false));
+  it('isJapanese() with no input', () => expect(isJapanese()).toBe(false));
   it('isKatakana() with no input', () => expect(isKatakana()).toBe(false));
   it('isHiragana() with no input', () => expect(isHiragana()).toBe(false));
   it('isRomaji() with no input', () => expect(isRomaji()).toBe(false));
-  it('isRomajiKana() with no input', () => expect(isRomajiKana()).toBe(false));
+  it('isMixed() with no input', () => expect(isMixed()).toBe(false));
   it('toKana() with no input', () => expect(toKana()).toBe(''));
   it('toKatakana() with no input', () => expect(toKatakana()).toBe(''));
   it('toHiragana() with no input', () => expect(toHiragana()).toBe(''));
@@ -75,15 +75,15 @@ describe('Character type detection', () => {
     it('あAア is not kanji', () => expect(isKanji('あAア')).toBe(false));
   });
 
-  describe('isKanjiKana()', () => {
-    it('泣き虫 is kanji/kana', () => expect(isKanjiKana('泣き虫')).toBe(true));
-    it('あア is kanji/kana', () => expect(isKanjiKana('あア')).toBe(true));
-    it('泣き虫A is not kanji/kana', () => expect(isKanjiKana('泣き虫A')).toBe(false));
-    it('A is not kanji/kana', () => expect(isKanjiKana('A')).toBe(false));
+  describe('isJapanese()', () => {
+    it('泣き虫 is kanji/kana', () => expect(isJapanese('泣き虫')).toBe(true));
+    it('あア is kanji/kana', () => expect(isJapanese('あア')).toBe(true));
+    it('泣き虫A is not kanji/kana', () => expect(isJapanese('泣き虫A')).toBe(false));
+    it('A is not kanji/kana', () => expect(isJapanese('A')).toBe(false));
     it('泣き虫。！〜 (w. kana punctuation) is kanji/kana',
-      () => expect(isKanjiKana('泣き虫。！〜')).toBe(true));
+      () => expect(isJapanese('泣き虫。！〜')).toBe(true));
     it('泣き虫.!~ (w. romaji punctuation) is not kanji/kana',
-      () => expect(isKanjiKana('泣き虫.!~')).toBe(false));
+      () => expect(isJapanese('泣き虫.!~')).toBe(false));
   });
 
   describe('isRomaji()', () => {
@@ -97,18 +97,18 @@ describe('Character type detection', () => {
     it('fails japanese punctuation', () => expect(isRomaji('a！b&cーd')).toBe(false));
   });
 
-  describe('isRomajiKana()', () => {
-    it('Aア is mixed', () => expect(isRomajiKana('Aア')).toBe(true));
-    it('Aあ is mixed', () => expect(isRomajiKana('Aあ')).toBe(true));
-    it('Aあア is mixed', () => expect(isRomajiKana('Aあア')).toBe(true));
-    it('あア is not mixed', () => expect(isRomajiKana('あア')).toBe(false));
-    it('お腹A is mixed', () => expect(isRomajiKana('お腹A')).toBe(true));
-    it('お腹A is not mixed when { passKanji: false }', () => expect(isRomajiKana('お腹A', { passKanji: false })).toBe(false));
-    it('お腹 is not mixed', () => expect(isRomajiKana('お腹')).toBe(false));
-    it('腹 is not mixed', () => expect(isRomajiKana('腹')).toBe(false));
-    it('A is not mixed', () => expect(isRomajiKana('A')).toBe(false));
-    it('あ is not mixed', () => expect(isRomajiKana('あ')).toBe(false));
-    it('ア is not mixed', () => expect(isRomajiKana('ア')).toBe(false));
+  describe('isMixed()', () => {
+    it('Aア is mixed', () => expect(isMixed('Aア')).toBe(true));
+    it('Aあ is mixed', () => expect(isMixed('Aあ')).toBe(true));
+    it('Aあア is mixed', () => expect(isMixed('Aあア')).toBe(true));
+    it('あア is not mixed', () => expect(isMixed('あア')).toBe(false));
+    it('お腹A is mixed', () => expect(isMixed('お腹A')).toBe(true));
+    it('お腹A is not mixed when { passKanji: false }', () => expect(isMixed('お腹A', { passKanji: false })).toBe(false));
+    it('お腹 is not mixed', () => expect(isMixed('お腹')).toBe(false));
+    it('腹 is not mixed', () => expect(isMixed('腹')).toBe(false));
+    it('A is not mixed', () => expect(isMixed('A')).toBe(false));
+    it('あ is not mixed', () => expect(isMixed('あ')).toBe(false));
+    it('ア is not mixed', () => expect(isMixed('ア')).toBe(false));
   });
 });
 

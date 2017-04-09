@@ -7,22 +7,22 @@ import isEmpty from '../utils/isEmpty';
  * @param  {String} [input=''] text
  * @return {Boolean} true if all [Kanji](https://en.wikipedia.org/wiki/Kanji) and/or [Kana](https://en.wikipedia.org/wiki/Kana)
  * @example
- * isKanjiKana('泣き虫')
+ * isJapanese('泣き虫')
  * // => true
- * isKanjiKana('あア')
+ * isJapanese('あア')
  * // => true
- * isKanjiKana('泣き虫。！〜') // Full-width punctuation
+ * isJapanese('泣き虫。！〜') // Full-width punctuation
  * // => true
- * isKanjiKana('泣き虫.!~') // Half-width / Latin punctuation
+ * isJapanese('泣き虫.!~') // Half-width / Latin punctuation
  * // => false
- * isKanjiKana('泣き虫A')
+ * isJapanese('泣き虫A')
  * // => false
- * isKanjiKana('A')
+ * isJapanese('A')
  * // => false
  */
-function isKanjiKana(input = '') {
+function isJapanese(input = '') {
   if (isEmpty(input)) return false;
   return [...input].every((char) => KANJI_KANA_REGEX.test(char));
 }
 
-export default isKanjiKana;
+export default isJapanese;

@@ -3,15 +3,16 @@ import convertFullwidthCharsToASCII from './utils/convertFullwidthCharsToASCII';
 import isHiragana from './core/isHiragana';
 import isKatakana from './core/isKatakana';
 import isKana from './core/isKana';
-import isKanjiKana from './core/isKanjiKana';
+import isJapanese from './core/isJapanese';
 import isRomaji from './core/isRomaji';
-import isRomajiKana from './core/isRomajiKana';
+import isMixed from './core/isMixed';
 import isKanji from './core/isKanji';
 import toHiragana from './core/toHiragana';
 import toKatakana from './core/toKatakana';
 import toKana from './core/toKana';
 import toRomaji from './core/toRomaji';
 import stripOkurigana from './core/stripOkurigana';
+import tokenize from './core/tokenize';
 
 /**
  * Binds eventListener for 'input' events to an input field to automagically replace values with kana
@@ -64,13 +65,14 @@ export {
   isHiragana,
   isKatakana,
   isKana,
-  isKanjiKana,
+  isJapanese,
   isRomaji,
-  isRomajiKana,
+  isMixed,
   isKanji,
   toHiragana,
   toKatakana,
   toKana,
   toRomaji,
   stripOkurigana,
+  tokenize,
 };

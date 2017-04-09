@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKanjiKana">isKanjiKana</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#isRomajiKana">isRomajiKana</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#isHiragana">isHiragana</a></li><li><a href="global.html#isJapanese">isJapanese</a></li><li><a href="global.html#isKana">isKana</a></li><li><a href="global.html#isKanji">isKanji</a></li><li><a href="global.html#isKatakana">isKatakana</a></li><li><a href="global.html#isMixed">isMixed</a></li><li><a href="global.html#isRomaji">isRomaji</a></li><li><a href="global.html#stripOkurigana">stripOkurigana</a></li><li><a href="global.html#toHiragana">toHiragana</a></li><li><a href="global.html#toKana">toKana</a></li><li><a href="global.html#toKatakana">toKatakana</a></li><li><a href="global.html#toRomaji">toRomaji</a></li><li><a href="global.html#tokenize">tokenize</a></li></ul>
 </nav>
 
 <div id="main">
@@ -276,6 +276,197 @@ isHiragana('あア')
         
 <div class="param-desc">
     <p>true if all <a href="https://en.wikipedia.org/wiki/Hiragana">Hiragana</a></p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isJapanese"><span class="type-signature"></span>isJapanese<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="isJapanese.js.html">isJapanese.js</a>, <a href="isJapanese.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> like “「泣き虫」”<br>Includes Japanese full-width punctuation ranges</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isJapanese('泣き虫')
+// => true
+isJapanese('あア')
+// => true
+isJapanese('泣き虫。！〜') // Full-width punctuation
+// => true
+isJapanese('泣き虫.!~') // Half-width / Latin punctuation
+// => false
+isJapanese('泣き虫A')
+// => false
+isJapanese('A')
+// => false</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>true if all <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
 </div>
 
 
@@ -678,197 +869,6 @@ isKanji('🐸')
 
     
 
-    <h4 class="name" id="isKanjiKana"><span class="type-signature"></span>isKanjiKana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isKanjiKana.js.html">isKanjiKana.js</a>, <a href="isKanjiKana.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a> like “「泣き虫」”<br>Includes Japanese full-width punctuation ranges</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>isKanjiKana('泣き虫')
-// => true
-isKanjiKana('あア')
-// => true
-isKanjiKana('泣き虫。！〜') // Full-width punctuation
-// => true
-isKanjiKana('泣き虫.!~') // Half-width / Latin punctuation
-// => false
-isKanjiKana('泣き虫A')
-// => false
-isKanjiKana('A')
-// => false</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if all <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a> and/or <a href="https://en.wikipedia.org/wiki/Kana">Kana</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
     <h4 class="name" id="isKatakana"><span class="type-signature"></span>isKatakana<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
@@ -1056,7 +1056,7 @@ isKatakana('あア')
 
     
 
-    <h4 class="name" id="isRomaji"><span class="type-signature"></span>isRomaji<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="isMixed"><span class="type-signature"></span>isMixed<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
 
     
 
@@ -1068,7 +1068,7 @@ isKatakana('あア')
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isRomaji.js.html">isRomaji.js</a>, <a href="isRomaji.js.html#line20">line 20</a>
+        <a href="isMixed.js.html">isMixed.js</a>, <a href="isMixed.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -1108,7 +1108,7 @@ isKatakana('あア')
 
 
 <div class="description">
-    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> (including <a href="https://en.wikipedia.org/wiki/Hepburn_romanization">Hepburn romanisation</a>)</p>
+    <p>Test if <code>input</code> contains a mix of <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> <em>and</em> <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, defaults to skip over <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
 </div>
 
 
@@ -1121,204 +1121,15 @@ isKatakana('あア')
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>isRomaji('Tōkyō and Ōsaka')
+    <pre class="prettyprint"><code>isMixed('Abあア'))
 // => true
-isRomaji('a*b&amp;c-d')
+isMixed('お腹A'))
 // => true
-isRomaji('あアA')
+isMixed('お腹A', { passKanji: false }))
 // => false
-isRomaji('お願い')
+isMixed('ab'))
 // => false
-isRomaji('a！b&amp;cーd') // Full-width punctuation fails
-// => false</code></pre>
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>input</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>''</code>
-                
-                </td>
-            
-
-            <td class="description last"><p>text</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>true if <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a></p>
-</div>
-
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Boolean</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="isRomajiKana"><span class="type-signature"></span>isRomajiKana<span class="signature">(input, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="isRomajiKana.js.html">isRomajiKana.js</a>, <a href="isRomajiKana.js.html#line23">line 23</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>Test if <code>input</code> is a mix of <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> <em>and</em> <a href="https://en.wikipedia.org/wiki/Kana">Kana</a>, defaults to skip over <a href="https://en.wikipedia.org/wiki/Kanji">Kanji</a></p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>isRomajiKana('Abあア'))
-// => true
-isRomajiKana('お腹A'))
-// => true
-isRomajiKana('お腹A', { passKanji: false }))
-// => false
-isRomajiKana('ab'))
-// => false
-isRomajiKana('あア'))
+isMixed('あア'))
 // => false</code></pre>
 
 
@@ -1445,6 +1256,195 @@ isRomajiKana('あア'))
         
 <div class="param-desc">
     <p>true if mixed</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isRomaji"><span class="type-signature"></span>isRomaji<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="isRomaji.js.html">isRomaji.js</a>, <a href="isRomaji.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>Test if <code>input</code> is <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a> (allowing <a href="https://en.wikipedia.org/wiki/Hepburn_romanization">Hepburn romanisation</a>)</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>isRomaji('Tōkyō and Ōsaka')
+// => true
+isRomaji('a*b&amp;c-d')
+// => true
+isRomaji('あアA')
+// => false
+isRomaji('お願い')
+// => false
+isRomaji('a！b&amp;cーd') // Full-width punctuation fails
+// => false</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>input</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>''</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>text</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>true if <a href="https://en.wikipedia.org/wiki/Romaji">Romaji</a></p>
 </div>
 
 
@@ -3039,7 +3039,7 @@ tokenize('what the...私は「悲しい」。')
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Apr 09 2017 19:52:35 GMT+0100 (WEST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Apr 09 2017 21:02:24 GMT+0100 (WEST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

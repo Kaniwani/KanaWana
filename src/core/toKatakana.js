@@ -1,7 +1,7 @@
 import { DEFAULT_OPTIONS } from '../constants';
 import hiraganaToKatakana from './hiraganaToKatakana';
 import isRomaji from './isRomaji';
-import isRomajiKana from './isRomajiKana';
+import isMixed from './isMixed';
 import romajiToHiragana from './romajiToHiragana';
 
 /**
@@ -22,7 +22,7 @@ import romajiToHiragana from './romajiToHiragana';
 function toKatakana(input = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.passRomaji) return hiraganaToKatakana(input);
-  if (isRomaji(input) || isRomajiKana(input)) {
+  if (isRomaji(input) || isMixed(input)) {
     const romaji = romajiToHiragana(input, config);
     return hiraganaToKatakana(romaji);
   }

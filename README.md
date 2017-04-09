@@ -54,44 +54,76 @@ kw.bind(domElement [, options]);
 // Removes event listener
 kw.unbind(domElement);
 
-// Returns false if string contains characters outside of the kana family, otherwise true if Hiragana and/or Katakana.
-kw.isKana(string);
+kw.isJapanese('泣き虫。！〜') // Full-width punctuation allowed
+// => true
+kw.isJapanese('泣き虫.!~') // Half-width / Latin punctuation fails
+// => false
 
-// Returns false if string contains mixed characters, otherwise true if Hiragana.
-kw.isHiragana(string);
+kw.isKana('あーア')
+// => true
 
-// Returns false if string contains mixed characters, otherwise true if Katakana.
-kw.isKatakana(string);
+kw.isHiragana('げーむ')
+// => true
 
-// Returns true if string contains basic latin or hepburn romanisation
-kw.isRomaji(string);
+kw.isKatakana('ゲーム')
+// => true
 
-// Returns true if string contains only kanji and/or kana
-kw.isKanjiKana(string);
+kw.isKanji('切腹')
+// => true
 
-// Returns true if string contains both romaji *and* kana
-kw.isRomajiKana(string);
+kw.isMixed('お腹A'))
+// => true
 
-// Convert Romaji to Kana. Lowercase becomes Hiragana, while uppercase becomes Katakana.
-// Non romaji and _some_ punctuation is passed through: 12345 @#$%
-// However, .,-~[]{}()!?/ will become 。、ー〜「」｛｝（）！？・
-kw.toKana(string [, options]);
+kw.isRomaji('Tōkyō and Ōsaka') // allows basic Hepburn romanisation
+// => true
 
-// Convert Kana to Romaji.
-// Use {upcaseKatakana: true} if you want to convert katakana to uppercase romaji
-kw.toRomaji(string [, options]);
+/* Convert Romaji to Kana.
+ * Lowercase -> Hiragana, uppercase -> Katakana.
+ * Non-romaji and _some_ punctuation is passed through: 12345 @#$%
+ * However, .,-~[]{}()!?/ will become 。、ー〜「」｛｝（）！？・
+ */
+kw.toKana('ONAJI buttsuuji'))
+// => 'オナジ ぶっつうじ'
+kw.toKana('座禅[zazen]スタイル'))
+// => '座禅「ざぜん」スタイル'
+kw.toKana('batsuge-mu'))
+// => 'ばつげーむ'
 
-// Convert Katakana or Romaji to Hiragana.
-// Use {passRomaji: true} if you want to convert Katakana while keeping any romaji intact
-kw.toHiragana(string [, options]);
+kw.toHiragana('toukyou, オオサカ')
+// => 'とうきょう、　おおさか'
+kw.toHiragana('only カナ', { passRomaji: true })
+// => 'only かな'
+kw.toHiragana('wi', { useObsoleteKana: true })
+// => 'ゐ'
 
-// Convert Hiragana or Romaji to Katakana.
-// Use {passRomaji: true} if you want to convert Hiragana while keeping any romaji intact
-kw.toKatakana(string [, options]);
+kw.toKatakana('toukyou, おおさか')
+// => 'トウキョウ、　オオサカ'
+kw.toKatakana('only かな', { passRomaji: true })
+// => 'only カナ'
+kw.toKatakana('wi', { useObsoleteKana: true })
+// => 'ヰ'
 
-// Remove Okurigana
-// Use {all: true} if you want to remove all kana, not just trailing okurigana
-kw.stripOkurigana(string [, options]);
+kw.toRomaji('ひらがな　カタカナ')
+// => "hiragana katakana"
+kw.toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
+// => "hiragana KATAKANA"
+
+
+// Extra utility
+
+kw.stripOkurigana('お祝い')
+// => 'お祝'
+kw.stripOkurigana('踏み込む')
+// => '踏み込'
+kw.stripOkurigana('踏み込む', { all: true })
+// => '踏込'
+
+kw.tokenize('ふふフフ')
+// => ['ふふ', 'フフ']
+kw.tokenize('感じ')
+// => ['感', 'じ']
+kw.tokenize('I said "私は悲しい"')
+// => ['I said "','私', 'は', '悲', 'しい', '"']
 ```
 
 ## Credits
