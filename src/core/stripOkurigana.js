@@ -1,7 +1,7 @@
 import isEmpty from '../utils/isEmpty';
 import isCharKana from '../utils/isCharKana';
 import isCharPunctuation from '../utils/isCharPunctuation';
-import isKanjiKana from './isKanjiKana';
+import isJapanese from './isJapanese';
 import isKana from './isKana';
 import isKanji from './isKanji';
 
@@ -23,7 +23,7 @@ import isKanji from './isKanji';
  * // => '祝'
  */
 function stripOkurigana(input = '', options = { all: false }) {
-  if (isEmpty(input) || !isKanjiKana(input) || isKana(input)) return input;
+  if (isEmpty(input) || !isJapanese(input) || isKana(input)) return input;
   const chars = [...input];
 
   // strip every kana

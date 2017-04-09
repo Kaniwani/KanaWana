@@ -4,23 +4,23 @@ import isKatakana from './isKatakana';
 import isRomaji from './isRomaji';
 
 /**
- * Test if `input` is a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to skip over [Kanji](https://en.wikipedia.org/wiki/Kanji)
+ * Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to skip over [Kanji](https://en.wikipedia.org/wiki/Kanji)
  * @param  {String} input text
  * @param  {Object} [options={ passKanji: true }] optional config to skip over kanji
  * @return {Boolean} true if mixed
  * @example
- * isRomajiKana('Abあア'))
+ * isMixed('Abあア'))
  * // => true
- * isRomajiKana('お腹A'))
+ * isMixed('お腹A'))
  * // => true
- * isRomajiKana('お腹A', { passKanji: false }))
+ * isMixed('お腹A', { passKanji: false }))
  * // => false
- * isRomajiKana('ab'))
+ * isMixed('ab'))
  * // => false
- * isRomajiKana('あア'))
+ * isMixed('あア'))
  * // => false
  */
-function isRomajiKana(input = '', options = { passKanji: true }) {
+function isMixed(input = '', options = { passKanji: true }) {
   const chars = [...input];
   let hasKanji = false;
   if (!options.passKanji) {
@@ -29,4 +29,4 @@ function isRomajiKana(input = '', options = { passKanji: true }) {
   return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji) && !hasKanji;
 }
 
-export default isRomajiKana;
+export default isMixed;
