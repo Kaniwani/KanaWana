@@ -12,6 +12,7 @@ import isCharVowel from '../src/utils/isCharVowel';
 import isCharConsonant from '../src/utils/isCharConsonant';
 import isCharLongDash from '../src/utils/isCharLongDash';
 import isCharSlashDot from '../src/utils/isCharSlashDot';
+import isCharRomaji from '../src/utils/isCharRomaji';
 import isCharKatakana from '../src/utils/isCharKatakana';
 import isCharHiragana from '../src/utils/isCharHiragana';
 import isCharKana from '../src/utils/isCharKana';
@@ -31,6 +32,7 @@ describe('Methods should return sane defaults when given no input', () => {
   it('isCharConsonant()', () => expect(isCharConsonant()).toBe(false));
   it('isCharLongDash()', () => expect(isCharLongDash()).toBe(false));
   it('isCharSlashDot()', () => expect(isCharSlashDot()).toBe(false));
+  it('isCharRomaji()', () => expect(isCharRomaji()).toBe(false));
   it('isCharKatakana()', () => expect(isCharKatakana()).toBe(false));
   it('isCharHiragana()', () => expect(isCharHiragana()).toBe(false));
   it('isCharKana()', () => expect(isCharKana()).toBe(false));
@@ -122,6 +124,17 @@ describe('isCharSlashDot', () => {
     expect(isCharSlashDot('/')).toBe(false);
     expect(isCharSlashDot('f')).toBe(false);
     expect(isCharSlashDot('ふ')).toBe(false);
+  });
+});
+
+describe('isCharRomaji', () => {
+  it('passes parameter tests', () => {
+    expect(isCharRomaji('n')).toBe(true);
+    expect(isCharRomaji('!')).toBe(true);
+    expect(isCharRomaji('ナ')).toBe(false);
+    expect(isCharRomaji('は')).toBe(false);
+    expect(isCharRomaji('缶')).toBe(false);
+    expect(isCharRomaji('')).toBe(false);
   });
 });
 

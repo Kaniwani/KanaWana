@@ -1,6 +1,5 @@
 import microtime from 'microtime';
 import testTable from './transliteration-table';
-import { DEFAULT_OPTIONS } from '../src/constants';
 import isKana from '../src/core/isKana';
 import isKanji from '../src/core/isKanji';
 import isKanjiKana from '../src/core/isKanjiKana';
@@ -16,8 +15,9 @@ import romajiToHiragana from '../src/core/romajiToHiragana';
 import hiraganaToKatakana from '../src/core/hiraganaToKatakana';
 import katakanaToHiragana from '../src/core/katakanaToHiragana';
 import stripOkurigana from '../src/core/stripOkurigana';
+import tokenize from '../src/core/tokenize';
 
-describe('Methods should return false or an empty string when given no input', () => {
+describe('Methods should return valid defaults when given no input', () => {
   it('isKana() with no input', () => expect(isKana()).toBe(false));
   it('isKanji() with no input', () => expect(isKanji()).toBe(false));
   it('isKanjiKana() with no input', () => expect(isKanjiKana()).toBe(false));
@@ -33,6 +33,7 @@ describe('Methods should return false or an empty string when given no input', (
   it('hiraganaToKatakana() with no input', () => expect(hiraganaToKatakana()).toBe(''));
   it('katakanaToHiragana() with no input', () => expect(katakanaToHiragana()).toBe(''));
   it('stripOkurigana() with no input', () => expect(stripOkurigana()).toBe(''));
+  it('tokenize() with no input', () => expect(tokenize()).toEqual(['']));
 });
 
 describe('Character type detection', () => {
@@ -326,6 +327,18 @@ describe('stripOkurigana', () => {
     expect(stripOkurigana('踏み込む', { all: true })).toBe('踏込');
     expect(stripOkurigana('お祝い', { all: true })).toBe('祝');
     expect(stripOkurigana('〜い海軍い、。', { all: true })).toBe('〜海軍、。');
+  });
+});
+
+describe('tokenize', () => {
+  it('passes default parameter tests', () => {
+    expect(tokenize('ふふ')).toEqual(['ふふ']);
+    expect(tokenize('フフ')).toEqual(['フフ']);
+    expect(tokenize('ふふフフ')).toEqual(['ふふ', 'フフ']);
+    expect(tokenize('阮咸')).toEqual(['阮咸']);
+    expect(tokenize('感じ')).toEqual(['感', 'じ']);
+    expect(tokenize('私は悲しい')).toEqual(['私', 'は', '悲', 'しい']);
+    expect(tokenize('what the...私は「悲しい」。')).toEqual(['what the...', '私', 'は', '「', '悲', 'しい', '」。']);
   });
 });
 
