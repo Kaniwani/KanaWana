@@ -3,11 +3,7 @@
   <a href="https://www.npmjs.com/package/kanawana">
     <img src="https://img.shields.io/npm/v/kanawana.svg" alt="devDependency Status" />
   </a>
-  <!-- devDependency Status -->
-  <a href="https://david-dm.org/KaniWani/KanaWana#info=devDependencies">
-    <img src="https://img.shields.io/david/dev/Kaniwani/KanaWana.svg" alt="devDependency Status" />
-  </a>
- <!-- Build Status -->
+  <!-- Build Status -->
   <a href="https://travis-ci.org/KaniWani/KanaWana">
     <img src="https://img.shields.io/travis/Kaniwani/KanaWana.svg" alt="Build Status" />
   </a>
@@ -19,7 +15,7 @@
 
 <div align="center">
 <h1>カナワナ &lt;--&gt; KanaWana &lt;--&gt; かなわな</h1>
-<h4>Javascript library that provides utilities for detecting and transliterating Hiragana &lt;--&gt; Romaji &lt;--&gt; Katakana.</h4>
+<h4>Javascript utility library for checking and converting between Kanji, Hiragana, Katakana, and Romaji</h4>
 </div>
 
 
@@ -99,7 +95,7 @@ kw.stripOkurigana(string [, options]);
 ```
 
 ## Credits
-Based on the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+Adapted from the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
 
 ## License
 This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see LICENSE.md.
