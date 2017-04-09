@@ -1,5 +1,5 @@
 import isEmpty from '../utils/isEmpty';
-import { ROMAJI_REGEX } from '../constants';
+import isCharRomaji from '../utils/isCharRomaji';
 
 /**
  * Test if `input` is [Romaji](https://en.wikipedia.org/wiki/Romaji) (including [Hepburn romanisation](https://en.wikipedia.org/wiki/Hepburn_romanization))
@@ -19,7 +19,7 @@ import { ROMAJI_REGEX } from '../constants';
  */
 function isRomaji(input = '') {
   if (isEmpty(input)) return false;
-  return [...input].every((char) => ROMAJI_REGEX.test(char));
+  return [...input].every((char) => isCharRomaji(char));
 }
 
 export default isRomaji;
