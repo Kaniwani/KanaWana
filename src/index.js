@@ -45,7 +45,8 @@ function onInput(event, options = {}) {
   if (normalizedInputString !== newText) {
     input.value = newText;
     if (typeof input.selectionStart === 'number') {
-      input.selectionStart = input.selectionEnd = input.value.length;
+      input.selectionStart = input.value.length;
+      input.selectionEnd = input.value.length;
       return;
     }
     if (typeof input.createTextRange !== 'undefined') {

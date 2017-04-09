@@ -1,8 +1,6 @@
 const webpack = require('webpack');
-const path = require('path');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-const DedupePlugin = webpack.optimize.DedupePlugin;
 const OccurrenceOrderPlugin = webpack.optimize.OccurrenceOrderPlugin;
 
 const env = process.env.NODE_ENV;
@@ -16,7 +14,7 @@ if (env === 'production') {
       exclude: /a\.js|node_modules/, // exclude node_modules
       failOnError: false, // show a warning when there is a circular dependency
     }),
-    new DedupePlugin(),
+    new OccurrenceOrderPlugin(),
     new UglifyJsPlugin({
       minimize: true,
       output: {
@@ -25,8 +23,7 @@ if (env === 'production') {
       compressor: {
         warnings: false,
       },
-    }),
-    new OccurrenceOrderPlugin()
+    })
   );
   outputFile = `${libraryName}.min.js`;
 } else {
@@ -46,14 +43,13 @@ const config = {
     loaders: [
       {
         exclude: [/node_modules/],
-        loader: 'babel',
+        loader: 'babel-loader',
       },
     ],
   },
   resolve: {
     modules: ['src', 'node_modules'],
-    root: path.resolve('./src'),
-    extensions: ['', '.js', '!test.js'],
+    extensions: ['.js', '!test.js'],
   },
   plugins,
 };
