@@ -1,7 +1,5 @@
-import {
-  HIRAGANA_END,
-  HIRAGANA_START,
-} from '../src/constants';
+import { HIRAGANA_END, HIRAGANA_START } from '../src/constants';
+import { JA_PUNC, EN_PUNC } from './constants';
 
 import convertFullwidthCharsToASCII from '../src/utils/convertFullwidthCharsToASCII';
 import getChunk from '../src/utils/getChunk';
@@ -185,11 +183,8 @@ describe('isCharKanji', () => {
 
 describe('isCharJapanesePunctuation', () => {
   it('passes parameter tests', () => {
-    expect(isCharJapanesePunctuation('！')).toBe(true);
-    expect(isCharJapanesePunctuation('？')).toBe(true);
-    expect(isCharJapanesePunctuation('・')).toBe(true);
-    expect(isCharJapanesePunctuation('「')).toBe(true);
-    expect(isCharJapanesePunctuation('｝')).toBe(true);
+    expect(JA_PUNC.every((char) => isCharJapanesePunctuation(char))).toBe(true);
+    expect(EN_PUNC.every((char) => isCharJapanesePunctuation(char))).toBe(false);
     expect(isCharJapanesePunctuation('!')).toBe(false);
     expect(isCharJapanesePunctuation('a')).toBe(false);
     expect(isCharJapanesePunctuation('ふ')).toBe(false);
@@ -200,16 +195,8 @@ describe('isCharJapanesePunctuation', () => {
 
 describe('isCharEnglishPunctuation', () => {
   it('passes parameter tests', () => {
-    expect(isCharEnglishPunctuation('!')).toBe(true);
-    expect(isCharEnglishPunctuation('?')).toBe(true);
-    expect(isCharEnglishPunctuation('/')).toBe(true);
-    expect(isCharEnglishPunctuation('.')).toBe(true);
-    expect(isCharEnglishPunctuation(',')).toBe(true);
-    expect(isCharEnglishPunctuation('！')).toBe(false);
-    expect(isCharEnglishPunctuation('？')).toBe(false);
-    expect(isCharEnglishPunctuation('・')).toBe(false);
-    expect(isCharEnglishPunctuation('「')).toBe(false);
-    expect(isCharEnglishPunctuation('｝')).toBe(false);
+    expect(EN_PUNC.every((char) => isCharEnglishPunctuation(char))).toBe(true);
+    expect(JA_PUNC.every((char) => isCharEnglishPunctuation(char))).toBe(false);
     expect(isCharEnglishPunctuation('a')).toBe(false);
     expect(isCharEnglishPunctuation('ふ')).toBe(false);
     expect(isCharEnglishPunctuation('字')).toBe(false);
@@ -219,16 +206,8 @@ describe('isCharEnglishPunctuation', () => {
 
 describe('isCharPunctuation', () => {
   it('passes parameter tests', () => {
-    expect(isCharPunctuation('!')).toBe(true);
-    expect(isCharPunctuation('?')).toBe(true);
-    expect(isCharPunctuation('/')).toBe(true);
-    expect(isCharPunctuation('.')).toBe(true);
-    expect(isCharPunctuation(',')).toBe(true);
-    expect(isCharPunctuation('！')).toBe(true);
-    expect(isCharPunctuation('？')).toBe(true);
-    expect(isCharPunctuation('・')).toBe(true);
-    expect(isCharPunctuation('「')).toBe(true);
-    expect(isCharPunctuation('｝')).toBe(true);
+    expect(JA_PUNC.every((char) => isCharPunctuation(char))).toBe(true);
+    expect(EN_PUNC.every((char) => isCharPunctuation(char))).toBe(true);
     expect(isCharPunctuation('a')).toBe(false);
     expect(isCharPunctuation('ふ')).toBe(false);
     expect(isCharPunctuation('字')).toBe(false);

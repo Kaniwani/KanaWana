@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/npm/v/kanawana.svg" alt="devDependency Status" />
   </a>
   <!-- Build Status -->
-  <a href="https://travis-ci.org/KaniWani/KanaWana">
+  <a href="https://travis-ci.org/Kaniwani/KanaWana">
     <img src="https://img.shields.io/travis/Kaniwani/KanaWana.svg" alt="Build Status" />
   </a>
   <!-- Test Coverage -->
@@ -86,14 +86,16 @@ kw.isMixed('お腹A')
 kw.isRomaji('Tōkyō and Ōsaka') // allows basic Hepburn romanisation
 // => true
 
-/* toKana notes:
+/* kana conversion notes:
  * Lowercase -> Hiragana, uppercase -> Katakana.
- * Non-romaji and _some_ punctuation is passed through: 12345 @#$%
- * However, .,-~[]{}()!?/ will become 。、ー〜「」｛｝（）！？・
+ * Non-romaji and _English_ punctuation is passed through: 123 @#$%
+ * Japanese equivalent punctuation is converted:
+ * !?.:/,~-‘’“”[](){}
+ * ！？。：・、〜ー「」『』［］（）｛｝
  */
 kw.toKana('ONAJI buttsuuji')
 // => 'オナジ ぶっつうじ'
-kw.toKana('座禅[zazen]スタイル')
+kw.toKana('座禅‘zazen’スタイル')
 // => '座禅「ざぜん」スタイル'
 kw.toKana('batsuge-mu')
 // => 'ばつげーむ'

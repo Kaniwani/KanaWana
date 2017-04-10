@@ -1,5 +1,5 @@
 import microtime from 'microtime';
-import testTable from './transliteration-table';
+import { TEST_TABLE, JA_PUNC, EN_PUNC } from './constants';
 import isKana from '../src/core/isKana';
 import isKanji from '../src/core/isKanji';
 import isJapanese from '../src/core/isJapanese';
@@ -134,12 +134,10 @@ describe('Character conversion', () => {
   });
 
   describe('Test every character with toHiragana() and toKatakana()', () => {
-    testTable.forEach((item) => {
-      const [romaji,
-        hiragana,
-        katakana] = item;
-      expect(toHiragana(romaji)).toBe(hiragana);
-      expect(toKatakana(romaji.toUpperCase())).toBe(katakana);
+    TEST_TABLE.forEach((item) => {
+      const [romaji, hiragana, katakana] = item;
+      it('converts to hiragana', () => expect(toHiragana(romaji)).toBe(hiragana));
+      it('converts to katakana', () => expect(toKatakana(romaji.toUpperCase())).toBe(katakana));
     });
   });
 
@@ -189,13 +187,13 @@ describe('Character conversion', () => {
       () => expect(toKana('カにワに AiUeO 鰐蟹 12345 @#$%')).toBe('カにワに アいウえオ 鰐蟹 12345 @#$%'));
 
     it('It handles mixed syllabaries',
-      () => expect(toKana('座禅[zazen]スタイル')).toBe('座禅「ざぜん」スタイル'));
+      () => expect(toKana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」スタイル'));
 
     it('Will convert short to long dashes',
       () => expect(toKana('batsuge-mu')).toBe('ばつげーむ'));
 
     it('Will convert punctuation but pass through spaces',
-      () => expect(toKana(' .,[]{}()!?/')).toBe(' 。、「」｛｝（）！？・'));
+      () => expect(toKana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
   });
 
   describe('Converting kana to kana', () => {
@@ -211,16 +209,16 @@ describe('Character conversion', () => {
 
     describe('Mixed syllabaries', () => {
       it('It passes non-katakana through when passRomaji is true k -> h',
-        () => expect(toHiragana('座禅[zazen]スタイル', { passRomaji: true })).toBe('座禅[zazen]すたいる'));
+        () => expect(toHiragana('座禅‘zazen’スタイル', { passRomaji: true })).toBe('座禅‘zazen’すたいる'));
 
       it('It passes non-hiragana through when passRomaji is true h -> k',
-        () => expect(toKatakana('座禅[zazen]すたいる', { passRomaji: true })).toBe('座禅[zazen]スタイル'));
+        () => expect(toKatakana('座禅‘zazen’すたいる', { passRomaji: true })).toBe('座禅‘zazen’スタイル'));
 
       it('It converts non-katakana when passRomaji is false k -> h',
-        () => expect(toHiragana('座禅[zazen]スタイル')).toBe('座禅「ざぜん」すたいる'));
+        () => expect(toHiragana('座禅‘zazen’スタイル')).toBe('座禅「ざぜん」すたいる'));
 
       it('It converts non-hiragana when passRomaji is false h -> k',
-        () => expect(toKatakana('座禅[zazen]すたいる')).toBe('座禅「ザゼン」スタイル'));
+        () => expect(toKatakana('座禅‘zazen’すたいる')).toBe('座禅「ザゼン」スタイル'));
     });
   });
 
@@ -263,7 +261,7 @@ describe('Kana to Romaji', () => {
      () => expect(toRomaji('カニワニ　が　すごい　だ')).toBe('kaniwani ga sugoi da'));
 
     it('Will convert punctuation and full-width spaces',
-     () => expect(toRomaji('　。、「」｛｝ー〜（）！？・')).toBe(' .,[]{}-~()!?/'));
+     () => expect(toRomaji(JA_PUNC.join(''))).toBe(EN_PUNC.join('')));
 
     it('Use the upcaseKatakana flag to preserve casing. Works for katakana.',
      () => expect(toRomaji('カニワニ', { upcaseKatakana: true })).toBe('KANIWANI'));
@@ -326,6 +324,7 @@ describe('stripOkurigana', () => {
     expect(stripOkurigana('お腹', { all: true })).toBe('腹');
     expect(stripOkurigana('踏み込む', { all: true })).toBe('踏込');
     expect(stripOkurigana('お祝い', { all: true })).toBe('祝');
+    expect(stripOkurigana('お踏み込む', { all: true })).toBe('踏込');
     expect(stripOkurigana('〜い海軍い、。', { all: true })).toBe('〜海軍、。');
   });
 });

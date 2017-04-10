@@ -2,8 +2,8 @@
   "name": "kanawana",
   "description": "JS library that transliterates between japanese kana and roman letters.",
   "author": "Duncan Bay <duncan.bay@gmail.com> (https://github.com/DJTB)",
-  "version": "2.0.0",
-  "homepage": "https://djtb.github.io/KanaWana/",
+  "version": "2.1.0",
+  "homepage": "https://kaniwani.github.io/KanaWana/",
   "repository": {
     "type": "git",
     "url": "git@github.com/DJTB/KanaWana/"
@@ -154,6 +154,7 @@
       "max-len": 0,
       "newline-per-chained-call": 0,
       "no-console": 1,
+      "no-irregular-whitespace": 0,
       "no-restricted-syntax": 0,
       "no-use-before-define": [
         "error",

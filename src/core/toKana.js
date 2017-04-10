@@ -15,6 +15,8 @@ import isCharVowel from '../utils/isCharVowel';
 import isKana from './isKana';
 import hiraganaToKatakana from './hiraganaToKatakana';
 
+
+// necessary for JSDOC compilation, cannot just import it ¯\_(ツ)_/¯
 /**
   * @typedef {Object} DefaultOptions
   * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
@@ -38,16 +40,16 @@ import hiraganaToKatakana from './hiraganaToKatakana';
  * @param  {DefaultOptions} [options={ useObsoleteKana: false, IMEMode: false }]
  * @return {String} converted text
  * @example
- * toKana('onaji BUTTSUUJI'))
+ * toKana('onaji BUTTSUUJI')
  * // => 'おなじ ブッツウジ'
- * toKana('ONAJI buttsuuji'))
+ * toKana('ONAJI buttsuuji')
  * // => 'オナジ ぶっつうじ'
- * toKana('座禅[zazen]スタイル'))
+ * toKana('座禅‘zazen’スタイル')
  * // => '座禅「ざぜん」スタイル'
- * toKana('batsuge-mu'))
+ * toKana('batsuge-mu')
  * // => 'ばつげーむ'
- * toKana('.,[]{}()!?/')) // Punctuation conversion
- * // => '。、「」｛｝（）！？・'
+ * toKana('!?.:/,~-‘’“”[](){}') // Punctuation conversion
+ * // => '！？。：・、〜ー「」『』［］（）｛｝'
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
  */
@@ -109,9 +111,11 @@ function toKana(input = '', options = {}, ignoreCase = false) {
           chunkSize = 1;
           // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
           if (isCharInRange(chunk.charAt(0), UPPERCASE_START, UPPERCASE_END)) {
-            chunkLC = chunk = 'ッ';
+            chunkLC = 'ッ';
+            chunk = 'ッ';
           } else {
-            chunkLC = chunk = 'っ';
+            chunkLC = 'っ';
+            chunk = 'っ';
           }
         }
       }
