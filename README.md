@@ -39,13 +39,19 @@ const kw = require('kanawana');
 // Or directly import single methods using ES6 for smaller builds:
 // import toKana from 'kanawana/core/toKana';
 
-// Default options object
+/*** DEFAULT OPTIONS ***/
 {
-  useObsoleteKana: false, // Set to true to use obsolete characters, such as ゐ and ゑ.
-  passRomaji: false, // Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
-  upcaseKatakana: false, // Set to true to convert katakana to uppercase when using toRomaji()
-  IMEMode: false, // Set to true to handle input from a text input as it is typed.
+  // Use obsolete kana characters, such as ゐ and ゑ.
+  useObsoleteKana: false,
+  // Pass through romaji when using toKatakana() or toHiragana()
+  passRomaji: false,
+  // Convert katakana to uppercase when using toRomaji()
+  upcaseKatakana: false,
+  // Convert characters from a text input while being typed.
+  IMEMode: false,
 }
+
+/*** DOM HELPERS ***/
 
 // Automatically converts romaji to kana by using an eventListener on input
 // Uses { IMEMode:true } by default (first example on the demo page)
@@ -53,6 +59,9 @@ kw.bind(domElement [, options]);
 
 // Removes event listener
 kw.unbind(domElement);
+
+
+/*** TEXT CHECKING UTILITIES ***/
 
 kw.isJapanese('泣き虫。！〜') // Full-width punctuation allowed
 // => true
@@ -71,22 +80,22 @@ kw.isKatakana('ゲーム')
 kw.isKanji('切腹')
 // => true
 
-kw.isMixed('お腹A'))
+kw.isMixed('お腹A')
 // => true
 
 kw.isRomaji('Tōkyō and Ōsaka') // allows basic Hepburn romanisation
 // => true
 
-/* Convert Romaji to Kana.
+/* toKana notes:
  * Lowercase -> Hiragana, uppercase -> Katakana.
  * Non-romaji and _some_ punctuation is passed through: 12345 @#$%
  * However, .,-~[]{}()!?/ will become 。、ー〜「」｛｝（）！？・
  */
-kw.toKana('ONAJI buttsuuji'))
+kw.toKana('ONAJI buttsuuji')
 // => 'オナジ ぶっつうじ'
-kw.toKana('座禅[zazen]スタイル'))
+kw.toKana('座禅[zazen]スタイル')
 // => '座禅「ざぜん」スタイル'
-kw.toKana('batsuge-mu'))
+kw.toKana('batsuge-mu')
 // => 'ばつげーむ'
 
 kw.toHiragana('toukyou, オオサカ')
@@ -109,7 +118,7 @@ kw.toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
 // => "hiragana KATAKANA"
 
 
-// Extra utility
+/*** EXTRA UTILITIES ***/
 
 kw.stripOkurigana('お祝い')
 // => 'お祝'
