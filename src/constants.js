@@ -41,15 +41,19 @@ const KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\
 /**
 * Basic Latin unicode regex, for determining Romaji written as Hepburn romanisation
 * Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
+* Includes curly quotes ‘’ “”
 * @type {RegExp}
 */
-const ROMAJI_REGEX = /[\u0000-\u007f\u0100—\u0101\u0112—\u0113\u012a—\u012b\u014c—\u014d\u016a—\u016b]/;
+const ROMAJI_REGEX = /[\u0000-\u007f\u0100-\u0101\u0112-\u0113\u012a-\u012b\u014c-\u014d\u016a-\u016b\u2018-\u2019\u201C-\u201D]/;
 
+// TODO: just use a regex instead? not sure why these are in arrays
 const ENGLISH_PUNCTUATION_RANGES = [
   [0x21, 0x2F],
   [0x3A, 0x3F],
   [0x5B, 0x60],
   [0x7B, 0x7E],
+  [0x2018, 0x2019], // ‘ ’
+  [0x201C, 0x201D], // “ ”
 ];
 const JAPANESE_FULLWIDTH_PUNCTUATION_RANGES = [
   [0x3001, 0x303E],
@@ -93,13 +97,18 @@ const FOUR_CHAR_EDGECASES = [
 const FROM_ROMAJI = {
   '.': '。',
   ',': '、',
+  ':': '：',
   '/': '・',
   '!': '！',
   '?': '？',
   '~': '〜',
   '-': 'ー',
-  '[': '「',
-  ']': '」',
+  '‘': '「',
+  '’': '」',
+  '“': '『',
+  '”': '』',
+  '[': '［',
+  ']': '］',
   '(': '（',
   ')': '）',
   '{': '｛',
@@ -402,12 +411,17 @@ const TO_ROMAJI = {
   '！': '!',
   '？': '?',
   '。': '.',
+  '：': ':',
   '・': '/',
   '、': ',',
   '〜': '~',
   'ー': '-',
-  '「': '[',
-  '」': ']',
+  '「': '‘',
+  '」': '’',
+  '『': '“',
+  '』': '”',
+  '［': '[',
+  '］': ']',
   '（': '(',
   '）': ')',
   '｛': '{',
