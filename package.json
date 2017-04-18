@@ -1,56 +1,40 @@
 {
-  "name": "kanawana",
-  "description": "JS library that transliterates between japanese kana and roman letters.",
+  "name": "kanawana-build",
   "author": "Duncan Bay <duncan.bay@gmail.com> (https://github.com/DJTB)",
-  "version": "2.1.0",
+  "license": "MIT",
   "homepage": "https://kaniwani.github.io/KanaWana/",
   "repository": {
     "type": "git",
-    "url": "git@github.com/DJTB/KanaWana/"
+    "url": "git@github.com/Kaniwani/KanaWana/"
   },
   "bugs": {
-    "url": "https://github.com/DJTB/KanaWana/issues"
+    "url": "https://github.com/Kaniwani/KanaWana/issues"
   },
-  "jsnext:main": "src/index.js",
-  "main": "lib/kanawana.js",
-  "browser": "lib/kanawana.min.js",
-  "license": "MIT",
-  "keywords": [
-    "japanese",
-    "english",
-    "hiragana",
-    "katakana",
-    "romaji",
-    "conversion",
-    "transliteration"
-  ],
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
   "scripts": {
-    "start": "npm run build:dev:watch",
-    "prebuild": "npm-run-all --parallel lint:src test",
-    "build": "npm-run-all --parallel build:*",
-    "build:dev": "cross-env NODE_ENV=dev webpack --config webpack.dev.js --color --progress",
-    "build:production": "cross-env NODE_ENV=production webpack --config webpack.production.js --color -p --progress",
-    "build:dev:watch": "npm run build:dev -- --watch",
-    "build:docs": "rimraf ./docs && node_modules/.bin/jsdoc -c jsdoc.json",
-    "docs": "npm run build:docs",
-    "docs:view": "opn ./docs/index.html",
+    "docs": "npm run docs:clean && npm run docs:build && npm run docs:commit",
+    "docs:clean": "rimraf ./demo/docs",
+    "docs:build": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "docs:commit": "git add demo/docs && git commit -q --no-edit --amend --no-verify && echo '\n** Docs rebuilt and added to commit **'",
+    "docs:view": "opn ./demo/docs/index.html",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
     "pretest": "npm run test:clean",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "jest",
     "test:clean": "rimraf ./coverage",
     "test:watch": "npm run test -- --watch",
-    "lint": "eslint --ignore-path ./.gitignore --ignore-pattern 'lib' --ignore-pattern 'docs' --color",
+    "lint": "eslint --ignore-path ./.gitignore --ignore-pattern 'lib' --ignore-pattern 'demo' --color",
     "lint:staged": "npm run lint",
-    "lint:src": "npm run lint -- './src/*.js'",
+    "lint:src": "npm run lint -- './src/**/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "coverage:view": "opn ./coverage/lcov-report/index.html",
-    "watch": "npm-run-all --parallel build:watch test:watch docs:watch",
     "prepush": "npm-run-all --parallel lint-staged test",
+    "prerelease": "npm-run-all --parallel release:clean docs",
+    "release:clean": "rimraf ./lib",
+    "release": "node scripts/release.js",
     "//": "used by husky in git hooks like prepush to run the lint-staged config below",
     "lint-staged": "lint-staged"
   },
@@ -60,160 +44,36 @@
     ]
   },
   "jest": {
-    "verbose": false,
     "bail": false,
-    "testRegex": "(\\.(test|spec))\\.js$",
+    "verbose": false,
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.test.js"
+    ],
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 98,
-        "functions": 98,
-        "lines": 98,
-        "statements": 98
+        "branches": 85,
+        "functions": 85,
+        "lines": 85,
+        "statements": 85
       }
     },
     "coverageDirectory": "./coverage",
     "collectCoverageFrom": [
-      "src/core/*.js",
-      "src/utils/*.js",
-      "!**/node_modules/**"
+      "src/**/*.js",
+      "!src/**/index.js",
+      "!**/node_modules/**",
+      "!**/__tests__/**"
     ]
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-2"
-    ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "env": {
-      "browser": true,
-      "node": true,
-      "jest": true,
-      "es6": true
-    },
-    "plugins": [
-      "import"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
-    },
-    "rules": {
-      "arrow-parens": [
-        "error",
-        "always"
-      ],
-      "arrow-body-style": [
-        2,
-        "as-needed"
-      ],
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
-      "class-methods-use-this": 0,
-      "default-case": 0,
-      "import/imports-first": 0,
-      "import/prefer-default-export": 0,
-      "import/named": 2,
-      "import/newline-after-import": 0,
-      "import/no-dynamic-require": 0,
-      "import/no-extraneous-dependencies": 0,
-      "import/no-named-as-default": 0,
-      "import/no-unresolved": 2,
-      "id-length": [
-        1,
-        {
-          "min": 2,
-          "properties": "never",
-          "exceptions": [
-            "$",
-            "_",
-            "s",
-            "t",
-            "o",
-            "v",
-            "i",
-            "a",
-            "b",
-            "x",
-            "y"
-          ]
-        }
-      ],
-      "indent": [
-        2,
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "max-len": 0,
-      "newline-per-chained-call": 0,
-      "no-console": 1,
-      "no-irregular-whitespace": 0,
-      "no-restricted-syntax": 0,
-      "no-use-before-define": [
-        "error",
-        {
-          "functions": false,
-          "classes": true
-        }
-      ],
-      "no-cond-assign": [
-        2,
-        "except-parens"
-      ],
-      "no-unused-vars": [
-        1,
-        {
-          "vars": "local",
-          "args": "none"
-        }
-      ],
-      "no-param-reassign": 1,
-      "prefer-template": 2,
-      "quote-props": [
-        1,
-        "consistent-as-needed"
-      ],
-      "quotes": [
-        1,
-        "single",
-        "avoid-escape"
-      ],
-      "space-infix-ops": 0,
-      "spaced-comment": [
-        "error",
-        "always",
-        {
-          "exceptions": [
-            "-",
-            "*"
-          ]
-        }
-      ]
-    },
-    "settings": {
-      "import/resolver": {
-        "webpack": {
-          "config": "./webpack.dev.js"
-        }
-      }
-    }
   },
   "devDependencies": {
+    "babel-cli": "~6.24.1",
     "babel-core": "~6.24.1",
     "babel-eslint": "~7.2.1",
     "babel-jest": "~19.0.0",
-    "babel-loader": "~6.4.1",
-    "babel-polyfill": "~6.23.0",
-    "babel-preset-es2015": "~6.24.1",
-    "babel-preset-stage-2": "~6.24.1",
-    "circular-dependency-plugin": "~2.0.0",
+    "babel-plugin-external-helpers": "~6.22.0",
+    "babel-preset-env": "~1.4.0",
+    "change-case": "~3.0.1",
     "commitizen": "~2.9.6",
     "coveralls": "~2.13.0",
     "cross-env": "~4.0.0",
@@ -228,11 +88,22 @@
     "jest": "~19.0.2",
     "jsdoc": "^3.4.3",
     "lint-staged": "~3.4.0",
+    "lodash": "~4.17.4",
     "microtime": "~2.1.2",
     "npm-run-all": "~4.0.2",
     "onchange": "~3.2.1",
     "opn-cli": "~3.1.0",
+    "readline-sync": "~1.4.7",
     "rimraf": "~2.6.1",
-    "webpack": "~2.3.3"
+    "rollup": "~0.41.6",
+    "rollup-plugin-babel": "~2.7.1",
+    "rollup-plugin-commonjs": "~8.0.2",
+    "rollup-plugin-node-resolve": "~3.0.0",
+    "rollup-plugin-replace": "~1.1.1",
+    "rollup-plugin-uglify": "~1.0.1"
+  },
+  "devEngines": {
+    "node": "6.x",
+    "npm": "3.x"
   }
 }

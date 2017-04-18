@@ -1,6 +1,8 @@
 sudo: required
 language: node_js
-node_js: 7
+node_js:
+  - 6
+  - 7
 
 # required for microtime npm module
 env:

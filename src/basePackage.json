@@ -1,0 +1,23 @@
+{
+  "author": "Duncan Bay <duncan.bay@gmail.com> (https://github.com/DJTB)",
+  "homepage": "https://kaniwani.github.io/KanaWana/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Kaniwani/KanaWana/"
+  },
+  "bugs": {
+    "url": "https://github.com/Kaniwani/KanaWana/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "english",
+    "japanese",
+    "hiragana",
+    "katakana",
+    "kana",
+    "romaji",
+    "conversion",
+    "transliteration",
+    "input"
+  ]
+}

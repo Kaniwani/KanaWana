@@ -1,0 +1,15 @@
+{
+  "description": "Utility library for transliterating between Japanese and English writing systems.",
+  "keywords": [
+    "japanese",
+    "english",
+    "hiragana",
+    "katakana",
+    "romaji",
+    "conversion",
+    "transliteration"
+  ],
+  "main": "cjs/kanawana.js",
+  "module": "es/kanawana.js",
+  "browser": "build/kanawana.min.js"
+}

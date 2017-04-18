@@ -3,9 +3,9 @@
     "allowUnknownTags": true
   },
   "source": {
-    "include": ["src/core/"],
+    "include": ["src"],
     "includePattern": ".js$",
-    "excludePattern": "(node_modules/|docs|tests|hiraganaTo|katakanaTo|romajiTo)"
+    "excludePattern": "(node_modules|utils|__tests__)"
   },
   "plugins": [
     "plugins/markdown"
@@ -17,7 +17,7 @@
   "opts": {
     "template": "node_modules/docdash/",
     "encoding": "utf8",
-    "destination": "docs/",
+    "destination": "demo/docs/",
     "recurse": true,
     "verbose": true
   },
