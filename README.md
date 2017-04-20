@@ -1,7 +1,7 @@
 <div align="center">
   <!-- Npm Version -->
   <a href="https://www.npmjs.com/package/kanawana">
-    <img src="https://img.shields.io/npm/v/kanawana.svg" alt="devDependency Status" />
+    <img src="https://img.shields.io/npm/v/kanawana.svg" alt="NPM package" />
   </a>
   <!-- Build Status -->
   <a href="https://travis-ci.org/Kaniwani/KanaWana">
@@ -20,7 +20,7 @@
 
 
 ## Demo
-[kaniwani.github.io/KanaWana/](https://kaniwani.github.io/KanaWana/)
+[kaniwani.github.io/KanaWana/demo](https://kaniwani.github.io/KanaWana/demo)
 
 
 ## Documentation
@@ -34,7 +34,7 @@ npm install kanawana
 ```
 
 ## Quick Use
-### In basic HTML:
+### HTML:
 ```html
 <input type="text" id="kanawana-input" />
 <script src="node_modules/kanawana/browser/kanawana.min.js"></script>
@@ -43,13 +43,16 @@ npm install kanawana
   kanawana.bind(textInput); // IME Mode
 </script>
 ```
-### In JavaScript:
+### JavaScript:
 ```javascript
 // UMD/CommonJS/node
 const kw = require('kanawana');
 // ES modules
+
+import kw from 'kanawana';
+// or single methods
 import { toKana } from 'kanawana';
-// or directly import single methods for smaller builds:
+// or directly reference single methods for smaller builds:
 import isKanji from 'kanawana/isKanji';
 
 /*** DEFAULT OPTIONS ***/

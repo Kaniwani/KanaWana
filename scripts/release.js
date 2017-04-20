@@ -169,8 +169,8 @@ try {
     log('Publishing demo and docs to github pages.');
     const browserPackage = path.resolve(outDir, 'browser', `${packageName}.min.js`);
     if (!test('-e', browserPackage)) return;
-    cp('-Rf', browserPackage, path.resolve('demo'));
-    if (exec('git push origin `git subtree split --prefix demo master`:gh-pages --force').code !== 0) {
+    cp('-Rf', browserPackage, path.resolve('gh-pages/demo'));
+    if (exec('git push origin `git subtree split --prefix gh-pages master`:gh-pages --force').code !== 0) {
       logError('Publish github pages failed.');
       exit(1);
     }

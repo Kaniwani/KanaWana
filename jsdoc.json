@@ -17,7 +17,7 @@
   "opts": {
     "template": "node_modules/docdash/",
     "encoding": "utf8",
-    "destination": "demo/docs/",
+    "destination": "gh-pages/docs/",
     "recurse": true,
     "verbose": true
   },
