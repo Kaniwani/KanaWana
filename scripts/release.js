@@ -103,7 +103,7 @@ try {
     '.npmignore',
   ];
   additionalProjectFiles.forEach((filename) => {
-    const src = path.resolve(sourceDir, filename);
+    const src = path.resolve(filename);
 
     if (!test('-e', src)) return;
 
