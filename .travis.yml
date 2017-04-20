@@ -23,7 +23,7 @@ notifications:
   email:
     on_failure: change
 
-after_success: 'yarn run coverage'
+after_success: 'yarn run coveralls'
 
 cache:
   yarn: true
