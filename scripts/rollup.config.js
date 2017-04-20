@@ -26,7 +26,7 @@ const config = {
 };
 
 if (build === 'es' || build === 'cjs') {
-  config.external.push('lodash/isEmpty');
+  //  config.external.push('lodash/isEmpty'); add any external modules
   config.dest = `${outDir}/${build}/${packageName}.js`;
   config.format = build;
 }
