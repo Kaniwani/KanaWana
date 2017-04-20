@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from './isEmpty';
 import { ENGLISH_PUNCTUATION_RANGES } from '../constants';
 import isCharInRange from './isCharInRange';
 

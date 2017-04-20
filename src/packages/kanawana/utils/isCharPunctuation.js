@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from './isEmpty';
 import isCharEnglishPunctuation from './isCharEnglishPunctuation';
 import isCharJapanesePunctuation from './isCharJapanesePunctuation';
 
