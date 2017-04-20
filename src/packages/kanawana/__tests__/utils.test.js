@@ -1,10 +1,10 @@
-import isEmpty from 'lodash/isEmpty';
 import { JA_PUNC, EN_PUNC } from './testTables';
 
 import { HIRAGANA_END, HIRAGANA_START } from '../constants';
 import convertFullwidthCharsToASCII from '../utils/convertFullwidthCharsToASCII';
 import getChunk from '../utils/getChunk';
 import getChunkSize from '../utils/getChunkSize';
+import isEmpty from '../utils/isEmpty';
 import isCharInRange from '../utils/isCharInRange';
 import isCharVowel from '../utils/isCharVowel';
 import isCharConsonant from '../utils/isCharConsonant';
@@ -48,7 +48,6 @@ describe('Methods should return sane defaults when given no input', () => {
 });
 
 
-// sure lodash has tests, but let's be paranoid since it's an external dep
 describe('isEmpty', () => {
   it('passes parameter tests', () => {
     expect(isEmpty()).toBe(true);

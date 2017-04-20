@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from './isEmpty';
 
 /**
  * Takes a character and a unicode range. Returns true if the char is in the range.

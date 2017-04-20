@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from './utils/isEmpty';
 import isCharRomaji from './utils/isCharRomaji';
 
 /**

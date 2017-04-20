@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from './isEmpty';
 
 /**
  * Tests a character and an english vowel. Returns true if the char is a vowel.

@@ -1,4 +1,4 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from './isEmpty';
 import { PROLONGED_SOUND_MARK } from '../constants';
 
 /**
