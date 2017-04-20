@@ -34,10 +34,23 @@ npm install kanawana
 ```
 
 ## Quick Use
+### In basic HTML:
+```html
+<input type="text" id="kanawana-input" />
+<script src="node_modules/kanawana/browser/kanawana.min.js"></script>
+<script>
+  const textInput = document.querySelector('#kanawana-input');
+  kanawana.bind(textInput); // IME Mode
+</script>
+```
+### In JavaScript:
 ```javascript
+// UMD/CommonJS/node
 const kw = require('kanawana');
-// Or directly import single methods using ES6 for smaller builds:
-// import toKana from 'kanawana/core/toKana';
+// ES modules
+import { toKana } from 'kanawana';
+// or directly import single methods for smaller builds:
+import isKanji from 'kanawana/isKanji';
 
 /*** DEFAULT OPTIONS ***/
 {
@@ -53,7 +66,7 @@ const kw = require('kanawana');
 
 /*** DOM HELPERS ***/
 
-// Automatically converts romaji to kana by using an eventListener on input
+// Automatically converts to kana using an eventListener on input
 // Uses { IMEMode:true } by default (first example on the demo page)
 kw.bind(domElement [, options]);
 
