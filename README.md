@@ -154,7 +154,7 @@ kw.tokenize('I said "私は悲しい"')
 ```
 
 ## Credits
-Adapted from the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+Adapted from the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](https://www.wanikani.com)
 
 ## License
-This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see LICENSE.md.
+This project is licensed under the MIT license, Copyright (c) 2013 WaniKani Community Github. For more information see LICENSE file.

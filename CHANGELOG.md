@@ -19,11 +19,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 -->
 
 ## [Unreleased]
-### Added
-- Changelog for better package history documentation
-
 ### Changed
 - Only rebuild docs if src js files change. Prevents messy git diffs due to the docs inlined timestamps always changing despite no actual documentation changes.
+
+## [2.2.4] - 2017-04-21
+### Added
+- Changelog for better package history
 
 ## [2.2.3] - 2017-04-20
 ### Fixed
@@ -89,41 +90,41 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `toKana()` converts ~ to 〜 automatically now
 - Documentation updates
 
-## [1.1.2] -
+## [1.1.2] - 2017-01-04
 ### Changed
 - Documentation updates
 - Repo file structure, extracted methods to individual files
 - Full core/utils test coverage
 
-## [1.1.1]
+## [1.1.1] - 2017-01-01
 ### Added
 - Extra documentation
 
 ### Changed
 - Attempts to fix travis microtime dependency build
 
-## [1.1.0]
+## [1.1.0] - 2017-01-01
 ### Changed
 - `stripKana()` method is now `stripOkurigana()`
 
 ### Removed
 - `stripKana()`
 
-## [1.0.3]
+## [1.0.3] - 2016-12-31
 ### Added
 - `stripKana()` method
 
 ### Changed
 - Install instructions, license info, badges & demo links in readme
 
-## [1.0.2]
+## [1.0.2] - 2016-12-19
 ### Added
 - Multiple package entry points (es6, umd, cjs)
 
 ### Fixed
 - Typos
 
-## [1.0.1]
+## [1.0.1] - 2016-12-19
 ### Changed
 - Updated readme
 
@@ -140,6 +141,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [1.2.0]: https://github.com/Kaniwani/KanaWana/compare/1.1.2...1.2.0
 [1.1.2]: https://github.com/Kaniwani/KanaWana/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/Kaniwani/KanaWana/compare/1.1.1...1.1.2
+[1.1.0]: https://github.com/Kaniwani/KanaWana/compare/1.0.3...1.1.0
 [1.0.3]: https://github.com/Kaniwani/KanaWana/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/Kaniwani/KanaWana/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/Kaniwani/KanaWana/compare/1.0.0...1.0.1
