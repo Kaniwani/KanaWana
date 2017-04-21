@@ -16,10 +16,9 @@
     }
   },
   "scripts": {
-    "docs": "npm run docs:clean && npm run docs:build && npm run docs:commit",
+    "docs": "npm run docs:clean && npm run docs:build",
     "docs:clean": "rimraf ./gh-pages/docs",
     "docs:build": "node_modules/.bin/jsdoc -c jsdoc.json",
-    "docs:commit": "git add gh-pages/docs && git commit -q --no-edit --amend --no-verify && echo '\n** Docs rebuilt and added to commit **'",
     "docs:view": "opn ./gh-pages/docs/index.html",
     "docs:watch": "onchange './src/**/*.js' -- npm run docs",
     "pretest": "npm run test:clean",
@@ -32,7 +31,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "coverage:view": "opn ./coverage/lcov-report/index.html",
     "prepush": "npm-run-all --parallel lint-staged test",
-    "prerelease": "npm-run-all --parallel release:clean docs",
+    "prerelease": "npm run release:clean",
     "release:clean": "rimraf ./lib",
     "release": "node scripts/release.js",
     "//": "used by husky in git hooks like prepush to run the lint-staged config below",

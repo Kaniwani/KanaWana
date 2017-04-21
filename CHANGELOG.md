@@ -19,12 +19,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 -->
 
 ## [Unreleased]
-### Changed
-- Only rebuild docs if src js files change. Prevents messy git diffs due to the docs inlined timestamps always changing despite no actual documentation changes.
 
 ## [2.2.4] - 2017-04-21
 ### Added
 - Changelog for better package history
+
+### Changed
+- No longer rebuild docs automatically. Prevents messy git diffs due to the docs having inlined timestamps that always change despite no actual documentation changes.
 
 ## [2.2.3] - 2017-04-20
 ### Fixed
