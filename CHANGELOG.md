@@ -132,6 +132,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2016-12-19
 ### Initial release
 
+[2.2.4]: https://github.com/Kaniwani/KanaWana/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/Kaniwani/KanaWana/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/Kaniwani/KanaWana/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/Kaniwani/KanaWana/compare/v2.2.0...v2.2.1

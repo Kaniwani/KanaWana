@@ -47,8 +47,8 @@ npm install kanawana
 ```javascript
 // UMD/CommonJS/node
 const kw = require('kanawana');
-// ES modules
 
+// ES modules
 import kw from 'kanawana';
 // or single methods
 import { toKana } from 'kanawana';
