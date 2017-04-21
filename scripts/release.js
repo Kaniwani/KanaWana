@@ -99,6 +99,7 @@ try {
   log('Copying additional project files...');
   const additionalProjectFiles = [
     'README.md',
+    'CHANGELOG.md',
     'LICENSE',
     '.npmignore',
   ];
