@@ -1,7 +1,7 @@
 <div align="center">
   <!-- Npm Version -->
   <a href="https://www.npmjs.com/package/kanawana">
-    <img src="https://img.shields.io/npm/v/kanawana.svg" alt="devDependency Status" />
+    <img src="https://img.shields.io/npm/v/kanawana.svg" alt="NPM package" />
   </a>
   <!-- Build Status -->
   <a href="https://travis-ci.org/Kaniwani/KanaWana">
@@ -20,7 +20,7 @@
 
 
 ## Demo
-[kaniwani.github.io/KanaWana/](https://kaniwani.github.io/KanaWana/)
+[kaniwani.github.io/KanaWana/demo](https://kaniwani.github.io/KanaWana/demo)
 
 
 ## Documentation
@@ -34,10 +34,26 @@ npm install kanawana
 ```
 
 ## Quick Use
+### HTML:
+```html
+<input type="text" id="kanawana-input" />
+<script src="node_modules/kanawana/browser/kanawana.min.js"></script>
+<script>
+  const textInput = document.querySelector('#kanawana-input');
+  kanawana.bind(textInput); // IME Mode
+</script>
+```
+### JavaScript:
 ```javascript
+// UMD/CommonJS/node
 const kw = require('kanawana');
-// Or directly import single methods using ES6 for smaller builds:
-// import toKana from 'kanawana/core/toKana';
+
+// ES modules
+import kw from 'kanawana';
+// or single methods
+import { toKana } from 'kanawana';
+// or directly reference single methods for smaller builds:
+import isKanji from 'kanawana/isKanji';
 
 /*** DEFAULT OPTIONS ***/
 {
@@ -53,7 +69,7 @@ const kw = require('kanawana');
 
 /*** DOM HELPERS ***/
 
-// Automatically converts romaji to kana by using an eventListener on input
+// Automatically converts to kana using an eventListener on input
 // Uses { IMEMode:true } by default (first example on the demo page)
 kw.bind(domElement [, options]);
 
@@ -138,7 +154,7 @@ kw.tokenize('I said "私は悲しい"')
 ```
 
 ## Credits
-Adapted from the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](http://www.wanikani.com)
+Adapted from the [WanaKana Project](https://github.com/WaniKani/WanaKana) sponsored by [Tofugu](http://www.tofugu.com) & [WaniKani](https://www.wanikani.com)
 
 ## License
-This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see LICENSE.md.
+This project is licensed under the MIT license, Copyright (c) 2013 WaniKani Community Github. For more information see LICENSE file.

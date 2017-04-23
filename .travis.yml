@@ -1,7 +1,6 @@
 sudo: required
 language: node_js
 node_js:
-  - 6
   - 7
 
 # required for microtime npm module
@@ -18,13 +17,13 @@ script:
   # microtime needs to build binaries, so lets explicitly reinstall it (the cached version is always fubar)
   - yarn remove microtime
   - yarn add microtime
-  - yarn run build
+  - yarn run test
 
 notifications:
   email:
     on_failure: change
 
-after_success: 'yarn run coverage'
+after_success: 'yarn run coveralls'
 
 cache:
   yarn: true

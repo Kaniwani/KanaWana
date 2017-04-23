@@ -11,5 +11,5 @@
   ],
   "main": "cjs/kanawana.js",
   "module": "es/kanawana.js",
-  "browser": "build/kanawana.min.js"
+  "browser": "browser/kanawana.min.js"
 }

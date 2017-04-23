@@ -17,9 +17,16 @@
   "opts": {
     "template": "node_modules/docdash/",
     "encoding": "utf8",
-    "destination": "demo/docs/",
+    "destination": "gh-pages/docs/",
     "recurse": true,
     "verbose": true
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "includeDate": false
+    }
   },
   "docdash": {
     "sort": false
