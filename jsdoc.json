@@ -21,6 +21,13 @@
     "recurse": true,
     "verbose": true
   },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "includeDate": false
+    }
+  },
   "docdash": {
     "sort": false
   }
