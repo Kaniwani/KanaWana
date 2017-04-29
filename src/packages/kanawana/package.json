@@ -11,5 +11,6 @@
   ],
   "main": "cjs/kanawana.js",
   "module": "es/kanawana.js",
+  "jsnext:main": "es/kanawana.js",
   "browser": "browser/kanawana.min.js"
 }
