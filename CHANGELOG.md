@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 -->
 
 ## [Unreleased]
+### Added
+- Alias module with jsnext:main in `package.json` to cater for different bundling environments
 
 ## [2.2.4] - 2017-04-21
 ### Added

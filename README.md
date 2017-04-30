@@ -50,8 +50,8 @@ const kw = require('kanawana');
 
 // ES modules
 import kw from 'kanawana';
-// or single methods
-import { toKana } from 'kanawana';
+// with destructuring
+import { toKana, isRomaji } from 'kanawana';
 // or directly reference single methods for smaller builds:
 import isKanji from 'kanawana/isKanji';
 
@@ -102,8 +102,10 @@ kw.isMixed('お腹A')
 kw.isRomaji('Tōkyō and Ōsaka') // allows basic Hepburn romanisation
 // => true
 
-/* kana conversion notes:
- * Lowercase -> Hiragana, uppercase -> Katakana.
+/*
+ * toKana notes:
+ * Lowercase -> Hiragana.
+ * Uppercase -> Katakana.
  * Non-romaji and _English_ punctuation is passed through: 123 @#$%
  * Japanese equivalent punctuation is converted:
  * !?.:/,~-‘’“”[](){}
@@ -131,9 +133,9 @@ kw.toKatakana('wi', { useObsoleteKana: true })
 // => 'ヰ'
 
 kw.toRomaji('ひらがな　カタカナ')
-// => "hiragana katakana"
+// => 'hiragana katakana'
 kw.toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
-// => "hiragana KATAKANA"
+// => 'hiragana KATAKANA'
 
 
 /*** EXTRA UTILITIES ***/
