@@ -15,9 +15,9 @@ import isKatakana from './isKatakana';
  * @return {String} converted text
  * @example
  * toRomaji('ひらがな　カタカナ')
- * // => "hiragana katakana"
+ * // => 'hiragana katakana'
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
- * // => "hiragana KATAKANA"
+ * // => 'hiragana KATAKANA'
  */
 function toRomaji(kana = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
