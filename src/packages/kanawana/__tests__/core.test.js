@@ -1,3 +1,5 @@
+// TODO: replace with microtime-nodejs to avoid slow Travis build?
+// https://www.npmjs.com/package/microtime-nodejs
 import microtime from 'microtime';
 
 import { TEST_TABLE, JA_PUNC, EN_PUNC } from './testTables';
@@ -347,6 +349,7 @@ describe('Options', () => {
     it('wi = ウィ when useObsoleteKana is false', () => expect(toKatakana('WI', { useObsoleteKana: false })).toBe('ウィ'));
   });
 
+  // TODO: test with JSDOM and/or sinon instead?
   describe('IMEMode', () => {
     /**
      * Simulate real typing by calling the function on every character in sequence
@@ -409,7 +412,7 @@ describe('Performance', () => {
     const endTime = microtime.now();
     const elapsedMilliSeconds = (endTime - startTime) / 1000;
     console.log(`20 syllables toKana (hiragana) speed: ${elapsedMilliSeconds}ms`);
-    expect(elapsedMilliSeconds).toBeLessThan(10);
+    expect(elapsedMilliSeconds).toBeLessThan(15);
   });
   describe('romaji toKatakana Speed', () => {
     const startTime = microtime.now();
@@ -417,7 +420,7 @@ describe('Performance', () => {
     const endTime = microtime.now();
     const elapsedMilliSeconds = (endTime - startTime) / 1000;
     console.log(`20 syllables toKana (katakana) speed: ${elapsedMilliSeconds}ms`);
-    expect(elapsedMilliSeconds).toBeLessThan(10);
+    expect(elapsedMilliSeconds).toBeLessThan(15);
   });
   describe('hiragana ToRomaji Speed', () => {
     const startTime = microtime.now();
@@ -425,7 +428,7 @@ describe('Performance', () => {
     const endTime = microtime.now();
     const elapsedMilliSeconds = (endTime - startTime) / 1000;
     console.log(`20 hiragana chars toRomaji speed: ${elapsedMilliSeconds}ms`);
-    expect(elapsedMilliSeconds).toBeLessThan(10);
+    expect(elapsedMilliSeconds).toBeLessThan(15);
   });
   describe('katakana ToRomaji Speed', () => {
     const startTime = microtime.now();
@@ -433,6 +436,6 @@ describe('Performance', () => {
     const endTime = microtime.now();
     const elapsedMilliSeconds = (endTime - startTime) / 1000;
     console.log(`20 katakana chars toRomaji speed: ${elapsedMilliSeconds}ms`);
-    expect(elapsedMilliSeconds).toBeLessThan(10);
+    expect(elapsedMilliSeconds).toBeLessThan(15);
   });
 });
