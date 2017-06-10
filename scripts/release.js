@@ -66,7 +66,7 @@ try {
 
   log('Running tests...');
 
-  if (exec('npm run lint:src && npm test').code !== 0) {
+  if (exec('npm run lint && npm test').code !== 0) {
     logError(
       'The test command did not exit cleanly. Aborting release.'
     );
@@ -165,7 +165,6 @@ try {
   exec('git push');
   exec('git push --tags');
 
-  // kanawana specific
   if (packageName === 'kanawana') {
     log('Publishing demo and docs to github pages.');
     const browserPackage = path.resolve(outDir, 'browser', `${packageName}.min.js`);
@@ -177,7 +176,6 @@ try {
     }
     logSuccess('Published github pages');
   }
-  // kanawana end
 
   logSuccess('Done.');
 } catch (error) {
