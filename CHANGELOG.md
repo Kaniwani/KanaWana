@@ -18,9 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - Security: to invite users to upgrade in case of vulnerabilities.
 -->
 
-## [Unreleased]
-### Added
-- Alias module with jsnext:main in `package.json` to cater for different bundling environments
+## [2.2.5]
+### Changed
+- Merged package back into [WanaKana](https://github.com/WaniKani/WanaKana)
+- Deprecated package in favor of [WanaKana](https://www.npmjs.com/package/wanakana)
 
 ## [2.2.4] - 2017-04-21
 ### Added
